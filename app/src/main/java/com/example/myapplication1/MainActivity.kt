@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -53,10 +54,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import com.example.myapplication1.ui.theme.MyApplication1Theme
 import androidx.navigation.compose.NavHost
@@ -131,11 +134,32 @@ fun PlaylistView(playlist: List<Song>) {
 
 @Composable
 fun PlaylistItem(song: Song) {
+    val openDialog = remember { mutableStateOf(false) }
+    val dialogType = true
 
+    if (openDialog.value && dialogType) {
+        AlertDialogExample(
+            onDismissRequest = { openDialog.value = false },
+            onConfirmation = {
+                openDialog.value = false
+                println("Confirmation registered for ${song.title}")
+            },
+            dialogTitle = "이 노래가 마음에 드시나요?",
+            dialogText = "${song.title} - ${song.artist} \n를 플레이리스트에 추가합니다.",
+            icon = Icons.Default.Info
+        )
+    }
+
+    if (openDialog.value && !dialogType) {
+        MinimalDialog(
+            onDismissRequest = { openDialog.value = false }
+        )
+    }
 
     Card(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { openDialog.value = true },
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         Row(
@@ -166,6 +190,70 @@ fun PlaylistItem(song: Song) {
     }
 }
 
+// minimal dialog
+@Composable
+fun MinimalDialog(onDismissRequest: () -> Unit) {
+    Dialog(onDismissRequest = { onDismissRequest() }) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .padding(16.dp),
+            shape = RoundedCornerShape(16.dp),
+        ) {
+            Text(
+                text = "This is a minimal dialog",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.Center),
+                textAlign = TextAlign.Center,
+            )
+        }
+    }
+}
+
+// alert dialog
+@Composable
+fun AlertDialogExample(
+    onDismissRequest: () -> Unit,
+    onConfirmation: () -> Unit,
+    dialogTitle: String,
+    dialogText: String,
+    icon: ImageVector,
+) {
+    AlertDialog(
+//        icon = {
+//            Icon(icon, contentDescription = "Example Icon")
+//        },
+        title = {
+            Text(text = dialogTitle)
+        },
+        text = {
+            Text(text = dialogText)
+        },
+        onDismissRequest = {
+            onDismissRequest()
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    onConfirmation()
+                }
+            ) {
+                Text("Confirm")
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = {
+                    onDismissRequest()
+                }
+            ) {
+                Text("Dismiss")
+            }
+        }
+    )
+}
 
 
 @Composable
