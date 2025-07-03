@@ -79,12 +79,7 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
-            modifier = Modifier.fillMaxSize()
-        ) {
-
-        }
+        Text("Playlists Screen")
     }
 }
 
