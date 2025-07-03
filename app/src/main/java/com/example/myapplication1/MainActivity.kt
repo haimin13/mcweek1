@@ -4,36 +4,65 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.myapplication1.ui.theme.MyApplication1Theme
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+
 
 enum class Destinations(
     val route: String,
@@ -63,15 +92,81 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+data class Song(
+    val title: String,
+    val artist: String,
+    val keywords: List<String>
+)
+
+val playList = listOf(
+    Song("Summer", "The volunteers", listOf("여름", "감성", "밴드")),
+    Song("Hype Boy", "NewJeans", listOf("청량", "중독성", "댄스")),
+    Song("봄날", "BTS", listOf("감성", "겨울", "그리움"))
+)
+
 @Composable
 fun PlaylistsScreen(modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        modifier = Modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.TopCenter
     ) {
-        Text("Playlists Screen")
+//        Text("Playlists Screen")
+        PlaylistView(playList)
     }
 }
+
+@Composable
+fun PlaylistView(playlist: List<Song>) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(20.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        items(playlist) { item ->
+            PlaylistItem(song = item)
+        }
+    }
+}
+
+@Composable
+fun PlaylistItem(song: Song) {
+
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(12.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column() {
+                Text(song.title, style = MaterialTheme.typography.titleMedium)
+                Text(song.artist, style = MaterialTheme.typography.bodyMedium)
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                song.keywords.forEach {keyword ->
+                    Box(
+                        modifier = Modifier
+                        .background(Color(0xFFE0F7FA), shape = RoundedCornerShape(8.dp))
+                        .padding(horizontal = 8.dp, vertical = 2.dp)
+                    ) {
+                        Text("#$keyword", fontSize = 12.sp, color = Color(0xFF00796B))
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 
 @Composable
 fun GalleryScreen(modifier: Modifier = Modifier) {
@@ -121,10 +216,9 @@ fun Tabs(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     val startDestination = Destinations.PLAYLISTS
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
-    Scaffold(modifier = modifier) { contentPadding ->
+    Column(modifier = modifier) {
         PrimaryTabRow(
             selectedTabIndex = selectedDestination,
-            modifier = Modifier.padding(contentPadding)
         ) {
             Destinations.entries.forEachIndexed { index, destination ->
                 Tab(
