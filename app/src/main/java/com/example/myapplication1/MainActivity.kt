@@ -1,5 +1,6 @@
 package com.example.myapplication1
 
+import com.example.myapplication1.ui.screens.*
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -32,6 +33,10 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -43,6 +48,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -62,9 +69,10 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import com.example.myapplication1.ui.theme.MyApplication1Theme
-import com.example.myapplication1.ui.screens.PlaylistsScreen
+import com.example.myapplication1.ui.screens.PlaylistsTabMain
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
 
@@ -78,6 +86,65 @@ enum class Destinations(
     GALLERY("gallery", "Gallery", Icons.Default.Favorite, "Gallery"),
     ANYTHING("anything", "Anything", Icons.Default.MoreVert, "Anything")
 }
+
+sealed class BottomNavItem(
+    val route: String,
+    val label: String,
+    val icon: ImageVector
+) {
+    object Home: BottomNavItem("home", "home", Icons.Outlined.Home)
+    object Playlists: BottomNavItem("playlists", "playlists", Icons.Outlined.PlayArrow)
+    object Friends: BottomNavItem("friends", "friends", Icons.Outlined.Favorite)
+    object My: BottomNavItem("my", "my", Icons.Outlined.AccountCircle)
+}
+
+@Composable
+fun MainScreen(
+    modifier: Modifier
+) {
+    val navController = rememberNavController()
+    val items = listOf(
+        BottomNavItem.Home,
+        BottomNavItem.Playlists,
+        BottomNavItem.Friends,
+        BottomNavItem.My
+    )
+
+    Scaffold(
+        bottomBar = {NavigationBar {
+                val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+                items.forEach { item ->
+                    NavigationBarItem(
+                        selected = currentRoute == item.route,
+                        onClick = {
+                            if (currentRoute != item.route) {
+                                navController.navigate(item.route) {
+                                    popUpTo(navController.graph.startDestinationId) { saveState = true }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        },
+                        icon = { Icon(item.icon, contentDescription = item.label) },
+                        label = { Text(item.label) }
+                    )
+                }
+            }
+        }
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = BottomNavItem.Home.route,
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            composable(BottomNavItem.Home.route) { HomeTabMain() }
+            composable(BottomNavItem.Playlists.route) { PlaylistsTabMain() }
+            composable(BottomNavItem.Friends.route) { FriendsTabMain() }
+            composable(BottomNavItem.My.route) { MyTabMain() }
+        }
+    }
+}
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,7 +152,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplication1Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { _ ->
-                    Tabs(
+                    MainScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .systemBarsPadding()
@@ -129,7 +196,7 @@ fun AppNavHost(
         Destinations.entries.forEach { destination ->
             composable(destination.route) {
                 when (destination) {
-                    Destinations.PLAYLISTS -> PlaylistsScreen()
+                    Destinations.PLAYLISTS -> PlaylistsTabMain()
                     Destinations.GALLERY -> GalleryScreen()
                     Destinations.ANYTHING -> AnythingScreen()
                 }
@@ -168,6 +235,8 @@ fun Tabs(modifier: Modifier = Modifier) {
         AppNavHost(navController, startDestination)
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable

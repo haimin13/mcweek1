@@ -25,7 +25,7 @@ val playList = listOf(
 )
 
 @Composable
-fun PlaylistsScreen(modifier: Modifier = Modifier) {
+fun PlaylistsTabMain(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.TopCenter
