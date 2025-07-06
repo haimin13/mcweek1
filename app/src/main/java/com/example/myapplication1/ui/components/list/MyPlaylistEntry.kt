@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.myapplication1.R
-import com.example.myapplication1.ui.screens.Song
+import com.example.myapplication1.ui.screens.playlists.Song
 
 @Composable
 fun MyPlaylistEntry(song: Song) {
