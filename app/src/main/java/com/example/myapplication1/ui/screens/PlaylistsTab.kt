@@ -1,4 +1,4 @@
-package com.example.myapplication1.ui.screens.playlists
+package com.example.myapplication1.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
