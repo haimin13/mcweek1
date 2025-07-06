@@ -1,5 +1,6 @@
 package com.example.myapplication1.ui.screens
 
+import androidx.compose.foundation.clickable
 import com.example.myapplication1.ui.components.gallery.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,7 +35,9 @@ fun CloseFriendsRowEntry(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun FriendsTabMain(modifier: Modifier = Modifier) {
+fun FriendsTabMain(
+    onNotificationClick: () -> Unit
+) {
     // friendsIds는 내 친구 database에서 불러옴
     val favoriteFriendsIds = listOf("lil monkey", "jaedungg", "haimin13", "bot1", "bot2")
     val friendsIds = listOf(
@@ -80,6 +83,7 @@ fun FriendsTabMain(modifier: Modifier = Modifier) {
                 contentDescription = null,
                 modifier = Modifier
                     .size(40.dp)
+                    .clickable { onNotificationClick() }
             )
         }
         Column(

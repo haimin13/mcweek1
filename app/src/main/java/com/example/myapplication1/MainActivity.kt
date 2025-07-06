@@ -139,8 +139,15 @@ fun MainScreen(
         ) {
             composable(BottomNavItem.Home.route) { HomeTabMain() }
             composable(BottomNavItem.Playlists.route) { PlaylistsTabMain() }
-            composable(BottomNavItem.Friends.route) { FriendsTabMain() }
+            composable(BottomNavItem.Friends.route) {
+                FriendsTabMain( { navController.navigate("notificationPage") } )
+            }
             composable(BottomNavItem.My.route) { MyTabMain() }
+            composable("notificationPage") {
+                NotificationPage(
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
         }
     }
 }
