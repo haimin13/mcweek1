@@ -2,6 +2,7 @@ package com.example.myapplication1.ui.components.list
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -19,8 +20,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.KeywordTag
+import com.example.myapplication1.ui.components.common.MenuButton
+import com.example.myapplication1.ui.components.gallery.GalleryLongPress
 import com.example.myapplication1.ui.components.models.Playlist
 
 @Composable
@@ -114,6 +118,8 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
 
             Spacer(modifier = Modifier.width(8.dp))
 
+            var showMenu by remember { mutableStateOf(false) }
+
             // 좋아요 & 더보기 아이콘
             Row(horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                 val favoriteIcon = when (playlist.isLiked) {
@@ -129,14 +135,7 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
                         .clickable { openDialog.value = true }
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Icon(
-                    imageVector = Icons.Default.MoreVert,
-                    contentDescription = "More",
-                    tint = Color.Gray,
-                    modifier = Modifier
-                        .size(20.dp)
-                        .clickable { openDialog.value = true }
-                )
+                MenuButton()
             }
         }
     }

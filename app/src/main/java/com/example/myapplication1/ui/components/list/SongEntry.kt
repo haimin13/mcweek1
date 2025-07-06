@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
+import com.example.myapplication1.ui.components.common.MenuButton
 import com.example.myapplication1.ui.components.models.Song
 
 @Composable
@@ -108,14 +109,7 @@ fun SongEntry(song: Song, isCharts: Boolean) {
                         .clickable { openDialog.value = true }
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Icon(
-                    imageVector = Icons.Default.MoreVert,
-                    contentDescription = "More",
-                    tint = Color.Gray,
-                    modifier = Modifier
-                        .size(20.dp)
-                        .clickable { openDialog.value = true }
-                )
+                MenuButton()
             }
         }
     }
