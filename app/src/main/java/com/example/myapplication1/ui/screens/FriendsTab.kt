@@ -124,7 +124,7 @@ fun FriendsTabMain(modifier: Modifier = Modifier) {
                         userId = id,
                         imageSize = 90,
                         tapDialog = galleryTapRef,
-                        longPressDialog = galleryLongPressRef
+                        longPressPopup = galleryLongPressRef
                     )
                 }
                 // 친구 추가 버튼 추가

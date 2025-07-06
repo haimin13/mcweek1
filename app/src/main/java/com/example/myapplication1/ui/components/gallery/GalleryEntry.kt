@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -39,13 +40,13 @@ fun GalleryEntry(
     imageSize: Int = 100,
     textSize: Int = 13,
     tapDialog: @Composable (String, () -> Unit) -> Unit,
-    longPressDialog: @Composable (String, () -> Unit) -> Unit,
+    longPressPopup: @Composable (String, () -> Unit) -> Unit,
     modifier: Modifier = Modifier
 ) {
     // isLiked 기본값은 database에 따르도록 변경
     var isLiked by remember { mutableStateOf(false) }
     var showTapDialog by remember { mutableStateOf(false) }
-    var showLongPressDialog by remember { mutableStateOf(false) }
+    var showLongPressPopup by remember { mutableStateOf(false) }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -57,15 +58,17 @@ fun GalleryEntry(
                 .pointerInput(Unit) {
                     detectTapGestures(
                         onTap = { showTapDialog = true },
-                        onLongPress = { showLongPressDialog = true }
+                        onLongPress = { showLongPressPopup = true }
                     )
                 }
         ) {
+            // 사진
             Image(
                 painter = painterResource(R.drawable.dummy),
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
+            // 좋아요 버튼
             IconButton(
                 onClick = { isLiked = !isLiked },
                 modifier = Modifier
@@ -79,18 +82,23 @@ fun GalleryEntry(
                     tint = if (isLiked) Color.Red else Color.LightGray
                 )
             }
+            // 탭 다이얼로그
             if (showTapDialog) {
                 Dialog(onDismissRequest = { showTapDialog = false }) {
                     tapDialog(userId, {showTapDialog = false})
                 }
             }
-            if (showLongPressDialog) {
-                Dialog(onDismissRequest = { showLongPressDialog = false }) {
-                    longPressDialog(userId, {showLongPressDialog = false})
+            // 홀드 팝업
+            if (showLongPressPopup) {
+                Popup(
+                    alignment = Alignment.Center,
+                    onDismissRequest = { showLongPressPopup = false }
+                ) {
+                    longPressPopup(userId, {showLongPressPopup = false})
                 }
             }
         }
-
+        // 닉네임
         Text(
             text = userId,
             fontSize = textSize.sp

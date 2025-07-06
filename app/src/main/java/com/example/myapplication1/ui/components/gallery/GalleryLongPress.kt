@@ -1,31 +1,34 @@
 package com.example.myapplication1.ui.components.gallery
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
+import com.example.myapplication1.R
+import com.example.myapplication1.ui.components.list.ContextMenu
+import com.example.myapplication1.ui.components.list.ContextMenuList
 
 @Composable
 fun GalleryLongPress(
     userId: String,
     onDismiss: () -> Unit) {
-    Surface(
-        modifier = Modifier.size(220.dp, 140.dp),
-        color = Color.White,
-        shape = RoundedCornerShape(16.dp),
-        shadowElevation = 8.dp
-    ) {
-        Box(
-            modifier = Modifier,
-            contentAlignment = Alignment.Center
-        ) {
-            Text("Long press dialog")
-        }
-    }
+    val galleryMenuItems = listOf(
+        ContextMenu("see profile", Icons.Outlined.AccountCircle, onDismiss),
+        //if (!close)
+        ContextMenu("add to close friend", Icons.Filled.Favorite, onDismiss),
+        //else ContextMenu("remove close friend", Icons.Outlined.Favorite, onDismiss),
+        // if (!muted)
+        ContextMenu("mute friend",
+            ImageVector.vectorResource(R.drawable.outline_notifications_off_24),
+            onDismiss),
+        // else ContextMenu("unmute friend", Icons.Outlined.Notifications, onDismiss),
+        ContextMenu("remove friend", Icons.Outlined.Delete, onDismiss)
+    )
+    ContextMenuList(itemId = userId, menuItems = galleryMenuItems)
 }
