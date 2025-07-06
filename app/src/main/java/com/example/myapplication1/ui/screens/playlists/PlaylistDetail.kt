@@ -14,8 +14,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.TopAppBar
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
-
+import androidx.compose.material3.Divider
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +47,11 @@ fun PlaylistDetailScreen(
                 .padding(horizontal = 8.dp)
         ) {
             PlaylistHeader(playlist)
-            Spacer(modifier = Modifier.height(16.dp))
+            Divider(
+                color = Color.LightGray,
+                thickness = 1.dp,
+                modifier = Modifier.padding(vertical = 12.dp, horizontal = 12.dp)
+            )
             SongList(songs = playlist.songs.orEmpty(), isCharts = false)
         }
 

@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.myapplication1.ui.components.models.Song
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.list.GenericList
@@ -40,7 +41,8 @@ val songList = listOf(
     ),
 )
 
-val playListtt = Playlist(
+val likedPlayList = listOf (
+    Playlist(
         thumbnailResId = R.drawable.playlist_1,
         id = 1,
         title = "Chill Vibes",
@@ -56,7 +58,6 @@ val playListtt = Playlist(
                 length = "3:45",
                 genres = listOf("Chill", "Lofi"),
                 isLiked = true,
-                ranking = 1,
                 thumbnailResId = R.drawable.song_1
             ),
             Song(
@@ -66,85 +67,66 @@ val playListtt = Playlist(
                 length = "3:45",
                 genres = listOf("Chill", "Lofi"),
                 isLiked = true,
-                ranking = 1,
-                thumbnailResId = R.drawable.dummy
             )
         ),
-        ranking = 1
+    ),
+    Playlist(
+        thumbnailResId = R.drawable.dummy,
+        id = 2,
+        title = "Workout Mix",
+        author = "DJ Thunder",
+        keywords = listOf("energy", "fitness"),
+        visibility = 1, // secret
+        isLiked = true,
+        songs = listOf(
+            Song(
+                id = 2,
+                title = "Electric Punch",
+                artist = listOf("DJ Thunder"),
+                length = "4:20",
+                genres = listOf("Electronic", "EDM"),
+                isLiked = false,
+            ),
+            Song(
+                id = 3,
+                title = "High Voltage",
+                artist = listOf("PowerUp"),
+                length = "3:50",
+                genres = listOf("EDM"),
+                isLiked = true,
+            )
+        ),
+    )
 )
+
 
 @Composable
 fun LikedPlaylists(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavController
 ) {
-
+    GenericList(
+        modifier = modifier.fillMaxSize(),
+        items = likedPlayList,
+        verticalSpacing = 0.dp,
+        onItemClick = { playlist ->
+            navController.navigate("playlistDetail/${playlist.id}")
+        }
+    ) { playlist ->
+        MyPlaylistEntry(playlist = playlist, isCharts = false)
+    }
 }
 
 @Composable
-fun Charts(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.TopCenter
-    ) {
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            items(songList) { song ->
-                SongEntry(song = song, isCharts = true)
-            }
-        }
-    }
+fun Charts(modifier: Modifier = Modifier, navController: NavController) {
     GenericList(
+        modifier = modifier.fillMaxSize(),
         items = songList,
         verticalSpacing = 0.dp,
-//        onItemClick = { playlist ->
-//            navController.navigate("playlistDetail/${playlist.id}")
-//        }
+        onItemClick = { playlist ->
+            navController.navigate("playlistDetail/${playlist.id}")
+        }
     ) { song ->
-        SongEntry(song = song, isCharts = false)
+        SongEntry(song = song, isCharts = true)
     }
 }
-
-//@Composable
-//fun Charts(modifier: Modifier = Modifier) {
-//    Column(
-//        modifier = modifier.fillMaxSize(),
-//        verticalArrangement = Arrangement.spacedBy(24.dp) // 위아래 간격
-//    ) {
-//        Box(
-//            modifier = Modifier
-//                .weight(1f) // 👈 공간 반 나누기
-//                .fillMaxWidth(),
-//            contentAlignment = Alignment.TopCenter
-//        ) {
-//            LazyColumn(
-//                modifier = Modifier.fillMaxSize(),
-//                contentPadding = PaddingValues(vertical = 8.dp),
-//                verticalArrangement = Arrangement.spacedBy(8.dp)
-//            ) {
-//                items(songList) { song ->
-//                    SongEntry(song = song, isCharts = true)
-//                }
-//            }
-//        }
-//
-//        Box(
-//            modifier = Modifier
-//                .weight(1f) // 👈 아래 Box도 공간 반 나누기
-//                .fillMaxWidth(),
-//            contentAlignment = Alignment.TopCenter
-//        ) {
-//            LazyColumn(
-//                modifier = Modifier.fillMaxSize(),
-//                contentPadding = PaddingValues(vertical = 8.dp),
-//                verticalArrangement = Arrangement.spacedBy(8.dp)
-//            ) {
-//                items(songList) { song ->
-//                    SongEntry(song = song, isCharts = false)
-//                }
-//            }
-//        }
-//    }
-//}

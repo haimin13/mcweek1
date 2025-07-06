@@ -1,7 +1,6 @@
 package com.example.myapplication1.ui.components.list
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,11 +17,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import com.example.myapplication1.R
+import com.example.myapplication1.ui.components.common.KeywordTag
 import com.example.myapplication1.ui.components.models.Playlist
 
 @Composable
@@ -108,16 +106,8 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
                 Spacer(modifier = Modifier.height(2.dp))
 
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    playlist.keywords.forEach {
-                        Text(
-                            text = "#$it",
-                            fontSize = 10.sp,
-                            lineHeight = 16.sp,
-                            color = Color(0xFF5C6BC0),
-                            modifier = Modifier
-                                .background(Color(0xFFE8EAF6), RoundedCornerShape(6.dp))
-                                .padding(horizontal = 4.dp, vertical = 0.dp)
-                        )
+                    playlist.keywords.forEach { keyword ->
+                        KeywordTag(text = keyword)
                     }
                 }
             }
@@ -127,8 +117,8 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
             // 좋아요 & 더보기 아이콘
             Row(horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                 val favoriteIcon = when (playlist.isLiked) {
-                    true -> Icons.Default.FavoriteBorder
-                    false -> Icons.Default.Favorite
+                    true -> Icons.Default.Favorite
+                    false -> Icons.Default.FavoriteBorder
                 }
                 Icon(
                     imageVector = favoriteIcon,

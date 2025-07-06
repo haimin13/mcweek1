@@ -27,8 +27,8 @@ fun PlaylistsTabMain(modifier: Modifier = Modifier, navController: NavController
     ) { destination, innerModifier ->
         when (destination) {
             PlaylistDestinations.MYPLAYLISTS -> MyPlaylists(modifier = innerModifier, navController = navController)
-            PlaylistDestinations.LIKEDPLAYLISTS -> LikedPlaylists()
-            PlaylistDestinations.CHARTS -> Charts()
+            PlaylistDestinations.LIKEDPLAYLISTS -> LikedPlaylists(modifier = innerModifier, navController = navController)
+            PlaylistDestinations.CHARTS -> Charts(modifier = innerModifier, navController = navController)
         }
     }
 }

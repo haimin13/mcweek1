@@ -60,7 +60,7 @@ fun SongEntry(song: Song, isCharts: Boolean) {
             // 썸네일
             Box(modifier = Modifier.size(44.dp)) {
                 Image(
-                    painter = painterResource(id = song.thumbnailResId ?: R.drawable.dummy),
+                    painter = painterResource(id = song.thumbnailResId ?: R.drawable.song_dummy),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()

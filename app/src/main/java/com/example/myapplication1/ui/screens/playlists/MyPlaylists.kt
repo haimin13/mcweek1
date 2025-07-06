@@ -16,7 +16,7 @@ import com.example.myapplication1.ui.components.models.Song
 import androidx.compose.foundation.lazy.items
 
 // 샘플 리스트
-val playList = listOf(
+val playList = listOf (
     Playlist(
         thumbnailResId = R.drawable.playlist_1,
         id = 1,
@@ -34,7 +34,6 @@ val playList = listOf(
                 genres = listOf("Chill", "Lofi"),
                 isLiked = true,
                 ranking = 1,
-                thumbnailResId = R.drawable.dummy
             )
         ),
         ranking = 1
@@ -55,7 +54,6 @@ val playList = listOf(
                 length = "4:20",
                 genres = listOf("Electronic", "EDM"),
                 isLiked = false,
-                thumbnailResId = R.drawable.dummy
             ),
             Song(
                 id = 3,
@@ -64,7 +62,6 @@ val playList = listOf(
                 length = "3:50",
                 genres = listOf("EDM"),
                 isLiked = true,
-                thumbnailResId = R.drawable.dummy
             )
         ),
         ranking = 2
@@ -197,13 +194,4 @@ fun MyPlaylists(modifier: Modifier = Modifier, navController: NavController) {
     ) { playlist ->
         MyPlaylistEntry(playlist = playlist, isCharts = false)
     }
-//    LazyColumn(
-//        modifier = modifier.fillMaxSize(),
-//        contentPadding = PaddingValues(vertical = 12.dp),
-//        verticalArrangement = Arrangement.spacedBy(8.dp)
-//    ) {
-//        items(playList) { playlist ->
-//            MyPlaylistEntry(playlist = playlist, isCharts = false)
-//        }
-//    }
 }
