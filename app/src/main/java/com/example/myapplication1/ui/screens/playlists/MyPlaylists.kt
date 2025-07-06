@@ -1,20 +1,19 @@
 package com.example.myapplication1.ui.screens.playlists
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.list.GenericList
 import com.example.myapplication1.ui.components.list.MyPlaylistEntry
-import com.example.myapplication1.ui.components.list.SongEntry
 import com.example.myapplication1.ui.components.models.Playlist
 import com.example.myapplication1.ui.components.models.Song
+import androidx.compose.foundation.lazy.items
 
 // 샘플 리스트
 val playList = listOf(
@@ -80,20 +79,131 @@ val playList = listOf(
         isLiked = true,
         songs = null, // 없음
         ranking = 3
+    ),
+    Playlist(
+        thumbnailResId = R.drawable.dummy,
+        id = 3,
+        title = "Acoustic Mornings",
+        author = "Emma Stone",
+        keywords = listOf("acoustic", "calm", "morning"),
+        visibility = 2, // closed
+        isLiked = true,
+        songs = null, // 없음
+        ranking = 3
+    ),
+    Playlist(
+        thumbnailResId = R.drawable.dummy,
+        id = 3,
+        title = "Acoustic Mornings",
+        author = "Emma Stone",
+        keywords = listOf("acoustic", "calm", "morning"),
+        visibility = 2, // closed
+        isLiked = true,
+        songs = null, // 없음
+        ranking = 3
+    ),
+    Playlist(
+        thumbnailResId = R.drawable.dummy,
+        id = 3,
+        title = "Acoustic Mornings",
+        author = "Emma Stone",
+        keywords = listOf("acoustic", "calm", "morning"),
+        visibility = 2, // closed
+        isLiked = true,
+        songs = null, // 없음
+        ranking = 3
+    ),
+    Playlist(
+        thumbnailResId = R.drawable.dummy,
+        id = 3,
+        title = "Acoustic Mornings",
+        author = "Emma Stone",
+        keywords = listOf("acoustic", "calm", "morning"),
+        visibility = 2, // closed
+        isLiked = true,
+        songs = null, // 없음
+        ranking = 3
+    ),
+    Playlist(
+        thumbnailResId = R.drawable.dummy,
+        id = 3,
+        title = "Acoustic Mornings",
+        author = "Emma Stone",
+        keywords = listOf("acoustic", "calm", "morning"),
+        visibility = 2, // closed
+        isLiked = true,
+        songs = null, // 없음
+        ranking = 3
+    ),
+    Playlist(
+        thumbnailResId = R.drawable.dummy,
+        id = 3,
+        title = "Acoustic Mornings",
+        author = "Emma Stone",
+        keywords = listOf("acoustic", "calm", "morning"),
+        visibility = 2, // closed
+        isLiked = true,
+        songs = null, // 없음
+        ranking = 3
+    ),
+    Playlist(
+        thumbnailResId = R.drawable.dummy,
+        id = 3,
+        title = "Acoustic Mornings",
+        author = "Emma Stone",
+        keywords = listOf("acoustic", "calm", "morning"),
+        visibility = 2, // closed
+        isLiked = true,
+        songs = null, // 없음
+        ranking = 3
+    ),
+    Playlist(
+        thumbnailResId = R.drawable.dummy,
+        id = 3,
+        title = "Acoustic Mornings",
+        author = "Emma Stone",
+        keywords = listOf("acoustic", "calm", "morning"),
+        visibility = 2, // closed
+        isLiked = true,
+        songs = null, // 없음
+        ranking = 3
+    ),
+    Playlist(
+        thumbnailResId = R.drawable.dummy,
+        id = 3,
+        title = "Acoustic Mornings",
+        author = "Emma Stone",
+        keywords = listOf("acoustic", "calm", "morning"),
+        visibility = 2, // closed
+        isLiked = true,
+        songs = null, // 없음
+        ranking = 3
     )
 )
 
+fun findPlaylistById(id: Int): Playlist {
+    return playList.first { it.id == id }
+}
+
 @Composable
-fun MyPlaylists(modifier: Modifier = Modifier) {
-
-        GenericList(
-            items = playList,
-            verticalSpacing = 0.dp,
-//            onItemClick = { playlist ->
-//                onPlaylistClick(playlist.id)
-//            }
-        ) { playlist ->
-            MyPlaylistEntry(playlist = playlist, isCharts = false)
+fun MyPlaylists(modifier: Modifier = Modifier, navController: NavController) {
+    GenericList(
+        modifier = modifier.fillMaxSize(),
+        items = playList,
+        verticalSpacing = 0.dp,
+        onItemClick = { playlist ->
+            navController.navigate("playlistDetail/${playlist.id}")
         }
-
+    ) { playlist ->
+        MyPlaylistEntry(playlist = playlist, isCharts = false)
+    }
+//    LazyColumn(
+//        modifier = modifier.fillMaxSize(),
+//        contentPadding = PaddingValues(vertical = 12.dp),
+//        verticalArrangement = Arrangement.spacedBy(8.dp)
+//    ) {
+//        items(playList) { playlist ->
+//            MyPlaylistEntry(playlist = playlist, isCharts = false)
+//        }
+//    }
 }

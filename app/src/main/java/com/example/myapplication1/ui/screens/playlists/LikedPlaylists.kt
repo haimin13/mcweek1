@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.ui.components.models.Song
 import com.example.myapplication1.R
+import com.example.myapplication1.ui.components.list.GenericList
+import com.example.myapplication1.ui.components.list.MyPlaylistEntry
 import com.example.myapplication1.ui.components.list.SongEntry
 import com.example.myapplication1.ui.components.models.Playlist
 
@@ -75,27 +77,8 @@ val playListtt = Playlist(
 fun LikedPlaylists(
     modifier: Modifier = Modifier
 ) {
-    PlaylistDetailScreen(playlist = playListtt)
-}
 
-//
-//@Composable
-//fun LikedPlaylists(modifier: Modifier = Modifier) {
-//    Box(
-//        modifier = modifier.fillMaxSize(),
-//        contentAlignment = Alignment.TopCenter
-//    ) {
-//        LazyColumn(
-//            modifier = Modifier.fillMaxSize(),
-//            contentPadding = PaddingValues(vertical = 8.dp),
-//            verticalArrangement = Arrangement.spacedBy(8.dp)
-//        ) {
-//            items(songList) { song ->
-//                SongEntry(song = song, isCharts = false)
-//            }
-//        }
-//    }
-//}
+}
 
 @Composable
 fun Charts(modifier: Modifier = Modifier) {
@@ -112,6 +95,15 @@ fun Charts(modifier: Modifier = Modifier) {
                 SongEntry(song = song, isCharts = true)
             }
         }
+    }
+    GenericList(
+        items = songList,
+        verticalSpacing = 0.dp,
+//        onItemClick = { playlist ->
+//            navController.navigate("playlistDetail/${playlist.id}")
+//        }
+    ) { song ->
+        SongEntry(song = song, isCharts = false)
     }
 }
 

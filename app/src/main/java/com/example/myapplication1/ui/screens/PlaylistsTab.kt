@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.myapplication1.ui.components.list.MyPlaylistEntry
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication1.ui.components.playlistsTab.PlaylistTabBar
@@ -17,15 +18,15 @@ import com.example.myapplication1.ui.screens.playlists.PlaylistDestinations
 
 
 @Composable
-fun PlaylistsTabMain(modifier: Modifier = Modifier) {
-    val navController = rememberNavController()
+fun PlaylistsTabMain(modifier: Modifier = Modifier, navController: NavController) {
+    val navTabController = rememberNavController()
     PlaylistTabBar(
-        navController = navController,
+        navController = navTabController,
         startDestination = PlaylistDestinations.MYPLAYLISTS,
-        modifier = modifier
-    ) { destination ->
+        modifier = modifier.fillMaxSize()
+    ) { destination, innerModifier ->
         when (destination) {
-            PlaylistDestinations.MYPLAYLISTS -> MyPlaylists()
+            PlaylistDestinations.MYPLAYLISTS -> MyPlaylists(modifier = innerModifier, navController = navController)
             PlaylistDestinations.LIKEDPLAYLISTS -> LikedPlaylists()
             PlaylistDestinations.CHARTS -> Charts()
         }

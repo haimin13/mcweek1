@@ -50,7 +50,7 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(horizontal = 8.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // 순위
@@ -64,7 +64,7 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
             }
 
             // 썸네일
-            Box(modifier = Modifier.size(56.dp)) {
+            Box(modifier = Modifier.size(52.dp)) {
                 Image(
                     painter = painterResource(id = playlist.thumbnailResId ?: R.drawable.dummy),
                     contentDescription = null,
@@ -81,7 +81,7 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = playlist.title,
-                        style = MaterialTheme.typography.titleSmall,
+                        style = MaterialTheme.typography.titleSmall.copy(lineHeight = 14.sp),
                         maxLines = 1
                     )
                     val visibilityIcon = when (playlist.visibility) {
@@ -93,7 +93,8 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
                     visibilityIcon?.let {
                         Text(
                             text = it,
-                            fontSize = 14.sp,
+                            lineHeight = 14.sp,
+                            fontSize = 10.sp,
                             modifier = Modifier.alignByBaseline()
                         )
                     }
@@ -104,7 +105,7 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
                     color = Color.Gray
                 )
 
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(2.dp))
 
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     playlist.keywords.forEach {

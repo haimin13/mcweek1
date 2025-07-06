@@ -70,10 +70,14 @@ import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import com.example.myapplication1.ui.theme.MyApplication1Theme
 import com.example.myapplication1.ui.screens.PlaylistsTabMain
+import com.example.myapplication1.ui.screens.playlists.PlaylistDetailScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.myapplication1.ui.components.models.Playlist
+import com.example.myapplication1.ui.screens.playlists.findPlaylistById
 
 
 enum class Destinations(
@@ -135,16 +139,27 @@ fun MainScreen(
         NavHost(
             navController = navController,
             startDestination = BottomNavItem.Home.route,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
         ) {
             composable(BottomNavItem.Home.route) { HomeTabMain() }
-            composable(BottomNavItem.Playlists.route) { PlaylistsTabMain() }
+            composable(BottomNavItem.Playlists.route) { PlaylistsTabMain(modifier = Modifier, navController = navController) }
             composable(BottomNavItem.Friends.route) { FriendsTabMain() }
             composable(BottomNavItem.My.route) { MyTabMain() }
+
+            // ✅ 추가: 상세 화면 경로
+            this.composable(
+                route = "playlistDetail/{playlistId}",
+                arguments = listOf(navArgument("playlistId") { type = androidx.navigation.NavType.IntType })
+            ) { backStackEntry ->
+                val playlistId = backStackEntry.arguments?.getInt("playlistId") ?: return@composable
+                val playlist = findPlaylistById(playlistId)
+                PlaylistDetailScreen(playlist = playlist, navController = navController)
+            }
         }
     }
 }
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -160,88 +175,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun GalleryScreen(modifier: Modifier = Modifier) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text("Playlists Screen")
-    }
-}
-
-@Composable
-fun AnythingScreen(modifier: Modifier = Modifier) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text("Anything Screen")
-    }
-}
-
-@Composable
-fun AppNavHost(
-    navController: NavHostController,
-    startDestination: Destinations,
-    modifier: Modifier = Modifier
-) {
-    NavHost(
-        navController,
-        startDestination = startDestination.route
-    ) {
-        Destinations.entries.forEach { destination ->
-            composable(destination.route) {
-                when (destination) {
-                    Destinations.PLAYLISTS -> PlaylistsTabMain()
-                    Destinations.GALLERY -> GalleryScreen()
-                    Destinations.ANYTHING -> AnythingScreen()
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun Tabs(modifier: Modifier = Modifier) {
-    val navController = rememberNavController()
-    val startDestination = Destinations.PLAYLISTS
-    var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
-    Column(modifier = modifier) {
-        PrimaryTabRow(
-            selectedTabIndex = selectedDestination,
-        ) {
-            Destinations.entries.forEachIndexed { index, destination ->
-                Tab(
-                    selected = selectedDestination == index,
-                    onClick = {
-                        navController.navigate(route = destination.route)
-                        selectedDestination = index
-                    },
-                    text = {
-                        Text(
-                            text = destination.label,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
-                )
-            }
-        }
-        AppNavHost(navController, startDestination)
-    }
-}
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyApplication1Theme {
-        Tabs()
     }
 }

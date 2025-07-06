@@ -1,6 +1,8 @@
 package com.example.myapplication1.ui.components.playlistsTab
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -15,12 +17,12 @@ import com.example.myapplication1.ui.screens.playlists.PlaylistDestinations
 fun PlaylistTabBar(
     navController: NavHostController,
     startDestination: PlaylistDestinations,
-    modifier: Modifier = Modifier,
-    content: @Composable (PlaylistDestinations) -> Unit
+    modifier: Modifier,
+    content: @Composable (PlaylistDestinations, Modifier) -> Unit
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(startDestination.ordinal) }
 
-    Column(modifier = modifier) {
+    Column(modifier = modifier.fillMaxSize()) {
         PrimaryTabRow(
             selectedTabIndex = selectedTabIndex,
             containerColor = MaterialTheme.colorScheme.background,
@@ -43,14 +45,16 @@ fun PlaylistTabBar(
                 )
             }
         }
-
-        NavHost(
-            navController = navController,
-            startDestination = startDestination.fullRoute
-        ) {
-            PlaylistDestinations.entries.forEach { destination ->
-                composable(destination.fullRoute) {
-                    content(destination)
+        Box(modifier = Modifier.weight(1f)) {
+            NavHost(
+                navController = navController,
+                startDestination = startDestination.fullRoute,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                PlaylistDestinations.entries.forEach { destination ->
+                    composable(destination.fullRoute) {
+                        content(destination, Modifier.fillMaxSize())
+                    }
                 }
             }
         }
