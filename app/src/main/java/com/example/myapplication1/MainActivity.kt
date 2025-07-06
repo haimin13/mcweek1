@@ -74,18 +74,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
 
 
-enum class Destinations(
-    val route: String,
-    val label: String,
-    val icon: ImageVector,
-    val contentDescription: String
-) {
-    PLAYLISTS("playlists", "Playlists", Icons.Default.PlayArrow, "Playlists"),
-    GALLERY("gallery", "Gallery", Icons.Default.Favorite, "Gallery"),
-    ANYTHING("anything", "Anything", Icons.Default.MoreVert, "Anything")
-}
 
 sealed class BottomNavItem(
     val route: String,
@@ -98,10 +89,9 @@ sealed class BottomNavItem(
     object My: BottomNavItem("my", "my", Icons.Outlined.AccountCircle)
 }
 
+
 @Composable
-fun MainScreen(
-    modifier: Modifier
-) {
+fun MainScreen(modifier: Modifier) {
     val navController = rememberNavController()
     val items = listOf(
         BottomNavItem.Home,
@@ -109,17 +99,43 @@ fun MainScreen(
         BottomNavItem.Friends,
         BottomNavItem.My
     )
+    // 탭별 시작 destination 매핑
+    val tabStartDestinations = mapOf(
+        "home" to "homeMain",
+        "playlists" to "playlistsMain",
+        "friends" to "friendsMain",
+        "my" to "myMain"
+    )
 
     Scaffold(
-        bottomBar = {NavigationBar {
-                val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+        bottomBar = {
+            NavigationBar {
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
+
                 items.forEach { item ->
+                    val startDestination = tabStartDestinations[item.route] ?: item.route
+                    val isInCurrentTab = isRouteInTab(currentRoute, item.route)
+
                     NavigationBarItem(
-                        selected = currentRoute == item.route,
+                        selected = isInCurrentTab,
                         onClick = {
-                            if (currentRoute != item.route) {
+                            if (isInCurrentTab) {
+                                // 같은 탭: 시작점으로 이동
+                                navController.popBackStack(startDestination, false)
+                            } else {
+                                val currentTabRoute = getCurrentTabRoute(currentRoute)
+                                currentTabRoute?.let { tabRoute ->
+                                    val currentTabStartDestination = tabStartDestinations[tabRoute]
+                                    if (currentTabStartDestination != null && currentRoute != currentTabStartDestination) {
+                                        navController.popBackStack(currentTabStartDestination, false)
+                                    }
+                                }
+                                // 다른 탭: 해당 탭으로 이동
                                 navController.navigate(item.route) {
-                                    popUpTo(navController.graph.startDestinationId) { saveState = true }
+                                    popUpTo(navController.graph.startDestinationId) {
+                                        saveState = true
+                                    }
                                     launchSingleTop = true
                                     restoreState = true
                                 }
@@ -137,18 +153,48 @@ fun MainScreen(
             startDestination = BottomNavItem.Friends.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(BottomNavItem.Home.route) { HomeTabMain() }
-            composable(BottomNavItem.Playlists.route) { PlaylistsTabMain() }
-            composable(BottomNavItem.Friends.route) {
-                FriendsTabMain( { navController.navigate("notificationPage") } )
+            navigation(startDestination = "homeMain", route = BottomNavItem.Home.route) {
+                composable("homeMain") { HomeTabMain() }
             }
-            composable(BottomNavItem.My.route) { MyTabMain() }
-            composable("notificationPage") {
-                NotificationPage(
-                    onBackClick = { navController.popBackStack() }
-                )
+            navigation(startDestination = "playlistsMain", route = BottomNavItem.Playlists.route) {
+                composable("playlistsMain") { PlaylistsTabMain() }
+            }
+            navigation(startDestination = "friendsMain", route = BottomNavItem.Friends.route) {
+                composable("friendsMain") {
+                    FriendsTabMain(
+                        onNotificationClick = { navController.navigate("notificationPage") }
+                    )
+                }
+                composable("notificationPage") {
+                    NotificationPage(
+                        onBackClick = { navController.popBackStack() }
+                    )
+                }
+            }
+            navigation(startDestination = "myMain", route = BottomNavItem.My.route) {
+                composable("myMain") { MyTabMain() }
             }
         }
+    }
+}
+
+private fun isRouteInTab(currentRoute: String?, tabRoute: String): Boolean {
+    return when (tabRoute) {
+        "home" -> currentRoute == "homeMain"
+        "playlists" -> currentRoute == "playlistsMain"
+        "friends" -> currentRoute in listOf("friendsMain", "notificationPage")
+        "my" -> currentRoute == "myMain"
+        else -> false
+    }
+}
+
+private fun getCurrentTabRoute(currentRoute: String?): String? {
+    return when (currentRoute) {
+        "homeMain" -> "home"
+        "playlistsMain" -> "playlists"
+        "friendsMain", "notificationPage" -> "friends"
+        "myMain" -> "my"
+        else -> null
     }
 }
 
@@ -168,6 +214,17 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+/*enum class Destinations(
+    val route: String,
+    val label: String,
+    val icon: ImageVector,
+    val contentDescription: String
+) {
+    PLAYLISTS("playlists", "Playlists", Icons.Default.PlayArrow, "Playlists"),
+    GALLERY("gallery", "Gallery", Icons.Default.Favorite, "Gallery"),
+    ANYTHING("anything", "Anything", Icons.Default.MoreVert, "Anything")
 }
 
 @Composable
@@ -251,4 +308,4 @@ fun GreetingPreview() {
     MyApplication1Theme {
         Tabs()
     }
-}
+}*/
