@@ -75,21 +75,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
 import androidx.navigation.navArgument
 import com.example.myapplication1.ui.components.models.Playlist
 import com.example.myapplication1.ui.screens.playlists.findPlaylistById
 
-
-enum class Destinations(
-    val route: String,
-    val label: String,
-    val icon: ImageVector,
-    val contentDescription: String
-) {
-    PLAYLISTS("playlists", "Playlists", Icons.Default.PlayArrow, "Playlists"),
-    GALLERY("gallery", "Gallery", Icons.Default.Favorite, "Gallery"),
-    ANYTHING("anything", "Anything", Icons.Default.MoreVert, "Anything")
-}
 
 sealed class BottomNavItem(
     val route: String,
@@ -102,10 +92,9 @@ sealed class BottomNavItem(
     object My: BottomNavItem("my", "my", Icons.Outlined.AccountCircle)
 }
 
+
 @Composable
-fun MainScreen(
-    modifier: Modifier
-) {
+fun MainScreen(modifier: Modifier) {
     val navController = rememberNavController()
     val items = listOf(
         BottomNavItem.Home,
@@ -113,17 +102,43 @@ fun MainScreen(
         BottomNavItem.Friends,
         BottomNavItem.My
     )
+    // 탭별 시작 destination 매핑
+    val tabStartDestinations = mapOf(
+        "home" to "homeMain",
+        "playlists" to "playlistsMain",
+        "friends" to "friendsMain",
+        "my" to "myMain"
+    )
 
     Scaffold(
-        bottomBar = {NavigationBar {
-                val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+        bottomBar = {
+            NavigationBar {
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
+
                 items.forEach { item ->
+                    val startDestination = tabStartDestinations[item.route] ?: item.route
+                    val isInCurrentTab = isRouteInTab(currentRoute, item.route)
+
                     NavigationBarItem(
-                        selected = currentRoute == item.route,
+                        selected = isInCurrentTab,
                         onClick = {
-                            if (currentRoute != item.route) {
+                            if (isInCurrentTab) {
+                                // 같은 탭: 시작점으로 이동
+                                navController.popBackStack(startDestination, false)
+                            } else {
+                                val currentTabRoute = getCurrentTabRoute(currentRoute)
+                                currentTabRoute?.let { tabRoute ->
+                                    val currentTabStartDestination = tabStartDestinations[tabRoute]
+                                    if (currentTabStartDestination != null && currentRoute != currentTabStartDestination) {
+                                        navController.popBackStack(currentTabStartDestination, false)
+                                    }
+                                }
+                                // 다른 탭: 해당 탭으로 이동
                                 navController.navigate(item.route) {
-                                    popUpTo(navController.graph.startDestinationId) { saveState = true }
+                                    popUpTo(navController.graph.startDestinationId) {
+                                        saveState = true
+                                    }
                                     launchSingleTop = true
                                     restoreState = true
                                 }
@@ -138,18 +153,36 @@ fun MainScreen(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = BottomNavItem.Home.route,
+            startDestination = BottomNavItem.Friends.route,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
         ) {
-            composable(BottomNavItem.Home.route) { HomeTabMain() }
-            composable(BottomNavItem.Playlists.route) { PlaylistsTabMain(modifier = Modifier, navController = navController) }
-            composable(BottomNavItem.Friends.route) { FriendsTabMain() }
-            composable(BottomNavItem.My.route) { MyTabMain() }
+            navigation(startDestination = "homeMain", route = BottomNavItem.Home.route) {
+                composable("homeMain") { HomeTabMain() }
+            }
+            navigation(startDestination = "playlistsMain", route = BottomNavItem.Playlists.route) {
+                composable("playlistsMain") { PlaylistsTabMain(modifier = Modifier, navController = navController)}
+            }
+            navigation(startDestination = "friendsMain", route = BottomNavItem.Friends.route) {
+                composable("friendsMain") {
+                    FriendsTabMain(
+                        onNotificationClick = { navController.navigate("notificationPage") }
+                    )
+                }
+                composable("notificationPage") {
+                    NotificationPage(
+                        onBackClick = { navController.popBackStack() }
+                    )
+                }
+            }
+            navigation(startDestination = "myMain", route = BottomNavItem.My.route) {
+                composable("myMain") { MyTabMain() }
+            }
 
             // ✅ 추가: 상세 화면 경로
-            this.composable(
+//            this.composable(
+            composable(
                 route = "playlistDetail/{playlistId}",
                 arguments = listOf(navArgument("playlistId") { type = androidx.navigation.NavType.IntType })
             ) { backStackEntry ->
@@ -160,6 +193,27 @@ fun MainScreen(
         }
     }
 }
+
+private fun isRouteInTab(currentRoute: String?, tabRoute: String): Boolean {
+    return when (tabRoute) {
+        "home" -> currentRoute == "homeMain"
+        "playlists" -> currentRoute == "playlistsMain"
+        "friends" -> currentRoute in listOf("friendsMain", "notificationPage")
+        "my" -> currentRoute == "myMain"
+        else -> false
+    }
+}
+
+private fun getCurrentTabRoute(currentRoute: String?): String? {
+    return when (currentRoute) {
+        "homeMain" -> "home"
+        "playlistsMain" -> "playlists"
+        "friendsMain", "notificationPage" -> "friends"
+        "myMain" -> "my"
+        else -> null
+    }
+}
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -177,3 +231,97 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+/*enum class Destinations(
+    val route: String,
+    val label: String,
+    val icon: ImageVector,
+    val contentDescription: String
+) {
+    PLAYLISTS("playlists", "Playlists", Icons.Default.PlayArrow, "Playlists"),
+    GALLERY("gallery", "Gallery", Icons.Default.Favorite, "Gallery"),
+    ANYTHING("anything", "Anything", Icons.Default.MoreVert, "Anything")
+}
+
+@Composable
+fun GalleryScreen(modifier: Modifier = Modifier) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text("Playlists Screen")
+    }
+}
+
+@Composable
+fun AnythingScreen(modifier: Modifier = Modifier) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text("Anything Screen")
+    }
+}
+
+@Composable
+fun AppNavHost(
+    navController: NavHostController,
+    startDestination: Destinations,
+    modifier: Modifier = Modifier
+) {
+    NavHost(
+        navController,
+        startDestination = startDestination.route
+    ) {
+        Destinations.entries.forEach { destination ->
+            composable(destination.route) {
+                when (destination) {
+                    Destinations.PLAYLISTS -> PlaylistsTabMain()
+                    Destinations.GALLERY -> GalleryScreen()
+                    Destinations.ANYTHING -> AnythingScreen()
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Tabs(modifier: Modifier = Modifier) {
+    val navController = rememberNavController()
+    val startDestination = Destinations.PLAYLISTS
+    var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) }
+    Column(modifier = modifier) {
+        PrimaryTabRow(
+            selectedTabIndex = selectedDestination,
+        ) {
+            Destinations.entries.forEachIndexed { index, destination ->
+                Tab(
+                    selected = selectedDestination == index,
+                    onClick = {
+                        navController.navigate(route = destination.route)
+                        selectedDestination = index
+                    },
+                    text = {
+                        Text(
+                            text = destination.label,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                )
+            }
+        }
+        AppNavHost(navController, startDestination)
+    }
+}
+
+
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    MyApplication1Theme {
+        Tabs()
+    }
+}*/
