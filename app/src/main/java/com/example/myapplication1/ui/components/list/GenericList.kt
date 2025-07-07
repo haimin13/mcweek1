@@ -23,7 +23,7 @@ fun <T> GenericList(
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 12.dp),
+//        contentPadding = PaddingValues(vertical = 0.dp),
         verticalArrangement = Arrangement.spacedBy(verticalSpacing)
     ) {
         items(items) { item ->

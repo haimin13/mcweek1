@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
+import com.example.myapplication1.ui.components.common.LikeButton
 import com.example.myapplication1.ui.components.common.MenuButton
 import com.example.myapplication1.ui.components.models.Song
 
@@ -39,7 +40,7 @@ fun SongEntry(song: Song, isCharts: Boolean) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 12.dp, vertical = 4.dp),
+            .padding(vertical = 4.dp),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
@@ -96,18 +97,7 @@ fun SongEntry(song: Song, isCharts: Boolean) {
 
             // 좋아요 & 더보기 아이콘
             Row(horizontalArrangement = Arrangement.spacedBy(2.dp)) {
-                val favoriteIcon = when (song.isLiked) {
-                    true -> Icons.Default.FavoriteBorder
-                    false -> Icons.Default.Favorite
-                }
-                Icon(
-                    imageVector = favoriteIcon,
-                    contentDescription = "Like",
-                    tint = Color.Gray,
-                    modifier = Modifier
-                        .size(20.dp)
-                        .clickable { openDialog.value = true }
-                )
+                LikeButton()
                 Spacer(modifier = Modifier.height(8.dp))
                 MenuButton()
             }

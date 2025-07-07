@@ -11,7 +11,6 @@ import com.example.myapplication1.ui.components.list.SongList
 import com.example.myapplication1.ui.components.models.Playlist
 import com.example.myapplication1.ui.components.playlistsTab.PlaylistHeader
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.graphics.Color
@@ -52,7 +51,7 @@ fun PlaylistDetailScreen(
                 thickness = 1.dp,
                 modifier = Modifier.padding(vertical = 12.dp, horizontal = 12.dp)
             )
-            SongList(songs = playlist.songs.orEmpty(), isCharts = false)
+            SongList(modifier = modifier.padding(horizontal = 12.dp),songs = playlist.songs.orEmpty(), isCharts = false)
         }
 
     }

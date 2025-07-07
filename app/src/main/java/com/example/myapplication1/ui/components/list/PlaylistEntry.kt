@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.KeywordTag
+import com.example.myapplication1.ui.components.common.LikeButton
 import com.example.myapplication1.ui.components.common.MenuButton
 import com.example.myapplication1.ui.components.gallery.GalleryLongPress
 import com.example.myapplication1.ui.components.models.Playlist
@@ -46,7 +47,7 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 6.dp),
+            .padding(vertical = 4.dp),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
@@ -118,22 +119,9 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            var showMenu by remember { mutableStateOf(false) }
-
             // 좋아요 & 더보기 아이콘
             Row(horizontalArrangement = Arrangement.spacedBy(2.dp)) {
-                val favoriteIcon = when (playlist.isLiked) {
-                    true -> Icons.Default.Favorite
-                    false -> Icons.Default.FavoriteBorder
-                }
-                Icon(
-                    imageVector = favoriteIcon,
-                    contentDescription = "Like",
-                    tint = Color.Gray,
-                    modifier = Modifier
-                        .size(20.dp)
-                        .clickable { openDialog.value = true }
-                )
+                LikeButton()
                 Spacer(modifier = Modifier.height(8.dp))
                 MenuButton()
             }
