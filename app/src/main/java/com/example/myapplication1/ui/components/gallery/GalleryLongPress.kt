@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import com.example.myapplication1.R
-import com.example.myapplication1.ui.components.list.ContextMenu
 import com.example.myapplication1.ui.components.list.ContextMenuList
+import com.example.myapplication1.ui.components.models.ContextMenu
 
 @Composable
 fun GalleryLongPress(

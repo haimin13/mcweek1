@@ -1,6 +1,7 @@
 package com.example.myapplication1.ui.components.gallery
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Popup
 import com.example.myapplication1.R
+import com.example.myapplication1.ui.components.common.LikeButton
 
 @Composable
 fun GalleryEntry(
@@ -45,12 +47,14 @@ fun GalleryEntry(
     imageSize: Int = 100,
     textSize: Int = 13,
     showText: Boolean = false,
+    showIcon: Boolean = true,
+    isLiked: Boolean = false, // 좋아요 상태 추가
     onTap: (() -> Unit)? = null, // 탭 동작을 인자로 받음
     onLongPress: (() -> Unit)? = null, // 롱프레스 동작도 인자로 받음
-    onLikeToggle: ((Boolean) -> Unit)? = null // 좋아요 토글 동작
+    onLikeToggle: ((String, Boolean) -> Unit)? = null // 좋아요 토글 콜백 수정
 ) {
     // isLiked 기본값은 database에 따르도록 변경
-    var isLiked by remember { mutableStateOf(false) }
+    var internalIsLiked by remember(isLiked) { mutableStateOf(isLiked) } // 외부 상태로 초기화
     var showTapDialog by remember { mutableStateOf(false) }
     var showLongPressPopup by remember { mutableStateOf(false) }
 
@@ -83,19 +87,25 @@ fun GalleryEntry(
                 modifier = Modifier.aspectRatio(1f),
                 contentScale = ContentScale.Crop
             )
-            // 좋아요 버튼
-            IconButton(
-                onClick = { isLiked = !isLiked },
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(3.dp)
-                    .size((imageSize / 5).dp)
-            ) {
-                Icon(
-                    imageVector = if (isLiked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-                    contentDescription = if (isLiked) "좋아요 취소"  else "좋아요",
-                    tint = if (isLiked) Color.Red else Color.LightGray
-                )
+            if (showIcon) {
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding((imageSize / 30).dp)
+                        .clickable {
+                            // LikeButton 클릭을 여기서 처리
+                            internalIsLiked = !internalIsLiked
+                            onLikeToggle?.invoke(contentName, internalIsLiked)
+                        }
+                ) {
+                    // LikeButton을 수정하지 않고 아이콘만 직접 표시
+                    Icon(
+                        imageVector = if (internalIsLiked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                        contentDescription = "Like",
+                        tint = if (internalIsLiked) Color.Red else Color.Gray,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
             }
             // 탭 다이얼로그
             if (showTapDialog && onTap == null) {
