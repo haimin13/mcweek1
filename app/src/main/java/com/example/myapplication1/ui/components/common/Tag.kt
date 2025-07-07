@@ -22,7 +22,7 @@ fun KeywordTag(text: String) {
         text = "#$text",
         fontSize = 10.sp,
         lineHeight = 16.sp,
-        color = Color(0xFF5C6BC0),
+        color = Color(0xFF303F9F),
         modifier = Modifier
             .background(Color(0xFFE8EAF6), RoundedCornerShape(6.dp))
             .padding(horizontal = 4.dp, vertical = 0.dp)
@@ -41,7 +41,7 @@ fun RoundTag(
         fontSize = fontSize.sp,
         fontWeight = FontWeight(500),
         lineHeight = 16.sp,
-        color = if (isSelected) Color.White else Color(0xFF5C6BC0),
+        color = if (isSelected) Color.White else Color(0xFF303F9F),
         modifier = Modifier
             .clip(RoundedCornerShape(100))
             .clickable { onClick() }
@@ -49,7 +49,7 @@ fun RoundTag(
                 if (isSelected) {
                     Modifier.background(Color(0xFF7986CB))
                 } else {
-                    Modifier.border(1.dp, Color(0xFF5C6BC0), RoundedCornerShape(100))
+                    Modifier.border(1.dp, Color(0xFF303F9F), RoundedCornerShape(100))
                 }
             )
             .padding(horizontal = 10.dp, vertical = 6.dp)

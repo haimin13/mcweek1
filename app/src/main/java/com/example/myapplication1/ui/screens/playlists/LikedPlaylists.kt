@@ -9,8 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication1.ui.components.models.Song
 import com.example.myapplication1.R
-import com.example.myapplication1.ui.components.list.GenericList
-import com.example.myapplication1.ui.components.list.MyPlaylistEntry
+import com.example.myapplication1.ui.components.list.PlaylistList
 import com.example.myapplication1.ui.components.models.Playlist
 
 
@@ -81,17 +80,8 @@ fun LikedPlaylists(
     Box (
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 12.dp, vertical = 4.dp),
+            .padding(horizontal = 12.dp, vertical = 8.dp),
     ) {
-        GenericList(
-            modifier = modifier.fillMaxSize(),
-            items = likedPlayList,
-            verticalSpacing = 0.dp,
-            onItemClick = { playlist ->
-                navController.navigate("playlistDetail/${playlist.id}")
-            }
-        ) { playlist ->
-            MyPlaylistEntry(playlist = playlist, isCharts = false)
-        }
+        PlaylistList(playlists = likedPlayList, navController = navController)
     }
 }

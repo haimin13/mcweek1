@@ -38,10 +38,8 @@ fun SongEntry(song: Song, isCharts: Boolean) {
 //    }
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+        modifier = Modifier.fillMaxWidth(),
+//        elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
             modifier = Modifier

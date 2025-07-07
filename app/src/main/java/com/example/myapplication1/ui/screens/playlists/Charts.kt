@@ -18,6 +18,7 @@ import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.RoundTag
 import com.example.myapplication1.ui.components.list.GenericList
 import com.example.myapplication1.ui.components.list.SongEntry
+import com.example.myapplication1.ui.components.list.SongList
 
 
 val FriendsFavorites = listOf(
@@ -74,6 +75,36 @@ val TrendingNow = listOf(
         ranking = 3,
         thumbnailResId = R.drawable.song_dummy
     ),
+    Song(
+        id = 12,
+        title = "MeowMeow",
+        artist = listOf("kitty", "puppy"),
+        length = "3:43",
+        genres = listOf("Electronic", "Band"),
+        isLiked = false,
+        ranking = 4,
+        thumbnailResId = R.drawable.song_dummy
+    ),
+    Song(
+        id = 12,
+        title = "MeowMeow",
+        artist = listOf("kitty", "puppy"),
+        length = "3:43",
+        genres = listOf("Electronic", "Band"),
+        isLiked = false,
+        ranking = 5,
+        thumbnailResId = R.drawable.song_dummy
+    ),
+    Song(
+        id = 12,
+        title = "MeowMeow",
+        artist = listOf("kitty", "puppy"),
+        length = "3:43",
+        genres = listOf("Electronic", "Band"),
+        isLiked = false,
+        ranking = 6,
+        thumbnailResId = R.drawable.song_dummy
+    ),
 )
 
 @Composable
@@ -101,15 +132,7 @@ fun Charts(modifier: Modifier = Modifier, navController: NavController) {
             )
         }
 
-        GenericList(
-            modifier = Modifier.fillMaxSize(),
-            items = if (selectedTag == "Friends' favorites") FriendsFavorites else TrendingNow,
-//            verticalSpacing = 0.dp,
-            onItemClick = { playlist ->
-                navController.navigate("playlistDetail/${playlist.id}")
-            }
-        ) { song ->
-            SongEntry(song = song, isCharts = true)
-        }
+        val selectedSong = if (selectedTag == "Friends' favorites") FriendsFavorites else TrendingNow
+        SongList(songs = selectedSong, isCharts = true)
     }
 }

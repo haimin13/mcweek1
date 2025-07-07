@@ -51,7 +51,9 @@ fun PlaylistDetailScreen(
                 thickness = 1.dp,
                 modifier = Modifier.padding(vertical = 12.dp, horizontal = 12.dp)
             )
-            SongList(modifier = modifier.padding(horizontal = 12.dp),songs = playlist.songs.orEmpty(), isCharts = false)
+            SongList(
+                modifier = modifier.padding(horizontal = 12.dp),
+                songs = playlist.songs.orEmpty(), isCharts = false)
         }
 
     }

@@ -1,22 +1,16 @@
 package com.example.myapplication1.ui.screens.playlists
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.myapplication1.R
-import com.example.myapplication1.ui.components.list.GenericList
-import com.example.myapplication1.ui.components.list.MyPlaylistEntry
 import com.example.myapplication1.ui.components.models.Playlist
 import com.example.myapplication1.ui.components.models.Song
-import androidx.compose.foundation.lazy.items
+import com.example.myapplication1.ui.components.list.PlaylistList
 
 // 샘플 리스트
 val playList = listOf (
@@ -190,17 +184,8 @@ fun MyPlaylists(modifier: Modifier = Modifier, navController: NavController) {
     Box (
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 12.dp, vertical = 4.dp),
+            .padding(horizontal = 12.dp, vertical = 8.dp),
     ) {
-        GenericList(
-            modifier = modifier,
-            items = playList,
-            verticalSpacing = 0.dp,
-            onItemClick = { playlist ->
-                navController.navigate("playlistDetail/${playlist.id}")
-            }
-        ) { playlist ->
-            MyPlaylistEntry(playlist = playlist, isCharts = false)
-        }
+        PlaylistList(playlists = playList, navController = navController)
     }
 }

@@ -30,7 +30,7 @@ import com.example.myapplication1.ui.components.gallery.GalleryLongPress
 import com.example.myapplication1.ui.components.models.Playlist
 
 @Composable
-fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
+fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
     val openDialog = remember { mutableStateOf(false) }
 
     if (openDialog.value) {
@@ -46,10 +46,8 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
     }
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
-        elevation = CardDefaults.cardElevation(4.dp),
+        modifier = Modifier.fillMaxWidth(),
+//        elevation = CardDefaults.cardElevation(4.dp),
 //        colors = CardDefaults.cardColors(containerColor = Color.LightGray)
 
     ) {

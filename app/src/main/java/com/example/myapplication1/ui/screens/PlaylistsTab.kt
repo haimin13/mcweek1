@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.myapplication1.ui.components.list.MyPlaylistEntry
+import com.example.myapplication1.ui.components.list.PlaylistEntry
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication1.ui.components.playlistsTab.PlaylistTabBar
 import com.example.myapplication1.ui.screens.playlists.MyPlaylists

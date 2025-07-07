@@ -6,11 +6,18 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication1.ui.components.models.Song
 
 @Composable
-fun SongList(modifier: Modifier = Modifier, songs: List<Song>, isCharts: Boolean) {
+fun SongList(
+    modifier: Modifier = Modifier,
+    songs: List<Song>,
+    verticalSpacing: Int = 8,
+    isCharts: Boolean = false,
+    onItemClick: ((Song) -> Unit)? = null,
+) {
     GenericList(
         modifier = modifier,
         items = songs,
-//        verticalSpacing = 0.dp // 👈 원하는 간격 설정
+        verticalSpacing = verticalSpacing.dp,
+        onItemClick = onItemClick
     ) { song ->
         SongEntry(song = song, isCharts = isCharts)
     }
