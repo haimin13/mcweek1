@@ -41,7 +41,7 @@ fun MyTabMain(modifier: Modifier = Modifier) {
 
     var likedTags by remember {
         mutableStateOf(listOf(
-            listOf(1,3,5,6,7,10,12,16,15,8,9),
+            listOf(1,3,5,6,7,16,15,8,9),
             listOf(2,4,5,7)
         ))
     }

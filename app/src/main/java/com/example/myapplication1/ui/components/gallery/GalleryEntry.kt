@@ -61,7 +61,7 @@ fun GalleryEntry(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.width(imageSize.dp)
+        modifier = Modifier.width(imageSize.dp)
     ) {
         Box(
             modifier = Modifier

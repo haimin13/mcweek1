@@ -5,8 +5,10 @@ import com.example.myapplication1.ui.components.gallery.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -102,14 +104,18 @@ fun FriendsTabMain(
                     modifier = Modifier.padding(bottom = 10.dp)
                 )
                 LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth()
+                        .defaultMinSize(minHeight = 125.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    items(favoriteFriendsIds) { id ->
+                    items(
+                        items = favoriteFriendsIds,
+                        key = { friendId -> friendId }
+                    ) { id ->
                         GalleryEntry(
                             contentName = id,
                             showText = true,
-                            isLiked = true, // close friends는 항상 좋아요 상태
+                            isLiked = true,
                             onLikeToggle = { friendName, isLiked ->
                                 handleLikeToggle(friendName, isLiked)
                             }
@@ -130,25 +136,26 @@ fun FriendsTabMain(
                     modifier = Modifier.padding(bottom = 10.dp)
                 )
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(3),
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 15.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    columns = GridCells.Fixed(4),
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
-                    items(friendsIds) { id ->
+                    items(
+                        items = friendsIds,
+                        key = { friendId -> "all_$friendId" }
+                    ) { id ->
                         GalleryEntry(
                             contentName = id,
-                            imageSize = 90,
+                            imageSize = 80, // 이미지 크기를 줄임
                             showText = true,
-                            isLiked = favoriteFriendsIds.contains(id), // close friends 여부에 따라 하트 상태 결정
+                            isLiked = favoriteFriendsIds.contains(id),
                             onLikeToggle = { friendName, isLiked ->
                                 handleLikeToggle(friendName, isLiked)
                             }
                         )
                     }
-
                 }
+
             }
         }
         FloatingActionButton(
