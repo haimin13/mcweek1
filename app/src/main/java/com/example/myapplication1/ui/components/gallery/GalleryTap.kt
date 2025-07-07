@@ -10,7 +10,10 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
-import com.example.myapplication1.ui.components.profile.ProfileRow
+import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
+import com.example.myapplication1.ui.components.profile.ProfileRowSong
+import com.example.myapplication1.ui.screens.playlists.FriendsFavorites
+import com.example.myapplication1.ui.screens.playlists.playList
 import com.example.myapplication1.ui.screens.tempIdList
 
 @Composable
@@ -34,21 +37,22 @@ fun GalleryTap(
                 fromMy = false,
                 fontSize = 10
             )
-            ProfileRow(
+            ProfileRowSong(
                 rowName = "Liked Songs",
-                entryList = tempIdList,
-                entryType = "Song"
+                entryList = FriendsFavorites,
             )
-            ProfileRow(
+            ProfileRowPlaylist(
                 rowName = "Playlists",
-                entryList = tempIdList,
-                entryType = "Playlist"
+                entryList = playList,
+                onItemClick = { playlist ->
+                    // TODO: playlist 클릭 시 처리
+                }
             )
-            ProfileRow(
-                rowName = "Favorite Artists",
-                entryList = tempIdList,
-                entryType = "Artist"
-            )
+//            ProfileRow(
+//                rowName = "Favorite Artists",
+//                entryList = tempIdList,
+//                entryType = "Artist"
+//            )
         }
     }
 }

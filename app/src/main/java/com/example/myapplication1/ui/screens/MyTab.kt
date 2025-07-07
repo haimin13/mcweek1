@@ -24,10 +24,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.myapplication1.ui.components.Edit.EditNickname
 import com.example.myapplication1.ui.components.gallery.GalleryEntry
 import com.example.myapplication1.ui.components.list.TagList
-import com.example.myapplication1.ui.components.profile.ProfileRow
+import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
+import com.example.myapplication1.ui.components.profile.ProfileRowSong
+import com.example.myapplication1.ui.screens.playlists.FriendsFavorites
+import com.example.myapplication1.ui.screens.playlists.playList
 
 // Temp
 val tempIdList = listOf(1,2,3,4,5,6,7,8,9)
@@ -120,24 +124,23 @@ fun MyTabMain(modifier: Modifier = Modifier) {
 
                 )
             }
-            ProfileRow(
+            ProfileRowSong(
                 rowName = "Liked Songs",
-                entryList = tempIdList,
-                entryType = "Song",
-                modifier = modifier
+                entryList = FriendsFavorites,
             )
-            ProfileRow(
+            ProfileRowPlaylist(
                 rowName = "Playlists",
-                entryList = tempIdList,
-                entryType = "Playlist",
-                modifier = modifier
+                entryList = playList,
+                onItemClick = { playlist ->
+                    // TODO: playlist 클릭 시 처리
+                }
             )
-            ProfileRow(
-                rowName = "Favorite Artists",
-                entryList = tempIdList,
-                entryType = "Artist",
-                modifier = modifier
-            )
+//            ProfileRow(
+//                rowName = "Favorite Artists",
+//                entryList = tempIdList,
+//                entryType = "Artist",
+//                modifier = modifier
+//            )
         }
     }
     if (showNicknameEditDialog) {

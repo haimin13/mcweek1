@@ -11,7 +11,8 @@ import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
 import com.example.myapplication1.ui.components.models.Song
-import com.example.myapplication1.ui.components.profile.ProfileRow
+import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
+import com.example.myapplication1.ui.screens.playlists.playList
 import com.example.myapplication1.ui.screens.tempIdList
 
 @Composable
@@ -29,21 +30,22 @@ fun SongDetailPopup(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            ProfileRow(
-                rowName = "Artist",
-                entryList = tempIdList.take(1),
-                entryType = "Artist"
-            )
+//            ProfileRow(
+//                rowName = "Artist",
+//                entryList = tempIdList.take(1),
+//            )
             TagList(
                 title = "Genre",
                 tags = listOf(1,2),
                 fromMy = false,
                 fontSize = 10
             )
-            ProfileRow(
+            ProfileRowPlaylist(
                 rowName = "Related playlists",
-                entryList = tempIdList,
-                entryType = "Playlist"
+                entryList = playList,
+                onItemClick = { playlist ->
+                    // TODO: playlist 클릭 시 처리
+                }
             )
         }
     }
