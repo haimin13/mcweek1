@@ -10,7 +10,7 @@ import com.example.myapplication1.ui.components.models.UserLog
 @Composable
 fun FriendsUpdateList(modifier: Modifier = Modifier, userLogs: List<UserLog>) {
     GenericList(
-        modifier = modifier.padding(horizontal = 20.dp),
+        modifier = modifier,
         items = userLogs,
         verticalSpacing = 12.dp,
 //            onItemClick = { playlist ->

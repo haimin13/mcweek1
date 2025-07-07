@@ -1,6 +1,7 @@
 package com.example.myapplication1.ui.components.list
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
@@ -48,7 +49,9 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
+//        colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+
     ) {
         Row(
             modifier = Modifier

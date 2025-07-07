@@ -34,7 +34,6 @@ fun NotificationEntry(userLog: UserLog) {
     Row (
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {}
     ){
         Image(
             painter = painterResource(R.drawable.dummy),

@@ -1,5 +1,6 @@
 package com.example.myapplication1.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,11 +15,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.ui.components.gallery.GalleryEntry
 import com.example.myapplication1.ui.components.list.FriendsUpdateList
+
+@Composable
+fun Title(text: String) {
+    Text(
+        text = text,
+        fontSize = 20.sp,
+        fontWeight = FontWeight(600),
+    )
+}
 
 @Composable
 fun HomeTabMain(modifier: Modifier = Modifier) {
@@ -31,26 +42,18 @@ fun HomeTabMain(modifier: Modifier = Modifier) {
         "슬슬 연말 분위기를 내볼까요?"
     )
 
-    var notifications = listOf(
-        listOf("user0", "song0"),listOf("user1", "song1"),listOf("user2", "song2"),
-        listOf("user3", "song3"),listOf("user4", "song4"),listOf("user5", "song5")
-    )
     Column (
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 40.dp)
+            .padding(vertical = 20.dp, horizontal = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ){
+        // recent
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 15.dp, vertical = 10.dp)
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Text(
-                text = "Recent",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.ExtraBold,
-                modifier = Modifier.padding(bottom = 10.dp)
-            )
+            Title("recent")
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -64,37 +67,31 @@ fun HomeTabMain(modifier: Modifier = Modifier) {
                 }
             }
         }
+
+        // Friends' updates
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 15.dp, end = 15.dp, bottom = 15.dp)
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Text(
-                text = "Friends' updates",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.ExtraBold,
-                modifier = Modifier.padding(bottom = 10.dp)
-            )
+            Title("Friends' updates")
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(180.dp)
-                    .clip(RoundedCornerShape(10.dp))
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(color = Color.LightGray)
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
                 FriendsUpdateList(userLogs = dummyUserLogs)
             }
         }
+
+        // Trending now
         Column (
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 15.dp)
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Text(
-                text = "Trending now",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.ExtraBold,
-                modifier = Modifier.padding(bottom = 10.dp)
-            )
+            Title("Trending now")
         }
     }
 }
