@@ -42,10 +42,7 @@ fun SongDetailPopup(
             )
             ProfileRowPlaylist(
                 rowName = "Related playlists",
-                entryList = playList,
-                onItemClick = { playlist ->
-                    // TODO: playlist 클릭 시 처리
-                }
+                entryList = playList
             )
         }
     }

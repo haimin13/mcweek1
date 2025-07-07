@@ -39,14 +39,11 @@ fun GalleryTap(
             )
             ProfileRowSong(
                 rowName = "Liked Songs",
-                entryList = FriendsFavorites,
+                entryList = FriendsFavorites
             )
             ProfileRowPlaylist(
                 rowName = "Playlists",
-                entryList = playList,
-                onItemClick = { playlist ->
-                    // TODO: playlist 클릭 시 처리
-                }
+                entryList = playList
             )
 //            ProfileRow(
 //                rowName = "Favorite Artists",

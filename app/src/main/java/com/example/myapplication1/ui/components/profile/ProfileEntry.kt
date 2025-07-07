@@ -2,6 +2,7 @@ package com.example.myapplication1.ui.components.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
@@ -22,14 +23,16 @@ import com.example.myapplication1.ui.components.models.Song
 @Composable
 fun ProfileEntrySong(
     song: Song,
+    modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .clickable { onClick?.invoke() }
             .clip(RoundedCornerShape(4.dp))
             .background(Color.White)
-            .padding(horizontal = 10.dp, vertical = 6.dp)
+            .padding(horizontal = 12.dp),
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = song.title,
@@ -50,14 +53,16 @@ fun ProfileEntrySong(
 @Composable
 fun ProfileEntryPlaylist(
     playlist: Playlist,
+    modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .clickable { onClick?.invoke() }
             .clip(RoundedCornerShape(4.dp))
             .background(Color.White)
-            .padding(horizontal = 10.dp, vertical = 6.dp)
+            .padding(horizontal = 12.dp),
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = playlist.title,
@@ -69,12 +74,13 @@ fun ProfileEntryPlaylist(
     }
 }
 @Composable
-fun ProfileEntryMore() {
+fun ProfileEntryMore(modifier: Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .clip(RoundedCornerShape(4.dp))
             .background(Color.White)
-            .padding(horizontal = 10.dp, vertical = 6.dp)
+            .padding(horizontal = 12.dp),
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = "more...",
@@ -84,59 +90,3 @@ fun ProfileEntryMore() {
         )
     }
 }
-
-//
-//
-//@Composable
-//fun ProfileEntry(
-//    entry: Any?,  // 제네릭 대신 Any로 받고 내부에서 타입 분기
-//    isMore: Boolean = false,
-//    onClick: (() -> Unit)? = null
-//) {
-//    // 기본값
-//    var title = "more..."
-//    var subtitle: List<String>? = null
-//
-//    if (!isMore && entry != null) {
-//        when (entry) {
-//            is Song -> {
-//                title = entry.title
-//                subtitle = entry.artist // 또는 다른 필드로
-//            }
-//            is Playlist -> {
-//                title = entry.title
-//                // subtitle 없음
-//            }
-////            is User -> {
-////                title = entry.name
-////            }
-//            // 추가 타입도 여기에 분기 가능
-//        }
-//    }
-//
-//    Column(
-//        modifier = Modifier
-//            .clickable(enabled = !isMore && onClick != null) { onClick?.invoke() }
-//            .clip(RoundedCornerShape(4.dp))
-//            .background(Color.White)
-//            .padding(horizontal = 10.dp, vertical = 6.dp)
-//    ) {
-//        Text(
-//            text = title,
-//            fontWeight = FontWeight.Medium,
-//            fontSize = 12.sp,
-//            lineHeight = 12.sp,
-//            color = if (isMore) Color.Gray else Color.Black,
-//        )
-//
-//        // subtitle 있을 때만 보여줌
-//        subtitle?.let {
-//            Text(
-//                text = subtitle.joinToString(" & "),
-//                fontSize = 10.sp,
-//                lineHeight = 10.sp,
-//                color = Color.LightGray
-//            )
-//        }
-//    }
-//}
