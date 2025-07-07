@@ -14,12 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.example.myapplication1.ui.components.models.ContextMenu
 
-data class ContextMenu(
-    val text: String,
-    val iconImage: ImageVector,
-    val onClick: () -> Unit
-)
 
 @Composable
 fun ContextMenuList(

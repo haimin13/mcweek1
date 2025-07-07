@@ -153,7 +153,7 @@ fun MainScreen(modifier: Modifier) {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = BottomNavItem.My.route,
+            startDestination = BottomNavItem.Friends.route,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
