@@ -44,6 +44,7 @@ fun GalleryEntry(
     contentId: Int = 0,
     contentType: String = "",
     contentName: String = "",
+    thumbnailResId: Int = R.drawable.dummy,
     imageSize: Int = 100,
     textSize: Int = 13,
     showText: Boolean = false,
@@ -82,7 +83,7 @@ fun GalleryEntry(
         ) {
             // 사진
             Image(
-                painter = painterResource(R.drawable.dummy),
+                painter = painterResource(thumbnailResId),
                 contentDescription = null,
                 modifier = Modifier.aspectRatio(1f),
                 contentScale = ContentScale.Crop

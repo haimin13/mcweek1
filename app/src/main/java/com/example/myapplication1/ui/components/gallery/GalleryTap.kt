@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
+import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
 import com.example.myapplication1.ui.components.profile.ProfileRow
 import com.example.myapplication1.ui.screens.tempIdList
@@ -17,7 +18,7 @@ fun GalleryTap(
     userId: String,
     onDismiss: () -> Unit
 ) {
-    Popup(
+    PopupLayout(
         title = "$userId's music profile",
         thumbnailResId = R.drawable.dummy,
         onDismiss = onDismiss

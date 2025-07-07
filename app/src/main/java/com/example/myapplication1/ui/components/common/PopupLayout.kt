@@ -1,6 +1,5 @@
-package com.example.myapplication1.ui.components.gallery
+package com.example.myapplication1.ui.components.common
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -9,20 +8,17 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.R
-import kotlin.math.round
+import com.example.myapplication1.ui.components.gallery.GalleryEntry
 
 @Composable
-fun Popup(
+fun PopupLayout(
     title: String,
-    thumbnailResId: Int,
+    thumbnailResId: Int = R.drawable.dummy,
     onDismiss: () -> Unit,
     content: @Composable () -> Unit
 ) {
@@ -59,13 +55,14 @@ fun Popup(
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp
                 )
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 // Thumbnail
                 GalleryEntry(
-                    imageSize = 140
+                    imageSize = 140,
+                    thumbnailResId = thumbnailResId
                 )
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 // Custom content slot
                 content()
