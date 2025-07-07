@@ -34,7 +34,8 @@ val dummyUserLogs = listOf(
 // db에서는 n개 까지만 저장하고 그 이후로는 오래된 순으로 버림
 @Composable
 fun NotificationPage(
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    myId: Int = 0
 ) {
     Column (
         modifier = Modifier

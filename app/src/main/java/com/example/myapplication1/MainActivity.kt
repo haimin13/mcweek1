@@ -20,6 +20,9 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.myapplication1.ui.theme.MyApplication1Theme
@@ -45,6 +48,9 @@ sealed class BottomNavItem(
 @Composable
 fun MainScreen(modifier: Modifier) {
     val navController = rememberNavController()
+
+    var myId by remember { mutableStateOf(0)}
+
     val items = listOf(
         BottomNavItem.Home,
         BottomNavItem.Playlists,
@@ -102,7 +108,7 @@ fun MainScreen(modifier: Modifier) {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = BottomNavItem.Friends.route, // Todo: Home으로 바꾸기
+            startDestination = BottomNavItem.Friends.route,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -116,17 +122,22 @@ fun MainScreen(modifier: Modifier) {
             navigation(startDestination = "friendsMain", route = BottomNavItem.Friends.route) {
                 composable("friendsMain") {
                     FriendsTabMain(
-                        onNotificationClick = { navController.navigate("friends/notifications") }
+                        onNotificationClick = { navController.navigate("friends/notifications") },
+                        myId = myId
                     )
                 }
                 composable("friends/notifications") {
                     NotificationPage (
-                        onBackClick = { navController.popBackStack() }
+                        onBackClick = { navController.popBackStack() },
+                        myId = myId
                     )
                 }
             }
             navigation(startDestination = "myMain", route = BottomNavItem.My.route) {
-                composable("myMain") { MyTabMain() }
+                composable("myMain") { MyTabMain(
+                    myId = myId,
+                    onMyIdChange = { newId -> myId = newId } // myId 변경 콜백
+                ) }
             }
         }
     }

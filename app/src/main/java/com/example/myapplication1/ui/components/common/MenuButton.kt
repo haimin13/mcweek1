@@ -1,5 +1,6 @@
 package com.example.myapplication1.ui.components.common
 
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -10,10 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.example.myapplication1.ui.components.gallery.GalleryLongPress
+import com.example.myapplication1.ui.components.list.ContextMenuList
+import com.example.myapplication1.ui.components.models.ContextMenu
 
 @Composable
-fun MenuButton() {
+fun MenuButton(
+    menuItems: List<ContextMenu>
+) {
     var showMenu by remember { mutableStateOf(false) }
 
     Icon(
@@ -29,12 +33,10 @@ fun MenuButton() {
 //                        )
 
     )
+    if (menuItems.isEmpty()) return
     if (showMenu) {
         Dialog(onDismissRequest = { showMenu = false }) {
-            GalleryLongPress(
-                userId = "null",
-                onDismiss = { showMenu = false }
-            )
+            ContextMenuList(menuItems)
         }
     }
 }

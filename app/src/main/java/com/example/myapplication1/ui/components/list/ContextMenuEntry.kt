@@ -23,7 +23,6 @@ import com.example.myapplication1.ui.components.models.ContextMenu
 
 @Composable
 fun ContextMenuEntry(
-    itemId: String,
     menuItem: ContextMenu
 ) {
     val text = menuItem.text

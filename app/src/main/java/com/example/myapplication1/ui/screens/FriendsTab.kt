@@ -5,8 +5,10 @@ import com.example.myapplication1.ui.components.gallery.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,7 +40,8 @@ import com.example.myapplication1.ui.components.dialog.AddFriendDialog
 
 @Composable
 fun FriendsTabMain(
-    onNotificationClick: () -> Unit
+    onNotificationClick: () -> Unit,
+    myId: Int = 0
 ) {
     // friendsIds는 내 친구 database에서 불러옴
     var favoriteFriendsIds by remember {
@@ -52,6 +55,8 @@ fun FriendsTabMain(
             "bot4", "user3"
         ))
     }
+    var showAddFriendDialog by remember { mutableStateOf(false) }
+
     var myNickname: String = "lil monkey"
     val allUsers = listOf(
         "lil monkey", "jaedungg", "haimin13", "bot1", "bot2", "bot3",
@@ -70,7 +75,23 @@ fun FriendsTabMain(
         }
     }
 
-    var showAddFriendDialog by remember { mutableStateOf(false) }
+    fun removeFriend(friendId: String) {
+        friendsIds = friendsIds.filter { it != friendId }
+        favoriteFriendsIds = favoriteFriendsIds.filter { it != friendId }
+    }
+
+    // 친한 친구 토글 함수
+    fun toggleCloseFriend(friendId: String, isClose: Boolean) {
+        if (isClose) {
+            // 친한 친구에 추가
+            if (!favoriteFriendsIds.contains(friendId)) {
+                favoriteFriendsIds = favoriteFriendsIds + friendId
+            }
+        } else {
+            // 친한 친구에서 제거
+            favoriteFriendsIds = favoriteFriendsIds.filter { it != friendId }
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -102,16 +123,23 @@ fun FriendsTabMain(
                     modifier = Modifier.padding(bottom = 10.dp)
                 )
                 LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth()
+                        .defaultMinSize(minHeight = 125.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    items(favoriteFriendsIds) { id ->
+                    items(
+                        items = favoriteFriendsIds,
+                        key = { friendId -> friendId }
+                    ) { id ->
                         GalleryEntry(
                             contentName = id,
                             showText = true,
-                            isLiked = true, // close friends는 항상 좋아요 상태
+                            isLiked = true,
                             onLikeToggle = { friendName, isLiked ->
                                 handleLikeToggle(friendName, isLiked)
+                            },
+                            onRemoveFriend = { friendId -> // 이 부분 추가
+                                removeFriend(friendId)
                             }
                         )
                     }
@@ -130,25 +158,30 @@ fun FriendsTabMain(
                     modifier = Modifier.padding(bottom = 10.dp)
                 )
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(3),
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 15.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    columns = GridCells.Fixed(4),
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    items(friendsIds) { id ->
+                    items(
+                        items = friendsIds,
+                        key = { friendId -> "all_$friendId" }
+                    ) { id ->
                         GalleryEntry(
                             contentName = id,
-                            imageSize = 90,
+                            imageSize = 80, // 이미지 크기를 줄임
                             showText = true,
-                            isLiked = favoriteFriendsIds.contains(id), // close friends 여부에 따라 하트 상태 결정
+                            isLiked = favoriteFriendsIds.contains(id),
                             onLikeToggle = { friendName, isLiked ->
                                 handleLikeToggle(friendName, isLiked)
+                            },
+                            onRemoveFriend = { friendId -> // 이 부분 추가
+                                removeFriend(friendId)
                             }
                         )
                     }
-
                 }
+
             }
         }
         FloatingActionButton(
