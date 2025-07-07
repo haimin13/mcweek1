@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -30,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.R
+import com.example.myapplication1.ui.components.list.TagList
 import com.example.myapplication1.ui.components.profile.ProfileRow
 import com.example.myapplication1.ui.screens.tempIdList
 
@@ -39,7 +41,7 @@ fun GalleryTap(
     onDismiss: () -> Unit
 ){
     Surface(
-        modifier = Modifier.size(400.dp, 550.dp),
+        modifier = Modifier.width(400.dp),
         color = Color(0xfff3f3f3),
         shape = RoundedCornerShape(16.dp),
         shadowElevation = 8.dp
@@ -62,8 +64,7 @@ fun GalleryTap(
             }
             Column(
                 modifier = Modifier
-                    .padding(vertical = 35.dp, horizontal = 30.dp)
-                    .fillMaxSize(),
+                    .padding(vertical = 35.dp, horizontal = 30.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
@@ -84,8 +85,11 @@ fun GalleryTap(
                         text = "Music Preference",
                         fontWeight = FontWeight.Bold
                     )
-                    // CustomLazyRow(장르)
-                    Spacer(modifier = Modifier.height(25.dp)) // 임시
+                    TagList(
+                        listOf(1,2,3,4,5,6,7,8,9,10,11,12,13),
+                        fromMy = false,
+                        fontSize = 10
+                    )
                     ProfileRow(
                         rowName = "Liked Songs",
                         entryList = tempIdList,
