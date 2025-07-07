@@ -138,7 +138,8 @@ fun FriendsTabMain(
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(4),
                     modifier = Modifier.fillMaxSize(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     items(
                         items = friendsIds,
