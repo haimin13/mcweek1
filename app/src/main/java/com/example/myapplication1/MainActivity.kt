@@ -167,11 +167,11 @@ fun MainScreen(modifier: Modifier) {
             navigation(startDestination = "friendsMain", route = BottomNavItem.Friends.route) {
                 composable("friendsMain") {
                     FriendsTabMain(
-                        onNotificationClick = { navController.navigate("notificationPage") }
+                        onNotificationClick = { navController.navigate("friends/notifications") }
                     )
                 }
-                composable("notificationPage") {
-                    NotificationPage(
+                composable("friends/notifications") {
+                    NotificationPage (
                         onBackClick = { navController.popBackStack() }
                     )
                 }
@@ -198,7 +198,7 @@ private fun isRouteInTab(currentRoute: String?, tabRoute: String): Boolean {
     return when (tabRoute) {
         "home" -> currentRoute == "homeMain"
         "playlists" -> currentRoute == "playlistsMain"
-        "friends" -> currentRoute in listOf("friendsMain", "notificationPage")
+        "friends" -> currentRoute in listOf("friendsMain", "friends/notifications")
         "my" -> currentRoute == "myMain"
         else -> false
     }
@@ -208,7 +208,7 @@ private fun getCurrentTabRoute(currentRoute: String?): String? {
     return when (currentRoute) {
         "homeMain" -> "home"
         "playlistsMain" -> "playlists"
-        "friendsMain", "notificationPage" -> "friends"
+        "friendsMain", "friends/notifications" -> "friends"
         "myMain" -> "my"
         else -> null
     }

@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Icon
@@ -27,20 +29,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication1.ui.components.customLazy.CustomLazyRow
 
-@Composable
-fun CloseFriendsRowEntry(modifier: Modifier = Modifier) {
-
-}
 
 @Composable
 fun FriendsTabMain(
     onNotificationClick: () -> Unit
 ) {
     // friendsIds는 내 친구 database에서 불러옴
-    val favoriteFriendsIds = listOf("lil monkey", "jaedungg", "haimin13", "bot1", "bot2")
-    val friendsIds = listOf(
+    var favoriteFriendsIds = listOf("lil monkey", "jaedungg", "haimin13", "bot1", "bot2")
+    var friendsIds = listOf(
         "lil monkey",
         "jaedungg",
         "bot4",
@@ -56,18 +53,6 @@ fun FriendsTabMain(
         "bot4",
         "bot5",
     )
-
-    var showTapPopup by remember { mutableStateOf(false) }
-    var showLongPressPopup by remember { mutableStateOf(false) }
-    val galleryEntryRef: @Composable (
-        String,
-        Int,
-        Int,
-        @Composable (String, () -> Unit) -> Unit,
-        @Composable (String, () -> Unit) -> Unit
-    ) -> Unit = { p1, p2, p3, p4, p5 -> GalleryEntry(p1, p2, p3, p4, p5) }
-    val galleryTapRef: @Composable (String, () -> Unit) -> Unit = { p1, p2 -> GalleryTap(p1, p2) }
-    val galleryLongPressRef: @Composable (String, () -> Unit) -> Unit = { p1, p2 -> GalleryLongPress(p1, p2) }
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -97,14 +82,16 @@ fun FriendsTabMain(
                 fontWeight = FontWeight.ExtraBold,
                 modifier = Modifier.padding(bottom = 10.dp)
             )
-            CustomLazyRow(
-                itemList = favoriteFriendsIds,
-                itemContent = galleryEntryRef,
-                tapRef = galleryTapRef,
-                longPressRef = galleryLongPressRef
-            )
+            LazyRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(favoriteFriendsIds) { id ->
+                    GalleryEntry(userId = id)
+                }
+            }
         }
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -126,9 +113,7 @@ fun FriendsTabMain(
                 items(friendsIds) { id ->
                     GalleryEntry(
                         userId = id,
-                        imageSize = 90,
-                        tapDialog = galleryTapRef,
-                        longPressPopup = galleryLongPressRef
+                        imageSize = 90
                     )
                 }
                 // 친구 추가 버튼 추가

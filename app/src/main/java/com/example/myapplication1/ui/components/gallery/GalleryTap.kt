@@ -30,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.R
-import com.example.myapplication1.ui.components.customLazy.CustomLazyRow
 
 @Composable
 fun GalleryTap(
