@@ -39,7 +39,7 @@ fun RoundTag(
     Text(
         text = text,
         fontSize = fontSize.sp,
-        fontWeight = FontWeight(600),
+        fontWeight = FontWeight(500),
         lineHeight = 16.sp,
         color = if (isSelected) Color.White else Color(0xFF5C6BC0),
         modifier = Modifier

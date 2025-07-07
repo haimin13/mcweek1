@@ -3,6 +3,7 @@ package com.example.myapplication1.ui.components.playlistsTab
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,10 +34,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.window.Dialog
+import com.example.myapplication1.ui.components.gallery.GalleryTap
 
 @Composable
 fun PlaylistHeader(playlist: Playlist) {
     var isLiked by remember { mutableStateOf(false) }
+    var showAuthorProfile by remember { mutableStateOf(false) }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(
@@ -81,10 +85,19 @@ fun PlaylistHeader(playlist: Playlist) {
         )
 
         Text(
+            modifier = Modifier
+                .clickable { showAuthorProfile = true },
             text = playlist.author,
             style = MaterialTheme.typography.titleSmall,
             color = Color.Gray
         )
+        if (showAuthorProfile) {
+            Dialog(
+                onDismissRequest = { showAuthorProfile = false }
+            ) {
+                GalleryTap (playlist.author, {showAuthorProfile = false})
+            }
+        }
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
