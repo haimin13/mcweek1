@@ -44,14 +44,19 @@ fun MyTabMain(
     myId: Int, // 외부에서 받음
     onMyIdChange: (Int) -> Unit // myId 변경 콜백
 ) {
-    var myId by remember { mutableIntStateOf(0) }
-
     var likedTags by remember {
         mutableStateOf(listOf(
             listOf(1,3,5,6,7,16,15,8,9),
-            listOf(2,4,5,7)
+            listOf(2,4,5,7),
+            listOf(1,4,8,12),
+            listOf(3,7,11,15),
+            listOf(2,6,10,14),
+            listOf(5,9,13,17),
+            listOf(1,8,15),
+            listOf(4,11,18)
         ))
     }
+
     var nicknames by remember {
         mutableStateOf(mutableListOf(
             "lil monkey",
@@ -68,6 +73,8 @@ fun MyTabMain(
     var showNicknameEditDialog by remember { mutableStateOf(false) }
     var showUserSwitchDialog by remember { mutableStateOf(false) } // 사용자 변경 다이얼로그
     var tempNickname by remember { mutableStateOf("") } // 임시 닉네임 저장
+
+    val safeMyId = if (myId < nicknames.size && myId < likedTags.size) myId else 0
 
     Column(
         modifier = Modifier
@@ -114,7 +121,7 @@ fun MyTabMain(
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Text(
-                    text = nicknames[myId],
+                    text = nicknames[safeMyId],
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp
                 )
@@ -123,7 +130,7 @@ fun MyTabMain(
                     contentDescription = null,
                     modifier = Modifier
                         .clickable {
-                            tempNickname = nicknames[myId]
+                            tempNickname = nicknames[safeMyId]
                             showNicknameEditDialog = true
                         }
                 )
@@ -142,11 +149,11 @@ fun MyTabMain(
                     fontWeight = FontWeight.Bold
                 )
                 TagList(
-                    tags = likedTags[myId],
+                    tags = likedTags[safeMyId],
                     onTagsUpdate = { newTags ->
                         // 사용자의 장르 목록 업데이트
                         likedTags = likedTags.toMutableList().apply {
-                            set(myId, newTags)
+                            set(safeMyId, newTags)
                         }
                     }
 
@@ -172,11 +179,11 @@ fun MyTabMain(
     if (showNicknameEditDialog) {
         EditNickname(
             showDialog = showNicknameEditDialog,
-            initialNickname = nicknames[myId],
+            initialNickname = nicknames[safeMyId],
             existingNicknames = nicknames,
             onNicknameUpdate = { newNickname ->
                 nicknames = nicknames.toMutableList().apply {
-                    set(myId, newNickname)
+                    set(safeMyId, newNickname)
                 }
             },
             onDismiss = { showNicknameEditDialog = false }
