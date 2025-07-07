@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Popup
 import com.example.myapplication1.R
+import com.example.myapplication1.ui.components.common.LikeButton
 
 @Composable
 fun GalleryEntry(
@@ -84,7 +85,7 @@ fun GalleryEntry(
                 contentScale = ContentScale.Crop
             )
             // 좋아요 버튼
-            IconButton(
+            /*IconButton(
                 onClick = { isLiked = !isLiked },
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
@@ -96,6 +97,13 @@ fun GalleryEntry(
                     contentDescription = if (isLiked) "좋아요 취소"  else "좋아요",
                     tint = if (isLiked) Color.Red else Color.LightGray
                 )
+            }*/
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding((imageSize/30).dp)
+            ) {
+                LikeButton()
             }
             // 탭 다이얼로그
             if (showTapDialog && onTap == null) {
