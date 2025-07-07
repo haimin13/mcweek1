@@ -49,6 +49,7 @@ fun GalleryEntry(
     showText: Boolean = false,
     showIcon: Boolean = true,
     isLiked: Boolean = false, // 좋아요 상태 추가
+    onRemoveFriend: ((String) -> Unit)? = null,
     onTap: (() -> Unit)? = null, // 탭 동작을 인자로 받음
     onLongPress: (() -> Unit)? = null, // 롱프레스 동작도 인자로 받음
     onLikeToggle: ((String, Boolean) -> Unit)? = null // 좋아요 토글 콜백 수정
@@ -115,15 +116,35 @@ fun GalleryEntry(
                     GalleryTap (contentName, {showTapDialog = false})
                 }
             }
-            // 홀드 팝업
+            // GalleryEntry.kt에서 롱프레스 팝업 수정
             if (showLongPressPopup && onLongPress == null) {
                 Popup(
                     alignment = Alignment.Center,
                     onDismissRequest = { showLongPressPopup = false }
                 ) {
-                    GalleryLongPress (contentName, {showLongPressPopup = false})
+                    GalleryLongPress(
+                        userId = contentName,
+                        isCloseFriend = isLiked, // 현재 좋아요 상태를 친한 친구 여부로 사용
+                        onRemoveFriend = { friendId ->
+                            onRemoveFriend?.invoke(friendId)
+                            showLongPressPopup = false
+                        },
+                        onToggleCloseFriend = { friendId, isClose ->
+                            onLikeToggle?.invoke(friendId, isClose)
+                            showLongPressPopup = false
+                        },
+                        onMuteFriend = { friendId ->
+                            // 음소거 기능 구현
+                            showLongPressPopup = false
+                        },
+                        onSeeProfile = { friendId ->
+                            // 프로필 보기 기능 구현
+                            showLongPressPopup = false
+                        }
+                    )
                 }
             }
+
         }
         // 닉네임
         if (showText) {
