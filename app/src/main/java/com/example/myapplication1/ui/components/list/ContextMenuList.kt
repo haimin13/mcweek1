@@ -19,9 +19,9 @@ import com.example.myapplication1.ui.components.models.ContextMenu
 
 @Composable
 fun ContextMenuList(
-    itemId: String,
     menuItems: List<ContextMenu>
 ) {
+
     Surface(
         shape = RoundedCornerShape(16.dp),
         shadowElevation = 8.dp,
@@ -29,13 +29,13 @@ fun ContextMenuList(
     ) {
         Column {
             for (i in 0 until menuItems.size - 1) {
-                ContextMenuEntry(itemId, menuItems[i])
+                ContextMenuEntry(menuItems[i])
                 Spacer(modifier = Modifier
                     .height(1.dp)
                     .width(250.dp)
                     .background(color = Color.LightGray))
             }
-            ContextMenuEntry(itemId, menuItems[menuItems.size - 1])
+            ContextMenuEntry(menuItems[menuItems.size - 1])
         }
     }
 }

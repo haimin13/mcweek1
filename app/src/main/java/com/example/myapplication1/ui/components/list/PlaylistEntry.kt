@@ -123,7 +123,7 @@ fun MyPlaylistEntry(playlist: Playlist, isCharts: Boolean) {
             Row(horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                 LikeButton()
                 Spacer(modifier = Modifier.height(8.dp))
-                MenuButton()
+                MenuButton(listOf())
             }
         }
     }
