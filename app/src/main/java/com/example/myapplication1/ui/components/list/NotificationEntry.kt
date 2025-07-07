@@ -2,12 +2,10 @@ package com.example.myapplication1.ui.components.list
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,19 +17,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.R
+import com.example.myapplication1.ui.components.models.UserLog
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.Period
 
 @Composable
-fun NotificationEntry(
-    userId: String?,
-    itemId: String?,
-    recordedTime: LocalDateTime?
-) {
+fun NotificationEntry(userLog: UserLog) {
     val currentDateTime = LocalDateTime.now()
-    val timeDiff: String = if (recordedTime != null) {
-        getTimeDifference(currentDateTime, recordedTime)
+    val timeDiff: String = if (userLog.time != null) {
+        getTimeDifference(currentDateTime, userLog.time)
     } else {
         "알 수 없음"
     }
@@ -47,14 +42,14 @@ fun NotificationEntry(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(30.dp)
-                .clip(RoundedCornerShape(10))
+                .clip(RoundedCornerShape(100))
         )
         Row(
             modifier = Modifier.weight(1f)
         ) {
             Text(
-                text = userId + "님이 " + itemId + "을(를) 좋아합니다.",
-                fontSize = 14.sp,
+                text = userLog.userName + "님이 " + userLog.itemName + "을(를) 좋아합니다.",
+                fontSize = 10.sp,
                 modifier = Modifier.padding(start = 10.dp, end = 5.dp)
             )
             Text(
@@ -78,7 +73,7 @@ fun getTimeDifference(currentTime: LocalDateTime, recordedTime: LocalDateTime): 
     val duration = Duration.between(recordedTime, currentTime).abs()
 
     return when {
-        duration.toMinutes() < 1 -> "방금 전"
+        duration.toMinutes() < 1 -> "방금"
         duration.toHours() < 1 -> "${duration.toMinutes()}분 전"
         duration.toDays() < 1 -> "${duration.toHours()}시간 전"
         else -> {
