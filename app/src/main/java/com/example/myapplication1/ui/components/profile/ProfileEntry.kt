@@ -3,6 +3,7 @@ package com.example.myapplication1.ui.components.profile
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -29,48 +30,25 @@ fun ProfileEntry(
 
     Column(
         modifier = Modifier
-            .padding(5.dp)
-            .clip(shape = RoundedCornerShape(20))
+            .clickable {  }
+            .clip(shape = RoundedCornerShape(4.dp))
             .background(color = Color.White)
-
+            .padding(horizontal = 10.dp, vertical = 6.dp)
     ) {
-        if (!isMore) {
-            Column(
-                modifier = Modifier
-                    .padding(5.dp)
-                    .clickable {  }
-            ) {
-                Text(
-                    text = tempTitle,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 13.sp,
-                    lineHeight = 13.sp
-                )
-                if (showSubtitle) {
-                    Text(
-                        text = tempSubtitle,
-                        fontSize = 10.sp,
-                        lineHeight = 10.sp,
-                        color = Color.LightGray
-                    )
-                }
-            }
+        Text(
+            text = if (!isMore) tempTitle else "more..",
+            fontWeight = FontWeight.Medium,
+            fontSize = 12.sp,
+            lineHeight = 12.sp,
+            color = if (isMore) Color.Gray else Color.Black,
+        )
+        if (showSubtitle) {
+            Text(
+                text = if (!isMore) tempSubtitle else "",
+                fontSize = 10.sp,
+                lineHeight = 10.sp,
+                color = Color.LightGray
+            )
         }
-        else {
-            Column(
-                modifier = Modifier
-                    .padding(5.dp)
-                    .clickable {  }
-            ) {
-                Text(
-                    text = "more...",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 13.sp,
-                    lineHeight = if (showSubtitle) 27.sp else 13.sp,
-                    color = Color.Gray
-                )
-            }
-        }
-
     }
 }

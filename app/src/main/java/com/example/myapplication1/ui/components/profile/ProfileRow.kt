@@ -2,6 +2,7 @@ package com.example.myapplication1.ui.components.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
@@ -28,6 +29,7 @@ fun ProfileRow(
             fontWeight = FontWeight.Bold
         )
         LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             items(7) { idx ->
                 ProfileEntry(entryType, idx)

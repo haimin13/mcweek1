@@ -33,14 +33,16 @@ fun KeywordTag(text: String) {
 fun RoundTag(
     text: String,
     fontSize: Int = 14,
+    size: String = "medium",
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
+
     Text(
         text = text,
         fontSize = fontSize.sp,
         fontWeight = FontWeight(500),
-        lineHeight = 16.sp,
+        lineHeight = fontSize.sp,
         color = if (isSelected) Color.White else Color(0xFF303F9F),
         modifier = Modifier
             .clip(RoundedCornerShape(100))
@@ -52,6 +54,9 @@ fun RoundTag(
                     Modifier.border(1.dp, Color(0xFF303F9F), RoundedCornerShape(100))
                 }
             )
-            .padding(horizontal = 10.dp, vertical = 6.dp)
+            .then(
+                if (size == "small") Modifier.padding(horizontal = 6.dp, vertical = 4.dp)
+                else Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+            )
     )
 }

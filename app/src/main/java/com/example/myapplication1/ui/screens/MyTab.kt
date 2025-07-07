@@ -32,9 +32,6 @@ import com.example.myapplication1.ui.components.profile.ProfileRow
 // Temp
 val tempIdList = listOf(1,2,3,4,5,6,7,8,9)
 
-
-
-
 @Composable
 fun MyTabMain(modifier: Modifier = Modifier) {
     var myId by remember { mutableIntStateOf(0) }
@@ -111,11 +108,8 @@ fun MyTabMain(modifier: Modifier = Modifier) {
             Column(
                 modifier = Modifier.padding(bottom = 10.dp)
             ) {
-                Text(
-                    text = "Music Preference",
-                    fontWeight = FontWeight.Bold
-                )
                 TagList(
+                    title = "Music Preference",
                     tags = likedTags[myId],
                     onTagsUpdate = { newTags ->
                         // 사용자의 장르 목록 업데이트

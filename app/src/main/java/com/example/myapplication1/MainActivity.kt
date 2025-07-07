@@ -153,7 +153,7 @@ fun MainScreen(modifier: Modifier) {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = BottomNavItem.Home.route, // Todo: Home으로 바꾸기
+            startDestination = BottomNavItem.Friends.route, // Todo: Home으로 바꾸기
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
