@@ -40,7 +40,8 @@ import com.example.myapplication1.ui.components.dialog.AddFriendDialog
 
 @Composable
 fun FriendsTabMain(
-    onNotificationClick: () -> Unit
+    onNotificationClick: () -> Unit,
+    myId: Int = 0
 ) {
     // friendsIds는 내 친구 database에서 불러옴
     var favoriteFriendsIds by remember {
@@ -54,6 +55,8 @@ fun FriendsTabMain(
             "bot4", "user3"
         ))
     }
+    var showAddFriendDialog by remember { mutableStateOf(false) }
+
     var myNickname: String = "lil monkey"
     val allUsers = listOf(
         "lil monkey", "jaedungg", "haimin13", "bot1", "bot2", "bot3",
@@ -72,7 +75,23 @@ fun FriendsTabMain(
         }
     }
 
-    var showAddFriendDialog by remember { mutableStateOf(false) }
+    fun removeFriend(friendId: String) {
+        friendsIds = friendsIds.filter { it != friendId }
+        favoriteFriendsIds = favoriteFriendsIds.filter { it != friendId }
+    }
+
+    // 친한 친구 토글 함수
+    fun toggleCloseFriend(friendId: String, isClose: Boolean) {
+        if (isClose) {
+            // 친한 친구에 추가
+            if (!favoriteFriendsIds.contains(friendId)) {
+                favoriteFriendsIds = favoriteFriendsIds + friendId
+            }
+        } else {
+            // 친한 친구에서 제거
+            favoriteFriendsIds = favoriteFriendsIds.filter { it != friendId }
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -118,6 +137,9 @@ fun FriendsTabMain(
                             isLiked = true,
                             onLikeToggle = { friendName, isLiked ->
                                 handleLikeToggle(friendName, isLiked)
+                            },
+                            onRemoveFriend = { friendId -> // 이 부분 추가
+                                removeFriend(friendId)
                             }
                         )
                     }
@@ -152,6 +174,9 @@ fun FriendsTabMain(
                             isLiked = favoriteFriendsIds.contains(id),
                             onLikeToggle = { friendName, isLiked ->
                                 handleLikeToggle(friendName, isLiked)
+                            },
+                            onRemoveFriend = { friendId -> // 이 부분 추가
+                                removeFriend(friendId)
                             }
                         )
                     }

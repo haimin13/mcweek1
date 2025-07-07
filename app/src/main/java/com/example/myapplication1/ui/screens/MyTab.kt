@@ -1,15 +1,18 @@
 package com.example.myapplication1.ui.screens
 
+import android.graphics.Paint.Align
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +31,7 @@ import com.example.myapplication1.ui.components.Edit.EditNickname
 import com.example.myapplication1.ui.components.gallery.GalleryEntry
 import com.example.myapplication1.ui.components.list.TagList
 import com.example.myapplication1.ui.components.profile.ProfileRow
+import com.example.myapplication1.ui.components.profile.UserSwitchDialog
 
 // Temp
 val tempIdList = listOf(1,2,3,4,5,6,7,8,9)
@@ -36,7 +40,10 @@ val tempIdList = listOf(1,2,3,4,5,6,7,8,9)
 
 
 @Composable
-fun MyTabMain(modifier: Modifier = Modifier) {
+fun MyTabMain(
+    myId: Int, // 외부에서 받음
+    onMyIdChange: (Int) -> Unit // myId 변경 콜백
+) {
     var myId by remember { mutableIntStateOf(0) }
 
     var likedTags by remember {
@@ -49,11 +56,17 @@ fun MyTabMain(modifier: Modifier = Modifier) {
         mutableStateOf(mutableListOf(
             "lil monkey",
             "jaedungg",
-            "haimin13"
+            "haimin13",
+            "bot1",
+            "bot2",
+            "bot3",
+            "bot4",
+            "bot5"
         ))
     }
 
     var showNicknameEditDialog by remember { mutableStateOf(false) }
+    var showUserSwitchDialog by remember { mutableStateOf(false) } // 사용자 변경 다이얼로그
     var tempNickname by remember { mutableStateOf("") } // 임시 닉네임 저장
 
     Column(
@@ -61,6 +74,19 @@ fun MyTabMain(modifier: Modifier = Modifier) {
             .padding(top = 50.dp, start = 20.dp, end = 20.dp)
             .fillMaxWidth(),
     ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Settings,
+                contentDescription = null,
+                modifier = Modifier
+                    .clickable {
+                        showUserSwitchDialog = true
+                    }
+            )
+        }
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -129,20 +155,17 @@ fun MyTabMain(modifier: Modifier = Modifier) {
             ProfileRow(
                 rowName = "Liked Songs",
                 entryList = tempIdList,
-                entryType = "Song",
-                modifier = modifier
+                entryType = "Song"
             )
             ProfileRow(
                 rowName = "Playlists",
                 entryList = tempIdList,
-                entryType = "Playlist",
-                modifier = modifier
+                entryType = "Playlist"
             )
             ProfileRow(
                 rowName = "Favorite Artists",
                 entryList = tempIdList,
-                entryType = "Artist",
-                modifier = modifier
+                entryType = "Artist"
             )
         }
     }
@@ -157,6 +180,18 @@ fun MyTabMain(modifier: Modifier = Modifier) {
                 }
             },
             onDismiss = { showNicknameEditDialog = false }
+        )
+    }
+    // 사용자 변경 다이얼로그
+    if (showUserSwitchDialog) {
+        UserSwitchDialog(
+            currentUserId = myId,
+            userList = nicknames,
+            onUserSwitch = { newId ->
+                onMyIdChange(newId) // 상위 컴포넌트에 myId 변경 알림
+                showUserSwitchDialog = false
+            },
+            onDismiss = { showUserSwitchDialog = false }
         )
     }
 }
