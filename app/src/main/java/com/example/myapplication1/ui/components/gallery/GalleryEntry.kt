@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -38,27 +39,40 @@ import com.example.myapplication1.R
 
 @Composable
 fun GalleryEntry(
-    userId: String,
+    contentId: Int = 0,
+    contentType: String = "",
+    contentName: String = "",
     imageSize: Int = 100,
     textSize: Int = 13,
-    modifier: Modifier = Modifier
+    showText: Boolean = false,
+    onTap: (() -> Unit)? = null, // 탭 동작을 인자로 받음
+    onLongPress: (() -> Unit)? = null, // 롱프레스 동작도 인자로 받음
+    onLikeToggle: ((Boolean) -> Unit)? = null // 좋아요 토글 동작
 ) {
     // isLiked 기본값은 database에 따르도록 변경
     var isLiked by remember { mutableStateOf(false) }
     var showTapDialog by remember { mutableStateOf(false) }
     var showLongPressPopup by remember { mutableStateOf(false) }
 
+
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.width(imageSize.dp)
     ) {
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .size(imageSize.dp)
                 .clip(RoundedCornerShape(10))
                 .pointerInput(Unit) {
                     detectTapGestures(
-                        onTap = { showTapDialog = true },
-                        onLongPress = { showLongPressPopup = true }
+                        onTap = {
+                            if (onTap != null) { onTap() } // 외부에서 전달받은 탭 동작 실행
+                            else { showTapDialog = true } // 기본 동작 (기존 다이얼로그)
+                        },
+                        onLongPress = {
+                            if (onLongPress != null) { onLongPress() } // 외부에서 전달받은 롱프레스 동작 실행
+                            else { showLongPressPopup = true } // 기본 동작 (기존 팝업)
+                        }
                     )
                 }
         ) {
@@ -84,29 +98,31 @@ fun GalleryEntry(
                 )
             }
             // 탭 다이얼로그
-            if (showTapDialog) {
+            if (showTapDialog && onTap == null) {
                 Dialog(
                     onDismissRequest = { showTapDialog = false }
                 ) {
-                    GalleryTap (userId, {showTapDialog = false})
+                    GalleryTap (contentName, {showTapDialog = false})
                 }
             }
             // 홀드 팝업
-            if (showLongPressPopup) {
+            if (showLongPressPopup && onLongPress == null) {
                 Popup(
                     alignment = Alignment.Center,
                     onDismissRequest = { showLongPressPopup = false }
                 ) {
-                    GalleryLongPress (userId, {showLongPressPopup = false})
+                    GalleryLongPress (contentName, {showLongPressPopup = false})
                 }
             }
         }
         // 닉네임
-        Text(
-            text = userId,
-            fontSize = textSize.sp,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
+        if (showText) {
+            Text(
+                text = contentName,
+                fontSize = textSize.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
     }
 }
