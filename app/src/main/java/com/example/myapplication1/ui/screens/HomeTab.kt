@@ -93,7 +93,8 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
                     GalleryEntry(
                         contentName = id,
                         onTap = {},
-                        onLongPress = {}
+                        onLongPress = {},
+                        showText = true
                         )
                 }
             }
