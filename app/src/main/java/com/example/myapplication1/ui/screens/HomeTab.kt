@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication1.ui.components.gallery.GalleryEntry
 import com.example.myapplication1.ui.components.gallery.RecentPlaylistsEntry
 import com.example.myapplication1.ui.components.list.NotificationEntry
 import java.time.LocalDateTime
@@ -61,7 +62,11 @@ fun HomeTabMain(modifier: Modifier = Modifier) {
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(recentPlaylists) { id ->
-                    RecentPlaylistsEntry(id, onClick = {})
+                    GalleryEntry(
+                        contentName = id,
+                        onTap = {},
+                        onLongPress = {}
+                        )
                 }
             }
         }

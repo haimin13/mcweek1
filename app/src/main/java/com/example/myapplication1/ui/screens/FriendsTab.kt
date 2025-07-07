@@ -87,7 +87,7 @@ fun FriendsTabMain(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(favoriteFriendsIds) { id ->
-                    GalleryEntry(userId = id)
+                    GalleryEntry(contentName = id, showText = true)
                 }
             }
         }
@@ -112,8 +112,9 @@ fun FriendsTabMain(
             ) {
                 items(friendsIds) { id ->
                     GalleryEntry(
-                        userId = id,
-                        imageSize = 90
+                        contentName = id,
+                        imageSize = 90,
+                        showText = true
                     )
                 }
                 // 친구 추가 버튼 추가

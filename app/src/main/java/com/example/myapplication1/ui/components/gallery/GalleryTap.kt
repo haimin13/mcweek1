@@ -30,6 +30,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.R
+import com.example.myapplication1.ui.components.profile.ProfileRow
+import com.example.myapplication1.ui.screens.tempIdList
 
 @Composable
 fun GalleryTap(
@@ -38,7 +40,7 @@ fun GalleryTap(
 ){
     Surface(
         modifier = Modifier.size(400.dp, 550.dp),
-        color = Color.White,
+        color = Color(0xfff3f3f3),
         shape = RoundedCornerShape(16.dp),
         shadowElevation = 8.dp
     ) {
@@ -70,11 +72,8 @@ fun GalleryTap(
                     fontSize = 20.sp
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                Image(
-                    painter = painterResource(R.drawable.dummy),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.clip(RoundedCornerShape(10))
+                GalleryEntry(
+                    imageSize = 150
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Column(
@@ -87,24 +86,21 @@ fun GalleryTap(
                     )
                     // CustomLazyRow(장르)
                     Spacer(modifier = Modifier.height(25.dp)) // 임시
-                    Text(
-                        text = "Liked Song",
-                        fontWeight = FontWeight.Bold
+                    ProfileRow(
+                        rowName = "Liked Songs",
+                        entryList = tempIdList,
+                        entryType = "Song"
                     )
-                    // CustomLazyRow(곡)
-                    Spacer(modifier = Modifier.height(40.dp)) // 임시
-                    Text(
-                        text = "Playlists",
-                        fontWeight = FontWeight.Bold
+                    ProfileRow(
+                        rowName = "Playlists",
+                        entryList = tempIdList,
+                        entryType = "Playlist"
                     )
-                    // CustomLazyRow(플리)
-                    Spacer(modifier = Modifier.height(30.dp)) // 임시
-                    Text(
-                        text = "Favorite Artists",
-                        fontWeight = FontWeight.Bold
+                    ProfileRow(
+                        rowName = "Favorite Artists",
+                        entryList = tempIdList,
+                        entryType = "Artist"
                     )
-                    // CustomLazyRow(가수)
-                    Spacer(modifier = Modifier.height(30.dp)) // 임시
                 }
             }
         }

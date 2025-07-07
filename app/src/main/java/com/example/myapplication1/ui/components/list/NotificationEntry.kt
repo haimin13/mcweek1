@@ -40,7 +40,6 @@ fun NotificationEntry(
         modifier = Modifier
             .fillMaxWidth()
             .clickable {}
-
     ){
         Image(
             painter = painterResource(R.drawable.dummy),
