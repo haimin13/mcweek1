@@ -70,12 +70,15 @@ import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import com.example.myapplication1.ui.theme.MyApplication1Theme
 import com.example.myapplication1.ui.screens.PlaylistsTabMain
+import com.example.myapplication1.ui.screens.playlists.PlaylistDetailScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-
+import androidx.navigation.navArgument
+import com.example.myapplication1.ui.components.models.Playlist
+import com.example.myapplication1.ui.screens.playlists.findPlaylistById
 
 
 sealed class BottomNavItem(
@@ -150,14 +153,16 @@ fun MainScreen(modifier: Modifier) {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = BottomNavItem.Home.route,
-            modifier = Modifier.padding(innerPadding)
+            startDestination = BottomNavItem.Friends.route,
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
         ) {
             navigation(startDestination = "homeMain", route = BottomNavItem.Home.route) {
                 composable("homeMain") { HomeTabMain() }
             }
             navigation(startDestination = "playlistsMain", route = BottomNavItem.Playlists.route) {
-                composable("playlistsMain") { PlaylistsTabMain() }
+                composable("playlistsMain") { PlaylistsTabMain(modifier = Modifier, navController = navController)}
             }
             navigation(startDestination = "friendsMain", route = BottomNavItem.Friends.route) {
                 composable("friendsMain") {
@@ -173,6 +178,17 @@ fun MainScreen(modifier: Modifier) {
             }
             navigation(startDestination = "myMain", route = BottomNavItem.My.route) {
                 composable("myMain") { MyTabMain() }
+            }
+
+            // ✅ 추가: 상세 화면 경로
+//            this.composable(
+            composable(
+                route = "playlistDetail/{playlistId}",
+                arguments = listOf(navArgument("playlistId") { type = androidx.navigation.NavType.IntType })
+            ) { backStackEntry ->
+                val playlistId = backStackEntry.arguments?.getInt("playlistId") ?: return@composable
+                val playlist = findPlaylistById(playlistId)
+                PlaylistDetailScreen(playlist = playlist, navController = navController)
             }
         }
     }
