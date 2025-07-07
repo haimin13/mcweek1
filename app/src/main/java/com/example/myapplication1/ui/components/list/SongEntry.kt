@@ -68,7 +68,7 @@ fun SongEntry(song: Song, isCharts: Boolean) {
                 )
             }
 
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(8.dp))
 
             // 제목 + 태그
             Column(modifier = Modifier.weight(1f)) {

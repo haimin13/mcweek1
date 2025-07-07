@@ -36,6 +36,7 @@ import androidx.navigation.NavController
 import com.example.myapplication1.ui.components.gallery.GalleryEntry
 import com.example.myapplication1.ui.components.list.FriendsUpdateList
 import com.example.myapplication1.ui.components.list.PlaylistList
+import com.example.myapplication1.ui.components.list.SlidingList
 import com.example.myapplication1.ui.components.list.SongList
 import com.example.myapplication1.ui.screens.playlists.TrendingNow
 import com.example.myapplication1.ui.screens.playlists.likedPlayList
@@ -123,45 +124,12 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
         ) {
             var selectedType by remember { mutableIntStateOf(0) }
 
-            val types = listOf("Songs", "Playlists")
-
             Title("Trending now")
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(color = Color.LightGray)
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                SubTitle(types[selectedType])
-
-                when (selectedType) {
-                    0 -> SongList(songs = TrendingNow.take(3), isCharts = true)
-                    1 -> PlaylistList(playlists = likedPlayList.take(3), navController = navController)
-                }
-
-                // 하단 슬라이드 버튼
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 4.dp),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    types.forEachIndexed {index, type ->
-                        val isSelected = index == selectedType
-                        Box(
-                            modifier = Modifier
-                                .padding(horizontal = 4.dp)
-                                .clip(CircleShape)
-                                .background(if (isSelected) Color.White else Color.Gray)
-                                .size(8.dp)
-                                .clickable { selectedType = index }
-                        )
-                    }
-                }
-            }
+            SlidingList(
+                selectedType = selectedType,
+                onTypeChange = { selectedType = it },
+                navController = navController
+            )
         }
     }
 }

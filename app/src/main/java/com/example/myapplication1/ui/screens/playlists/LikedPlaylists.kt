@@ -41,6 +41,7 @@ val likedPlayList = listOf (
                 isLiked = true,
             )
         ),
+        ranking = 1
     ),
     Playlist(
         thumbnailResId = R.drawable.dummy,
@@ -68,6 +69,7 @@ val likedPlayList = listOf (
                 isLiked = true,
             )
         ),
+        ranking = 2
     )
 )
 
