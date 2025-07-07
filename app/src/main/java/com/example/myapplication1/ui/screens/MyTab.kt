@@ -1,8 +1,10 @@
 package com.example.myapplication1.ui.screens
 
 import android.graphics.Paint.Align
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Settings
@@ -23,6 +27,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -106,13 +112,32 @@ fun MyTabMain(
                 fontSize = 30.sp,
             )
             Spacer(modifier = Modifier.height(50.dp))
-            GalleryEntry(
-                contentName = "",
-                showText = false,
-                imageSize = 200,
-                showIcon = false,
-                onTap = {}, onLongPress = {}
-            )
+            Box() {
+                GalleryEntry(
+                    contentName = "",
+                    showText = false,
+                    imageSize = 200,
+                    showIcon = false,
+                    onTap = {}, onLongPress = {}
+                )
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(10.dp)
+                        .size(25.dp)
+                        .clip(shape = RoundedCornerShape(90))
+                        .background(color = Color.LightGray)
+                        .clickable {},
+                    contentAlignment = Alignment.Center
+                ){
+                    Icon(
+                        imageVector = Icons.Filled.Edit,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(20.dp)
+                        )
+                }
+            }
             Row(
                 modifier = Modifier
                     .padding(top = 15.dp, bottom = 10.dp)
@@ -156,7 +181,6 @@ fun MyTabMain(
                             set(safeMyId, newTags)
                         }
                     }
-
                 )
             }
             ProfileRow(
