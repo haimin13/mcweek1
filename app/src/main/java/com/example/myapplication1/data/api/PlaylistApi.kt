@@ -13,9 +13,15 @@ interface PlaylistApi {
   suspend fun addPlaylist(@Body playlist: Playlist): Response<String>
 
   @GET("playlists/list")
-  suspend fun getPlaylistsByUser(
+  suspend fun getMyPlaylistsByUser(
       @Query("id") id: Int,
-      @Query("type") type: String = "all"
+      @Query("type") type: String = "created"
+  ): List<Playlist>
+
+  @GET("playlists/list")
+  suspend fun getLikedPlaylistsByUser(
+    @Query("id") id: Int,
+    @Query("type") type: String = "liked"
   ): List<Playlist>
 
   @GET("playlists/recent")

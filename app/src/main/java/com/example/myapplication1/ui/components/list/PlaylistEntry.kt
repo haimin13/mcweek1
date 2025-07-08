@@ -27,23 +27,10 @@ import com.example.myapplication1.ui.components.common.KeywordTag
 import com.example.myapplication1.ui.components.common.LikeButton
 import com.example.myapplication1.ui.components.common.MenuButton
 import com.example.myapplication1.ui.components.gallery.GalleryLongPress
-import com.example.myapplication1.ui.components.models.Playlist
+import com.example.myapplication1.data.model.Playlist
 
 @Composable
 fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
-    val openDialog = remember { mutableStateOf(false) }
-
-    if (openDialog.value) {
-        AlertDialogExample(
-            onDismissRequest = { openDialog.value = false },
-            onConfirmation = {
-                openDialog.value = false
-            },
-            dialogTitle = "이 노래가 마음에 드시나요?",
-            dialogText = "${playlist.title} - ${playlist.author}\n를 플레이리스트에 추가합니다.",
-            icon = Icons.Default.Info
-        )
-    }
 
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -70,7 +57,9 @@ fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
             // 썸네일
             Box(modifier = Modifier.size(52.dp)) {
                 Image(
-                    painter = painterResource(id = playlist.thumbnailResId ?: R.drawable.dummy),
+                    //TODO:
+//                    painter = painterResource(id = playlist.thumbnailId ?: R.drawable.dummy),
+                    painter = painterResource(R.drawable.dummy),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
@@ -104,7 +93,7 @@ fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
                     }
                 }
                 Text(
-                    text = playlist.author,
+                    text = playlist.author.toString(), //Todo: playlist.author (Int)로 이름 가져오기
                     style = MaterialTheme.typography.labelSmall,
                     color = Color.Gray
                 )
@@ -112,7 +101,7 @@ fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
                 Spacer(modifier = Modifier.height(2.dp))
 
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    playlist.keywords.forEach { keyword ->
+                    playlist.keywords?.forEach { keyword ->
                         KeywordTag(text = keyword)
                     }
                 }
@@ -128,26 +117,4 @@ fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
             }
         }
     }
-}
-
-
-@Composable
-fun AlertDialogExample(
-    onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
-    dialogTitle: String,
-    dialogText: String,
-    icon: ImageVector,
-) {
-    AlertDialog(
-        title = { Text(dialogTitle) },
-        text = { Text(dialogText) },
-        onDismissRequest = onDismissRequest,
-        confirmButton = {
-            TextButton(onClick = onConfirmation) { Text("Confirm") }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismissRequest) { Text("Dismiss") }
-        }
-    )
 }

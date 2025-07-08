@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.ui.components.list.SongList
-import com.example.myapplication1.ui.components.models.Playlist
+import com.example.myapplication1.data.model.Playlist
 import com.example.myapplication1.ui.components.playlistsTab.PlaylistHeader
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -63,11 +63,12 @@ fun PlaylistDetailDialog(
                         thickness = 1.dp,
                         modifier = Modifier.padding(vertical = 12.dp, horizontal = 12.dp)
                     )
-                    SongList(
-                        songs = playlist.songs.orEmpty(),
-                        isCharts = false,
-                        modifier = Modifier.padding(horizontal = 12.dp)
-                    )
+                    // TODO:
+//                    SongList(
+//                        songs = playlist.songs.orEmpty(),
+//                        isCharts = false,
+//                        modifier = Modifier.padding(horizontal = 12.dp)
+//                    )
                 }
             }
         }

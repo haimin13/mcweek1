@@ -4,7 +4,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.myapplication1.ui.components.models.Playlist
+import com.example.myapplication1.data.model.Playlist
 import com.example.myapplication1.ui.components.popup.PlaylistDetailDialog
 
 @Composable

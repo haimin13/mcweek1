@@ -114,10 +114,10 @@ fun MainScreen(modifier: Modifier) {
                 .fillMaxSize()
         ) {
             navigation(startDestination = "homeMain", route = BottomNavItem.Home.route) {
-                composable("homeMain") { HomeTabMain(navController = navController) }
+                composable("homeMain") { HomeTabMain(navController = navController, myId = 1) }
             }
             navigation(startDestination = "playlistsMain", route = BottomNavItem.Playlists.route) {
-                composable("playlistsMain") { PlaylistsTabMain(modifier = Modifier, navController = navController)}
+                composable("playlistsMain") { PlaylistsTabMain(modifier = Modifier, navController = navController, myId = 1)}
             }
             navigation(startDestination = "friendsMain", route = BottomNavItem.Friends.route) {
                 composable("friendsMain") {

@@ -28,7 +28,7 @@ import androidx.navigation.NavController
 import com.example.myapplication1.ui.components.gallery.GalleryEntry
 import com.example.myapplication1.ui.components.list.FriendsUpdateList
 import com.example.myapplication1.ui.components.list.SlidingList
-import com.example.myapplication1.ui.components.models.Playlist
+import com.example.myapplication1.data.model.Playlist
 import com.example.myapplication1.ui.components.popup.PlaylistDetailDialog
 import com.example.myapplication1.ui.screens.playlists.playList
 
@@ -52,7 +52,7 @@ fun SubTitle(text: String) {
 }
 
 @Composable
-fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
+fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController, myId: Int = 0) {
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -77,17 +77,18 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(playList) { playlist ->
-                    playlist.thumbnailResId?.let {
-                        GalleryEntry(
-                            contentName = playlist.title,
-                            thumbnailResId = it,
-                            onTap = { selectedPlaylist = playlist },
-                            onLongPress = {},
-                            showText = true
-                        )
-                    }
-                }
+                // TODO: Recent playlist 불러오기
+//                items(playList) { playlist ->
+//                    playlist.thumbnailId?.let {
+//                        GalleryEntry(
+//                            contentName = playlist.title,
+//                            thumbnailResId = it,
+//                            onTap = { selectedPlaylist = playlist },
+//                            onLongPress = {},
+//                            showText = true
+//                        )
+//                    }
+//                }
             }
         }
 

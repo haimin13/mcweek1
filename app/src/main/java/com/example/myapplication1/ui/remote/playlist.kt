@@ -12,19 +12,34 @@ import kotlinx.coroutines.launch
 class PlaylistViewModel : ViewModel() {
     private val repository = PlaylistRepository()
 
-    private val _playlists = MutableLiveData<List<Playlist>>()
-    val playlists: LiveData<List<Playlist>> = _playlists
+    private val _myPlaylists = MutableLiveData<List<Playlist>>()
+    val myPlaylists: LiveData<List<Playlist>> = _myPlaylists
 
-    fun loadPlaylists(userId: Int) {
+    private val _likedPlaylists = MutableLiveData<List<Playlist>>()
+    val likedPlaylists: LiveData<List<Playlist>> = _likedPlaylists
+
+    fun loadMyPlaylists(userId: Int) {
         viewModelScope.launch {
             try {
-                val result = repository.getPlaylistsByUser(userId, "all")
-                Log.d("Playlists", "플레이리스트 갯수: ${result.size}")
-                Log.d("Playlists", "내용: $result")
-                _playlists.value = result
+                val result = repository.getMyPlaylistsByUser(userId, "created")
+                Log.d("Playlists", "내가 만든 플레이리스트 갯수: ${result.size}")
+                _myPlaylists.value = result
             } catch (e: Exception) {
-                Log.e("PlaylistViewModel", "오류: ${e.message}")
+                Log.e("PlaylistViewModel", "loadMyPlaylists 오류: ${e.message}")
+            }
+        }
+    }
+
+    fun loadLikedPlaylists(userId: Int) {
+        viewModelScope.launch {
+            try {
+                val result = repository.getLikedPlaylistsByUser(userId, "liked")
+                Log.d("Playlists", "좋아요한 플레이리스트 갯수: ${result.size}")
+                _likedPlaylists.value = result
+            } catch (e: Exception) {
+                Log.e("PlaylistViewModel", "loadLikedPlaylists 오류: ${e.message}")
             }
         }
     }
 }
+
