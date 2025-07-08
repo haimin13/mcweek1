@@ -8,7 +8,7 @@ import org.example.data.PlaylistRepository
 fun Route.playlistRoutes() {
     route("/playlists") {
         get("/recent") {
-            call.respond(PlaylistRepository.getRecentPlaylists())
+            call.respondText("Hello from playlists!")
         }
     }
 }

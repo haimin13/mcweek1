@@ -8,6 +8,8 @@ import io.ktor.server.netty.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.example.routes.playlistRoutes
+import org.example.routes.friendsRoutes
 
 class App {
     val greeting: String
@@ -20,8 +22,10 @@ fun main() {
     embeddedServer(Netty, port = 8080) {
         routing {
             get("/") {
-                call.respondText("Hello from Ktor!")
+                call.respondText("Hello from Ktor2222!")
             }
+            playlistRoutes()
+            friendsRoutes()
         }
     }.start(wait = true)
 }

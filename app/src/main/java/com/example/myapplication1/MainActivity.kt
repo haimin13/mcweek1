@@ -169,11 +169,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyApplication1Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { _ ->
+                Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
                     MainScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .systemBarsPadding()
+                            .padding(paddingValues)
                     )
                 }
             }
