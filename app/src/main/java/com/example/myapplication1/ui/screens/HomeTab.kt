@@ -40,6 +40,7 @@ import com.example.myapplication1.ui.components.list.SlidingList
 import com.example.myapplication1.ui.components.list.SongList
 import com.example.myapplication1.ui.screens.playlists.TrendingNow
 import com.example.myapplication1.ui.screens.playlists.likedPlayList
+import com.example.myapplication1.ui.screens.playlists.playList
 
 @Composable
 fun Title(text: String) {
@@ -62,15 +63,6 @@ fun SubTitle(text: String) {
 
 @Composable
 fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
-    var recentPlaylists = listOf(
-        "매일이 주말이라면 좋겠어",
-        "슬슬 연말 분위기를 내볼까요?",
-        "매일이 주말이라면 좋겠어",
-        "슬슬 연말 분위기를 내볼까요?",
-        "매일이 주말이라면 좋겠어",
-        "슬슬 연말 분위기를 내볼까요?"
-    )
-
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -81,7 +73,6 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
-//                .fillMaxHeight(0.4f),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Title("Recent")
@@ -89,9 +80,10 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                items(recentPlaylists) { id ->
+                items(playList) { playlist ->
                     GalleryEntry(
-                        contentName = id,
+                        contentName = playlist.title,
+                        thumbnailResId = ,
                         onTap = {},
                         onLongPress = {},
                         showText = true
