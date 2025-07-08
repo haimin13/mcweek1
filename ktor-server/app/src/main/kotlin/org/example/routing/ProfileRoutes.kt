@@ -42,8 +42,11 @@ fun Route.profileRoute() {
                 }
 
                 val createdPlaylists = user.createdPlaylists?.take(5)?.mapNotNull { playlistId ->
-                    PlaylistStorage.findPlaylistById(playlistId)?.let { playlist ->
+                    val playlist = PlaylistStorage.findPlaylistById(playlistId)
+                    if (playlist != null) {
                         ProfilePlaylist(id = playlist.id, title = playlist.title)
+                    } else {
+                        null
                     }
                 }
 
@@ -91,7 +94,7 @@ fun Route.profileRoute() {
                     return@put
                 }
 
-                if (UserStorage.getUsers().any { it.nickname == changedName && it.id != id }) {
+                if (UserStorage.users.any { it.nickname == changedName && it.id != id }) {
                     call.respondText("Nickname already exists.", status = HttpStatusCode.Conflict)
                     return@put
                 }
@@ -137,6 +140,16 @@ fun Route.profileRoute() {
                 user.likedGenres = newLikedGenres
                 call.respondText("Liked genres updated successfully.", status = HttpStatusCode.OK)
 
+            } catch (e: Exception) {
+                call.respondText("Internal Server Error: ${e.message}", status = HttpStatusCode.InternalServerError)
+                e.printStackTrace()
+            }
+        }
+
+        get("/switch") {
+            try {
+                val userIds = UserStorage.users.map { it.id }
+                call.respond(userIds)
             } catch (e: Exception) {
                 call.respondText("Internal Server Error: ${e.message}", status = HttpStatusCode.InternalServerError)
                 e.printStackTrace()
