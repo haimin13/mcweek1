@@ -56,7 +56,7 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
     Column (
         modifier = Modifier
             .fillMaxSize()
-            .padding(vertical = 20.dp, horizontal = 12.dp),
+            .padding(vertical = 16.dp, horizontal = 12.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ){
         var selectedPlaylist by remember { mutableStateOf<Playlist?>(null) }
