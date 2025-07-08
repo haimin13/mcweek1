@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     application
+    kotlin("plugin.serialization") version "1.9.10"
 }
 
 repositories {
@@ -21,6 +22,8 @@ dependencies {
     // 테스트 원하면 유지
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 }
 
 java {
