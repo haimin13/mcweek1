@@ -301,6 +301,146 @@
           }
         }
       }
+    }, 
+    "/likes/add": {
+      "post": {
+        "summary": "사용자가 노래, 플레이리스트, 아티스트에 좋아요를 추가합니다.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "좋아요를 누른 유저의 ID"
+          },
+          {
+            "name": "itemType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["song", "playlist", "artist"]
+            },
+            "description": "좋아요 대상 타입"
+          },
+          {
+            "name": "itemId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "좋아요 대상 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "좋아요 등록 완료",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "좋아요가 성공적으로 추가되었습니다."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "필수 파라미터 누락 또는 잘못된 타입",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "userId, itemType, itemId는 필수입니다."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "해당 유저를 찾을 수 없음",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "유저를 찾을 수 없습니다."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/likes/remove": {
+      "delete": {
+        "summary": "사용자가 노래, 플레이리스트, 아티스트에 좋아요를 취소합니다.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "좋아요를 누른 유저의 ID"
+          },
+          {
+            "name": "itemType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["song", "playlist", "artist"]
+            },
+            "description": "좋아요 대상 타입"
+          },
+          {
+            "name": "itemId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "좋아요 대상 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "좋아요 취소 완료",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "좋아요가 성공적으로 취소되었습니다."
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "필수 파라미터 누락 또는 잘못된 타입",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "userId, itemType, itemId는 필수입니다."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "해당 유저를 찾을 수 없음",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "유저를 찾을 수 없습니다."
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

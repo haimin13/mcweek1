@@ -20,6 +20,7 @@ import org.example.routing.chartsRoute
 import org.example.routing.friendsLogRoute
 import org.example.routing.genreRoute
 import org.example.routing.artistRoute
+import org.example.routing.likesRoute
 
 
 fun main() {
@@ -50,7 +51,7 @@ fun main() {
             friendsLogRoute()
             genreRoute()
             artistRoute()
-            
+            likesRoute()
 
         }
     }.start(wait = true)
