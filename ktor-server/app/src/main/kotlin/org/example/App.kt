@@ -17,6 +17,9 @@ import io.ktor.http.HttpStatusCode
 import org.example.routing.playlistRoute
 import org.example.routing.songRoute
 import org.example.routing.chartsRoute
+import org.example.routing.friendsLogRoute
+import org.example.routing.genreRoute
+import org.example.routing.artistRoute
 
 
 fun main() {
@@ -44,6 +47,9 @@ fun main() {
             playlistRoute()
             songRoute()
             chartsRoute()
+            friendsLogRoute()
+            genreRoute()
+            artistRoute()
             
 
         }
