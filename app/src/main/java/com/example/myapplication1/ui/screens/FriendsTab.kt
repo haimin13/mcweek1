@@ -159,7 +159,7 @@ fun FriendsTabMain(
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(4),
                     modifier = Modifier.fillMaxSize(),
-                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     items(
@@ -168,7 +168,7 @@ fun FriendsTabMain(
                     ) { id ->
                         GalleryEntry(
                             contentName = id,
-                            imageSize = 80, // 이미지 크기를 줄임
+                            imageSize = 88, // 이미지 크기를 줄임
                             showText = true,
                             isLiked = favoriteFriendsIds.contains(id),
                             onLikeToggle = { friendName, isLiked ->

@@ -9,11 +9,17 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.R
@@ -44,11 +50,21 @@ fun NotificationEntry(userLog: UserLog) {
                 .clip(RoundedCornerShape(100))
         )
         Row(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = userLog.userName + "님이 " + userLog.itemName + "을(를) 좋아합니다.",
-                fontSize = 10.sp,
+                text = buildAnnotatedString {
+                    withStyle(style = SpanStyle(fontWeight = FontWeight(500))) {
+                        append(userLog.userName)
+                    }
+                    append("님이 ")
+                    withStyle(style = SpanStyle(fontWeight = FontWeight(500))) {
+                        append(userLog.itemName)
+                    }
+                    append("을(를) 좋아합니다.")
+                },
+                fontSize = 11.sp,
                 modifier = Modifier.padding(start = 10.dp, end = 5.dp)
             )
             Text(
