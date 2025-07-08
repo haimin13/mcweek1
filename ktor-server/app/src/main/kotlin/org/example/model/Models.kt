@@ -35,11 +35,11 @@ data class Song(
 @Serializable
 data class User(
     val id: Int,
-    val nickname: String,
+    var nickname: String,
     val thumbnailId: Int? = null,
     @Contextual val friends: MutableList<Int>? = null,
     @Contextual val closeFriends: MutableList<Int>? = null,
-    @Contextual val likedGenres: MutableList<Int>? = null,
+    @Contextual var likedGenres: MutableList<Int>? = null,
     @Contextual val likedSongs: MutableList<Int>? = null,
     @Contextual val likedPlaylists: MutableList<Int>? = null,
     @Contextual val likedArtists: MutableList<Int>? = null,
@@ -50,8 +50,9 @@ data class User(
 data class Artist(
     val id: Int,
     val nickname: String,
-    val thumbnaliId: Int? = null,
+    val thumbnailId: Int? = null,
     @Contextual val likedGenres: MutableList<Int>? = null,
+    @Contextual val likedBy: MutableList<Int>? = null,
     @Contextual val songsId: MutableList<Int>? = null
 )
 
@@ -83,10 +84,14 @@ data class SearchResponse(
     val success: Boolean,
     val message: String
 )
+
 @Serializable
 data class ChartResponse(
     val songs: List<Song>,
     val playlists: List<Playlist>
+)
+
+@Serializable
 data class ProfileSong(
     val id: Int,
     val title: String,

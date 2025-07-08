@@ -3,10 +3,17 @@ package org.example.storage
 import org.example.models.Artist
 
 object ArtistStorage {
-    private val artists = mutableListOf(
-        Artist(id = 1, nickname = "Artist A", thumbnailId = 1, likedGenres = mutableListOf(1, 3), likedBy = mutableListOf(1, 2), songsId = mutableListOf(101, 102)),
-        Artist(id = 2, nickname = "Artist B", thumbnailId = 2, likedGenres = mutableListOf(2, 4), likedBy = mutableListOf(3), songsId = mutableListOf(103, 104)),
-        Artist(id = 3, nickname = "Artist C", thumbnailId = 3, likedGenres = mutableListOf(5), likedBy = mutableListOf(1), songsId = mutableListOf(105))
+    val artists = mutableListOf(
+        Artist(1, "IU", 21, mutableListOf(1, 9), mutableListOf(1, 2), mutableListOf(101, 102)),
+        Artist(2, "BTS", 22, mutableListOf(1, 3), mutableListOf(3, 4), mutableListOf(101, 102)),
+        Artist(3, "Adele", 23, mutableListOf(1, 5), mutableListOf(5), mutableListOf(101, 102)),
+        Artist(4, "Drake", 24, mutableListOf(3, 9), mutableListOf(6), mutableListOf(101, 102)),
+        Artist(5, "Coldplay", 25, mutableListOf(2), mutableListOf(7), mutableListOf(101, 102)),
+        Artist(6, "Beethoven", 26, mutableListOf(5), mutableListOf(8), mutableListOf(101, 102)),
+        Artist(7, "SZA", 27, mutableListOf(9), mutableListOf(9), mutableListOf(101, 102)),
+        Artist(8, "Zico", 28, mutableListOf(3), mutableListOf(10), mutableListOf(101, 102)),
+        Artist(9, "Dean", 29, mutableListOf(9, 10), mutableListOf(11), mutableListOf(101, 102)),
+        Artist(10, "Lauv", 30, mutableListOf(1), mutableListOf(12), mutableListOf(101, 102))
     )
 
     fun getAllArtists(): MutableList<Artist> = artists

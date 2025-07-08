@@ -4,7 +4,7 @@ import org.example.models.User
 
 
 object UserStorage {
-    private val users = mutableListOf(
+    val users = mutableListOf(
         User(
             id = 1,
             nickname = "user1",
@@ -138,7 +138,7 @@ object UserStorage {
             createdPlaylists = mutableListOf(1, 3)
         )
     )
-    fun getUsers(): MutableList<User> = users
+    
 
     fun add(user: User) {
         users.add(user)

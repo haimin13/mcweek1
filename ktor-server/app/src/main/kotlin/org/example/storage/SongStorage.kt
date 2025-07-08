@@ -114,4 +114,8 @@ object SongStorage {
         includedIn = mutableListOf(40),
         ranking = 10
     )
+  )
+    fun getAllSongs(): MutableList<Song> = songs
+
+    fun findSongById(id: Int): Song? = songs.find { it.id == id }
 }

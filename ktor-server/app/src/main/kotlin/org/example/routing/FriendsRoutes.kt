@@ -7,8 +7,6 @@ import org.example.models.FriendInfo
 import org.example.models.User
 import org.example.models.SearchResponse
 import org.example.storage.UserStorage
-import org.example.storage.UserLogStorage
-import org.example.models.UserLog
 import io.ktor.http.HttpStatusCode
 
 fun Route.friendsRoute() {
@@ -113,31 +111,6 @@ fun Route.friendsRoute() {
                 } else {
                     call.respond(SearchResponse(success = false, message = "친구 추가 실패"))
                 }
-            } catch (e: Exception) {
-                call.respondText("Internal Server Error: ${e.message}", status = HttpStatusCode.InternalServerError)
-                e.printStackTrace()
-            }
-        }
-        get("/{id}/notifications"){
-            try {
-                val id = call.parameters["id"]?.toIntOrNull()
-                if (id == null) {
-                    call.respondText("Invalid parameters", status = HttpStatusCode.BadRequest)
-                    return@get
-                }
-
-                val user = UserStorage.findUserById(id)
-                if (user == null) {
-                    call.respondText("User not found", status = HttpStatusCode.NotFound)
-                    return@get
-                }
-
-                val friendIds = user.friends ?: emptyList()
-                val notifications = UserLogStorage.getUserLogs().filter { userLog ->
-                    friendIds.contains(userLog.userId)
-                }
-                call.respond(notifications)
-
             } catch (e: Exception) {
                 call.respondText("Internal Server Error: ${e.message}", status = HttpStatusCode.InternalServerError)
                 e.printStackTrace()

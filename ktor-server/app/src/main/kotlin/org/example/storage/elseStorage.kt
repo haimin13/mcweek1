@@ -3,21 +3,6 @@ package org.example.storage
 import org.example.models.*
 import java.time.LocalDateTime
 
-object UserStorage {
-  val users = mutableListOf(
-    User(1, "jaehyeon", 10, mutableListOf(2, 3, 4, 5, 6, 7, 8, 9), mutableListOf(2), mutableListOf(1, 2), mutableListOf(1, 3), mutableListOf(1), mutableListOf(1)),
-    User(2, "minji", 11, mutableListOf(1, 3), mutableListOf(1), mutableListOf(2, 3), mutableListOf(2), mutableListOf(1, 2), mutableListOf(2)),
-    User(3, "jisu", 12, mutableListOf(1, 2), mutableListOf(), mutableListOf(3), mutableListOf(3), mutableListOf(2), mutableListOf(3)),
-    User(4, "alex", 13),
-    User(5, "sophie", 14),
-    User(6, "mike", 15),
-    User(7, "emma", 16),
-    User(8, "john", 17),
-    User(9, "lisa", 18),
-    User(10, "kevin", 19)
-  )
-}
-
 object UserLikeLogStorage {
   val logs = mutableListOf(
     UserLikeLog(1, "song", 1, LocalDateTime.now().minusDays(1)),
@@ -55,30 +40,30 @@ object UserLikeLogStorage {
 
 object GenreStorage {
   val genres = mutableListOf(
-    Genre(1, "Pop"),
-    Genre(2, "Rock"),
-    Genre(3, "Hip-hop"),
-    Genre(4, "Jazz"),
-    Genre(5, "Classical"),
-    Genre(6, "Electronic"),
-    Genre(7, "Country"),
-    Genre(8, "Reggae"),
-    Genre(9, "R&B"),
-    Genre(10, "Indie")
+    Genre(id = 1, name = "R&B"),
+    Genre(id = 2, name = "Hiphop"),
+    Genre(id = 3, name = "Pop"),
+    Genre(id = 4, name = "Rock"),
+    Genre(id = 5, name = "Country"),
+    Genre(id = 6, name = "Indie"),
+    Genre(id = 7, name = "Idol"),
+    Genre(id = 8, name = "Electronica"),
+    Genre(id = 9, name = "Jazz"),
+    Genre(id = 10, name = "Classics"),
+    Genre(id = 11, name = "Blues"),
+    Genre(id = 12, name = "Punk"),
+    Genre(id = 13, name = "Reggae"),
+    Genre(id = 14, name = "Latin"),
+    Genre(id = 15, name = "Folk"),
+    Genre(id = 16, name = "Trot"),
+    Genre(id = 17, name = "Acoustic"),
+    Genre(id = 18, name = "Ballad"),
+    Genre(id = 19, name = "Crossover")
   )
+
+  fun getAllGenres(): MutableList<Genre> = genres
+
+  fun getGenreById(id: Int): Genre? = genres.find { it.id == id }
 }
 
-object ArtistStorage {
-  val artists = mutableListOf(
-    Artist(1, "IU", 21, mutableListOf(1, 9), mutableListOf(1, 2)),
-    Artist(2, "BTS", 22, mutableListOf(1, 3), mutableListOf(3, 4)),
-    Artist(3, "Adele", 23, mutableListOf(1, 5), mutableListOf(5)),
-    Artist(4, "Drake", 24, mutableListOf(3, 9), mutableListOf(6)),
-    Artist(5, "Coldplay", 25, mutableListOf(2), mutableListOf(7)),
-    Artist(6, "Beethoven", 26, mutableListOf(5), mutableListOf(8)),
-    Artist(7, "SZA", 27, mutableListOf(9), mutableListOf(9)),
-    Artist(8, "Zico", 28, mutableListOf(3), mutableListOf(10)),
-    Artist(9, "Dean", 29, mutableListOf(9, 10), mutableListOf(11)),
-    Artist(10, "Lauv", 30, mutableListOf(1), mutableListOf(12))
-  )
-}
+

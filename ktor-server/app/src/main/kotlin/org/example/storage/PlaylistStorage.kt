@@ -139,4 +139,8 @@ object PlaylistStorage {
             else -> playlists.filter { it.likedBy?.contains(id) == true || it.author == id }
         }
     }
+
+    fun findPlaylistById(id: Int): Playlist? {
+        return playlists.find { it.id == id }
+    }
 }
