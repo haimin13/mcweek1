@@ -13,7 +13,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,13 +26,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.myapplication1.ui.components.gallery.GalleryEntry
 import com.example.myapplication1.ui.components.list.FriendsUpdateList
 import com.example.myapplication1.ui.components.list.SlidingList
 import com.example.myapplication1.data.model.Playlist
 import com.example.myapplication1.ui.components.popup.PlaylistDetailDialog
-import com.example.myapplication1.ui.screens.playlists.playList
+import com.example.myapplication1.R
+import com.example.myapplication1.ui.remote.PlaylistViewModel
 
 @Composable
 fun Title(text: String) {
@@ -52,7 +56,18 @@ fun SubTitle(text: String) {
 }
 
 @Composable
-fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController, myId: Int = 0) {
+fun HomeTabMain(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    myId: Int = 1,
+    viewModel: PlaylistViewModel = viewModel()
+) {
+    val recentPlaylistsData by viewModel.playlists.observeAsState(emptyList())
+
+    LaunchedEffect(viewModel) {
+        viewModel.loadRecentPlaylists()
+    }
+
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -73,22 +88,21 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController, myI
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Title("Recent")
-            LazyRow(
+            LazyRow (
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 // TODO: Recent playlist 불러오기
-//                items(playList) { playlist ->
-//                    playlist.thumbnailId?.let {
-//                        GalleryEntry(
-//                            contentName = playlist.title,
-//                            thumbnailResId = it,
-//                            onTap = { selectedPlaylist = playlist },
-//                            onLongPress = {},
-//                            showText = true
-//                        )
-//                    }
-//                }
+                items(recentPlaylistsData) { playlist ->
+                    Text(playlist.title)
+                    GalleryEntry(
+                        contentName = playlist.title,
+                        thumbnailResId = R.drawable.playlist_1,
+                        onTap = { selectedPlaylist = playlist },
+                        onLongPress = {},
+                        showText = true
+                    )
+                }
             }
         }
 

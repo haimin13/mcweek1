@@ -12,6 +12,9 @@ import kotlinx.coroutines.launch
 class PlaylistViewModel : ViewModel() {
     private val repository = PlaylistRepository()
 
+    private val _playlists = MutableLiveData<List<Playlist>>()
+    val playlists: LiveData<List<Playlist>> = _playlists
+
     private val _myPlaylists = MutableLiveData<List<Playlist>>()
     val myPlaylists: LiveData<List<Playlist>> = _myPlaylists
 
@@ -38,6 +41,18 @@ class PlaylistViewModel : ViewModel() {
                 _likedPlaylists.value = result
             } catch (e: Exception) {
                 Log.e("PlaylistViewModel", "loadLikedPlaylists 오류: ${e.message}")
+            }
+        }
+    }
+
+    fun loadRecentPlaylists() {
+        viewModelScope.launch {
+            try {
+                val result = repository.getRecentPlaylists()
+                Log.d("Playlists", "최근 생성된 플레이리스트 갯수: ${result.size}")
+                _playlists.value = result
+            } catch (e: Exception) {
+                Log.e("PlaylistViewModel", "loadRecentPlaylists 오류: ${e.message}")
             }
         }
     }
