@@ -1,6 +1,9 @@
 package com.example.myapplication1.ui.screens
 
 import android.graphics.Paint.Align
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
@@ -43,6 +47,18 @@ import com.example.myapplication1.ui.screens.playlists.FriendsFavorites
 import com.example.myapplication1.ui.screens.playlists.playList
 import com.example.myapplication1.ui.components.profile.UserSwitchDialog
 
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import androidx.compose.material3.Button
+import androidx.compose.ui.platform.LocalContext
+
 // Temp
 val tempIdList = listOf(1,2,3,4,5,6,7,8,9)
 
@@ -51,6 +67,8 @@ fun MyTabMain(
     myId: Int, // 외부에서 받음
     onMyIdChange: (Int) -> Unit // myId 변경 콜백
 ) {
+    val context = LocalContext.current
+
     var likedTags by remember {
         mutableStateOf(listOf(
             listOf(1,3,5,6,7,16,15,8,9),
@@ -83,144 +101,166 @@ fun MyTabMain(
 
     val safeMyId = if (myId < nicknames.size && myId < likedTags.size) myId else 0
 
-    Column(
-        modifier = Modifier
-            .padding(top = 50.dp, start = 20.dp, end = 20.dp)
-            .fillMaxWidth(),
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Settings,
-                contentDescription = null,
-                modifier = Modifier
-                    .clickable {
-                        showUserSwitchDialog = true
-                    }
-            )
-        }
+    Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
+                .padding(top = 50.dp, start = 20.dp, end = 20.dp)
                 .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "My Profile",
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 30.sp,
-            )
-            Spacer(modifier = Modifier.height(50.dp))
-            Box() {
-                GalleryEntry(
-                    contentName = "",
-                    showText = false,
-                    imageSize = 200,
-                    showIcon = false,
-                    onTap = {}, onLongPress = {}
-                )
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(10.dp)
-                        .size(25.dp)
-                        .clip(shape = RoundedCornerShape(90))
-                        .background(color = Color.LightGray)
-                        .clickable {},
-                    contentAlignment = Alignment.Center
-                ){
-                    Icon(
-                        imageVector = Icons.Filled.Edit,
-                        contentDescription = null,
-                        tint = Color.White,
-                        modifier = Modifier.size(20.dp)
-                        )
-                }
-            }
             Row(
-                modifier = Modifier
-                    .padding(top = 15.dp, bottom = 10.dp)
-                ,
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
             ) {
-                Text(
-                    text = nicknames[safeMyId],
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
-                )
                 Icon(
-                    imageVector = Icons.Filled.Edit,
+                    imageVector = Icons.Filled.Settings,
                     contentDescription = null,
                     modifier = Modifier
                         .clickable {
-                            tempNickname = nicknames[safeMyId]
-                            showNicknameEditDialog = true
+                            showUserSwitchDialog = true
                         }
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "My Profile",
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 30.sp,
+                )
+                Spacer(modifier = Modifier.height(50.dp))
+                Box() {
+                    GalleryEntry(
+                        contentName = "",
+                        showText = false,
+                        imageSize = 200,
+                        showIcon = false,
+                        onTap = {}, onLongPress = {}
+                    )
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(10.dp)
+                            .size(25.dp)
+                            .clip(shape = RoundedCornerShape(90))
+                            .background(color = Color.LightGray)
+                            .clickable {},
+                        contentAlignment = Alignment.Center
+                    ){
+                        Icon(
+                            imageVector = Icons.Filled.Edit,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(20.dp)
+                            )
+                    }
+                }
+                Row(
+                    modifier = Modifier
+                        .padding(top = 15.dp, bottom = 10.dp)
+                    ,
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Text(
+                        text = nicknames[safeMyId],
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
+                    Icon(
+                        imageVector = Icons.Filled.Edit,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .clickable {
+                                tempNickname = nicknames[safeMyId]
+                                showNicknameEditDialog = true
+                            }
+                    )
+                }
+            }
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.Start
+            ) {
+                Column(
+                    modifier = Modifier.padding(bottom = 10.dp)
+                ) {
+                    TagList(
+                        tags = likedTags[safeMyId],
+                        title = "Music Preference",
+                        onTagsUpdate = { newTags ->
+                            // 사용자의 장르 목록 업데이트
+                            likedTags = likedTags.toMutableList().apply {
+                                set(safeMyId, newTags)
+                            }
+                        }
+                    )
+                }
+                ProfileRowSong(
+                    rowName = "Liked Songs",
+                    entryList = FriendsFavorites,
+                )
+                ProfileRowPlaylist(
+                    rowName = "Playlists",
+                    entryList = playList
                 )
             }
         }
 
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.Start
-        ) {
-            Column(
-                modifier = Modifier.padding(bottom = 10.dp)
-            ) {
-                TagList(
-                    tags = likedTags[safeMyId],
-                    title = "Music Preference",
-                    onTagsUpdate = { newTags ->
-                        // 사용자의 장르 목록 업데이트
-                        likedTags = likedTags.toMutableList().apply {
-                            set(safeMyId, newTags)
+        Button(
+            onClick = {
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val client = HttpClient(Android) {
+                            install(ContentNegotiation) {
+                                json()
+                            }
+                        }
+                        val response: String = client.get("http://localhost:8080/").bodyAsText()
+                        Handler(Looper.getMainLooper()).post {
+                            Toast.makeText(context, response, Toast.LENGTH_LONG).show()
+                        }
+                    } catch (e: Exception) {
+                        Handler(Looper.getMainLooper()).post {
+                            Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
                         }
                     }
-                )
-            }
-            ProfileRowSong(
-                rowName = "Liked Songs",
-                entryList = FriendsFavorites,
-            )
-            ProfileRowPlaylist(
-                rowName = "Playlists",
-                entryList = playList
-            )
-//            ProfileRow(
-//                rowName = "Favorite Artists",
-//                entryList = tempIdList,
-//                entryType = "Artist",
-//                modifier = modifier
-//            )
-        }
-    }
-    if (showNicknameEditDialog) {
-        EditNickname(
-            showDialog = showNicknameEditDialog,
-            initialNickname = nicknames[safeMyId],
-            existingNicknames = nicknames,
-            onNicknameUpdate = { newNickname ->
-                nicknames = nicknames.toMutableList().apply {
-                    set(safeMyId, newNickname)
                 }
             },
-            onDismiss = { showNicknameEditDialog = false }
-        )
-    }
-    // 사용자 변경 다이얼로그
-    if (showUserSwitchDialog) {
-        UserSwitchDialog(
-            currentUserId = myId,
-            userList = nicknames,
-            onUserSwitch = { newId ->
-                onMyIdChange(newId) // 상위 컴포넌트에 myId 변경 알림
-                showUserSwitchDialog = false
-            },
-            onDismiss = { showUserSwitchDialog = false }
-        )
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(16.dp)
+        ) {
+            Text("Test Ktor API")
+        }
+
+        if (showNicknameEditDialog) {
+            EditNickname(
+                showDialog = showNicknameEditDialog,
+                initialNickname = nicknames[safeMyId],
+                existingNicknames = nicknames,
+                onNicknameUpdate = { newNickname ->
+                    nicknames = nicknames.toMutableList().apply {
+                        set(safeMyId, newNickname)
+                    }
+                },
+                onDismiss = { showNicknameEditDialog = false }
+            )
+        }
+        if (showUserSwitchDialog) {
+            UserSwitchDialog(
+                currentUserId = myId,
+                userList = nicknames,
+                onUserSwitch = { newId ->
+                    onMyIdChange(newId)
+                    showUserSwitchDialog = false
+                },
+                onDismiss = { showUserSwitchDialog = false }
+            )
+        }
     }
 }
-

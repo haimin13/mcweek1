@@ -167,6 +167,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Start Ktor API in a background thread
+        Thread { startKtorApi() }.start()
         setContent {
             MyApplication1Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { _ ->

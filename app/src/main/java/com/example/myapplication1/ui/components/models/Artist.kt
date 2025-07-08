@@ -9,5 +9,5 @@ data class Artist(
     val genres: List<String>,
     val isLiked: Boolean,
     val likedSongs: List<Song>,
-    val likedBy: List<LikedWhen>? = null
+    val likedBy: List<LikedAt>? = null
 )

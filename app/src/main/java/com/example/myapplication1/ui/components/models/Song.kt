@@ -10,6 +10,6 @@ data class Song(
     val length: String,
     val genres: List<String>,
     val isLiked: Boolean,
-    val likedBy: List<LikedWhen>? = null,
+    val likedBy: List<LikedAt>? = null,
     val ranking: Int? = null
 )
