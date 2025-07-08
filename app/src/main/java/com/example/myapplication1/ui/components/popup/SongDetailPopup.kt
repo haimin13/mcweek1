@@ -17,7 +17,6 @@ import com.example.myapplication1.ui.components.profile.ProfileRowFriend
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
 import com.example.myapplication1.ui.components.profile.dummyUserList
 import com.example.myapplication1.ui.screens.playlists.playList
-import com.example.myapplication1.ui.screens.tempIdList
 
 @Composable
 fun SongDetailPopup(
