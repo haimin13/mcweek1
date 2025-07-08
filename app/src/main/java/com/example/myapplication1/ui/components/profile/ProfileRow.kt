@@ -20,6 +20,7 @@ import com.example.myapplication1.ui.components.common.FullPagePopup
 import com.example.myapplication1.ui.components.list.ArtistList
 import com.example.myapplication1.ui.components.list.PlaylistList
 import com.example.myapplication1.ui.components.list.SongList
+import com.example.myapplication1.ui.components.list.UserList
 import com.example.myapplication1.ui.components.models.Artist
 import com.example.myapplication1.ui.components.models.Playlist
 import com.example.myapplication1.ui.components.models.Song
@@ -179,57 +180,85 @@ fun ProfileRowArtist(
     }
 }
 
-val allUsers = listOf(
-    "lil monkey", "jaedungg", "haimin13", "bot1", "bot2", "bot3",
-    "bot4", "bot5", "user1", "user2", "user3"
-)
+@Composable
+fun ProfileRowFriend(
+    rowName: String = "",
+    entryList: List<User>, //Todo: List<User>로 변경
+) {
+    var selectedUser by remember { mutableStateOf<User?>(null) }
+    var showMoreList by remember { mutableStateOf(false) }
 
-//@Composable
-//fun ProfileRowFriend(
-//    rowName: String = "",
-//    entryList: List<User>, //Todo: List<User>로 변경
-//) {
-//    var selectedUser by remember { mutableStateOf<User?>(null) }
-//    var showMoreList by remember { mutableStateOf(false) }
-//
-//    Column {
-//        Text(
-//            text = rowName,
-//            fontWeight = FontWeight.Bold
-//        )
-//        LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-//            items(entryList.take(4)) { item ->
-//                ProfileEntry(
-//                    title = item.nickName,
-//                    onClick = { selectedUser = item },
-//                    modifier = Modifier.height(24.dp)
-//                )
-//            }
-//            if (entryList.size > 4) {
-//                item {
-//                    ProfileEntryMore(
-//                        modifier = Modifier.height(24.dp),
-//                        onClick = { showMoreList = true }
-//                    )
-//                }
-//            }
-//        }
-//    }
-//    selectedUser?.let { artist ->
-//        Dialog(onDismissRequest = { selectedUser = null }) {
-//            UserProfilePopup(artist = artist, onDismiss = { selectedUser = null })
-//        }
-//    }
-//    if (showMoreList) {
-//        FullPagePopup (
-//            title = rowName,
-//            onDismiss = { showMoreList = false }
-//        ) {
-//            Column (
-//                modifier = Modifier.padding(horizontal = 8.dp)
-//            ) {
-//                UserList(artists = entryList)
-//            }
-//        }
-//    }
-//}
+    Column {
+        Text(
+            text = rowName,
+            fontWeight = FontWeight.Bold
+        )
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            items(entryList.take(4)) { item ->
+                ProfileEntry(
+                    title = item.nickName,
+                    onClick = { selectedUser = item },
+                    modifier = Modifier.height(24.dp)
+                )
+            }
+            if (entryList.size > 4) {
+                item {
+                    ProfileEntryMore(
+                        modifier = Modifier.height(24.dp),
+                        onClick = { showMoreList = true }
+                    )
+                }
+            }
+        }
+    }
+    selectedUser?.let { user ->
+        Dialog(onDismissRequest = { selectedUser = null }) {
+            UserProfilePopup(userId = user.nickName, onDismiss = { selectedUser = null })
+        }
+    }
+    if (showMoreList) {
+        FullPagePopup (
+            title = rowName,
+            onDismiss = { showMoreList = false }
+        ) {
+            Column (
+                modifier = Modifier.padding(horizontal = 8.dp)
+            ) {
+                UserList(users = entryList)
+            }
+        }
+    }
+}
+
+val dummyUserList = listOf(
+    User(
+        userId = 1,
+        nickName = "String",
+        friends = listOf(1,2,3),
+        closeFriends = listOf(1,2,3),
+    ),
+    User(
+        userId = 1,
+        nickName = "Sstring",
+        friends = listOf(1,2,3),
+        closeFriends = listOf(1,2,3),
+    ),
+    User(
+        userId = 1,
+        nickName = "Sstring",
+        friends = listOf(1,2,3),
+        closeFriends = listOf(1,2,3),
+    ),
+    User(
+        userId = 1,
+        nickName = "Ssstring",
+        friends = listOf(1,2,3),
+        closeFriends = listOf(1,2,3),
+    ),
+    User(
+        userId = 1,
+        nickName = "Sstring",
+        friends = listOf(1,2,3),
+        closeFriends = listOf(1,2,3),
+    )
+)

@@ -19,11 +19,11 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.LikeButton
 import com.example.myapplication1.ui.components.common.MenuButton
-import com.example.myapplication1.ui.components.models.Artist
+import com.example.myapplication1.ui.components.models.User
 
 @Composable
-fun ArtistEntry(
-    artist: Artist,
+fun UserEntry(
+    user: User,
     isCharts: Boolean = false
 ) {
     Card(
@@ -41,7 +41,7 @@ fun ArtistEntry(
 //            if (isCharts) {
 //                Spacer(modifier = Modifier.width(6.dp))
 //                Text(
-//                    text = (artist.ranking ?: 0).toString(),
+//                    text = (user.ranking ?: 0).toString(),
 //                    style = MaterialTheme.typography.titleLarge
 //                )
 //                Spacer(modifier = Modifier.width(16.dp))
@@ -50,7 +50,7 @@ fun ArtistEntry(
             // 썸네일
             Box(modifier = Modifier.size(44.dp)) {
                 Image(
-                    painter = painterResource(id = artist.thumbnailResId ?: R.drawable.profile_default),
+                    painter = painterResource(id = user.thumbnailResId ?: R.drawable.profile_default),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
@@ -63,22 +63,22 @@ fun ArtistEntry(
             // 제목 + 태그
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = artist.title,
+                    text = user.nickName,
                     style = MaterialTheme.typography.titleSmall,
                     maxLines = 1
                 )
-                Row {
-                    Text(
-                        text = artist.genres.joinToString(" & "),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray
-                    )
+//                Row {
 //                    Text(
-//                        text = "  •  ${artist.length}",
+//                        text = user.genres.joinToString(" & "),
 //                        style = MaterialTheme.typography.labelSmall,
 //                        color = Color.Gray
 //                    )
-                }
+//                    Text(
+//                        text = "  •  ${user.length}",
+//                        style = MaterialTheme.typography.labelSmall,
+//                        color = Color.Gray
+//                    )
+//                }
             }
 
             Spacer(modifier = Modifier.width(8.dp))

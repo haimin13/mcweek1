@@ -12,7 +12,9 @@ import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
 import com.example.myapplication1.ui.components.models.Artist
 import com.example.myapplication1.ui.components.models.Song
+import com.example.myapplication1.ui.components.profile.ProfileRowFriend
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
+import com.example.myapplication1.ui.components.profile.dummyUserList
 import com.example.myapplication1.ui.screens.playlists.playList
 import com.example.myapplication1.ui.screens.tempIdList
 
@@ -31,10 +33,6 @@ fun ArtistDetailPopup(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-//            ProfileRow(
-//                rowName = "Artist",
-//                entryList = tempIdList.take(1),
-//            )
             TagList(
                 title = "Genre",
                 tags = listOf(1,2),
@@ -44,6 +42,11 @@ fun ArtistDetailPopup(
             ProfileRowPlaylist(
                 rowName = "Related playlists",
                 entryList = playList
+            )
+            // TODO: 이 노래를 좋아하는 유저 중 친구 리스트
+            ProfileRowFriend(
+                rowName = "Friends like this",
+                entryList = dummyUserList
             )
         }
     }

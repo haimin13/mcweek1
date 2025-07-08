@@ -23,20 +23,6 @@ import com.example.myapplication1.ui.components.models.Song
 
 @Composable
 fun SongEntry(song: Song, isCharts: Boolean) {
-    val openDialog = remember { mutableStateOf(false) }
-
-//    if (openDialog.value) {
-//        AlertDialogExample(
-//            onDismissRequest = { openDialog.value = false },
-//            onConfirmation = {
-//                openDialog.value = false
-//            },
-//            dialogTitle = "이 노래가 마음에 드시나요?",
-//            dialogText = "${song.title} - ${song.artist}\n를 플레이리스트에 추가합니다.",
-//            icon = Icons.Default.Info
-//        )
-//    }
-
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -103,24 +89,3 @@ fun SongEntry(song: Song, isCharts: Boolean) {
         }
     }
 }
-
-//@Composable
-//fun AlertDialogExample(
-//    onDismissRequest: () -> Unit,
-//    onConfirmation: () -> Unit,
-//    dialogTitle: String,
-//    dialogText: String,
-//    icon: ImageVector,
-//) {
-//    AlertDialog(
-//        title = { Text(dialogTitle) },
-//        text = { Text(dialogText) },
-//        onDismissRequest = onDismissRequest,
-//        confirmButton = {
-//            TextButton(onClick = onConfirmation) { Text("Confirm") }
-//        },
-//        dismissButton = {
-//            TextButton(onClick = onDismissRequest) { Text("Dismiss") }
-//        }
-//    )
-//}

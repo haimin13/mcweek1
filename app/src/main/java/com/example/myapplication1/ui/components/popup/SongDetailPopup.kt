@@ -13,7 +13,9 @@ import com.example.myapplication1.ui.components.list.TagList
 import com.example.myapplication1.ui.components.list.dummyArtistList
 import com.example.myapplication1.ui.components.models.Song
 import com.example.myapplication1.ui.components.profile.ProfileRowArtist
+import com.example.myapplication1.ui.components.profile.ProfileRowFriend
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
+import com.example.myapplication1.ui.components.profile.dummyUserList
 import com.example.myapplication1.ui.screens.playlists.playList
 import com.example.myapplication1.ui.screens.tempIdList
 
@@ -43,10 +45,10 @@ fun SongDetailPopup(
                 fontSize = 10
             )
             // TODO: 이 노래를 좋아하는 유저 중 친구 리스트
-//            ProfileRowFriend(
-//                rowName = "Friends liked this",
-//                entryList = playList
-//            )
+            ProfileRowFriend(
+                rowName = "Friends like this",
+                entryList = dummyUserList
+            )
             ProfileRowPlaylist(
                 rowName = "Related playlists",
                 entryList = playList
