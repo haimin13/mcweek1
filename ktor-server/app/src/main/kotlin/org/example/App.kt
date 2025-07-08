@@ -14,6 +14,9 @@ import io.ktor.server.response.*
 import java.time.LocalDateTime
 import io.ktor.server.http.content.*
 import io.ktor.http.HttpStatusCode
+import org.example.routing.playlistRoute
+import org.example.routing.songRoute
+import org.example.routing.chartsRoute
 
 
 fun main() {
@@ -38,33 +41,11 @@ fun main() {
                 call.respondText("서버 정상 작동 중!")
             }
 
-            // 플리 추가
-            post("/playlists/add") {
-                try {
-                    val playlist = call.receive<Playlist>()
-                    println("✅ 받은 플리: $playlist")
-                    PlaylistStorage.add(playlist)
-                    call.respondText("플리 추가 완료")
-                } catch (e: Exception) {
-                    println("❌ 오류 발생: ${e.message}")
-                    call.respond(HttpStatusCode.BadRequest, "역직렬화 오류: ${e.message}")
-                }
-            }
+            playlistRoute()
+            songRoute()
+            chartsRoute()
+            
 
-
-            // 플리 조회
-            get("/playlists/list") {
-                val id = call.request.queryParameters["id"]?.toIntOrNull()
-                val type = call.request.queryParameters["type"] ?: "all"
-
-                if (id == null) {
-                    call.respondText("쿼리 파라미터 'id'는 필수입니다.", status = io.ktor.http.HttpStatusCode.BadRequest)
-                    return@get
-                }
-
-                val result = PlaylistStorage.getByUser(id, type)
-                call.respond(result)
-            }
         }
     }.start(wait = true)
 }
