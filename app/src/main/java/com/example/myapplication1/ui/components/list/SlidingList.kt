@@ -7,13 +7,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -23,6 +26,7 @@ import androidx.navigation.NavController
 import com.example.myapplication1.ui.screens.SubTitle
 import com.example.myapplication1.ui.screens.playlists.TrendingNow
 import com.example.myapplication1.ui.screens.playlists.likedPlayList
+import com.example.myapplication1.ui.screens.playlists.playList
 
 @Composable
 fun SlidingList(
@@ -33,6 +37,8 @@ fun SlidingList(
 
     Box(
         modifier = Modifier
+            .height(330.dp)
+            .fillMaxWidth()
             .pointerInput(selectedType) {
                 detectHorizontalDragGestures { _, dragAmount ->
                     when {
@@ -54,30 +60,34 @@ fun SlidingList(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
+                .fillMaxSize()
                 .clip(RoundedCornerShape(12.dp))
-                .background(color = Color.LightGray)
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+                .background(color = Color.White)
+                .padding(horizontal = 12.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SubTitle(types[selectedType])
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                SubTitle(types[selectedType])
 
-            when (selectedType) {
-                0 -> SongList(
-                    songs = TrendingNow.take(3),
-                    isCharts = true
-                )
-                1 -> PlaylistList(
-                    playlists = likedPlayList.take(3),
-                    isCharts = true,
-                )
+                when (selectedType) {
+                    0 -> SongList(
+                        songs = TrendingNow.take(4),
+                        verticalSpacing = 0,
+                        isCharts = true
+                    )
+                    1 -> PlaylistList(
+                        playlists = playList.take(3),
+                        verticalSpacing = 8,
+                        isCharts = true,
+                    )
+                }
             }
-
             // 하단 슬라이드 버튼
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
                     .padding(top = 4.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -87,7 +97,7 @@ fun SlidingList(
                         modifier = Modifier
                             .padding(horizontal = 4.dp)
                             .clip(CircleShape)
-                            .background(if (isSelected) Color.White else Color.Gray)
+                            .background(if (isSelected) Color.LightGray else Color.Gray)
                             .size(8.dp)
                             .clickable { onTypeChange(index) }
                     )

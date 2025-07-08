@@ -39,12 +39,13 @@ fun SongEntry(song: Song, isCharts: Boolean) {
 
     Card(
         modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = Color.White)
 //        elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(6.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // 순위

@@ -111,7 +111,7 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
                     .fillMaxWidth()
                     .height(180.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(color = Color.LightGray)
+                    .background(color = Color.White)
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
                 FriendsUpdateList(userLogs = dummyUserLogs)

@@ -48,7 +48,7 @@ fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
     Card(
         modifier = Modifier.fillMaxWidth(),
 //        elevation = CardDefaults.cardElevation(4.dp),
-//        colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+        colors = CardDefaults.cardColors(containerColor = Color.White)
 
     ) {
         Row(

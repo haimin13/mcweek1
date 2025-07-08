@@ -43,14 +43,14 @@ fun TagList(
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp)
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             tags.forEach { tag ->
                 RoundTag(
                     text = musicGenres[tag],
                     fontSize = fontSize,
                     size = "small",
-                    isSelected = true,
+                    isSelected = false,
                     onClick = { }
                 )
             }

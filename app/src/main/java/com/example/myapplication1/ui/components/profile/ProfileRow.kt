@@ -38,7 +38,7 @@ fun ProfileRowSong(
             fontWeight = FontWeight.Bold
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            items(entryList) { item ->
+            items(entryList.take(4)) { item ->
                 ProfileEntrySong(
                     song = item,
                     onClick = { selectedSong = item },
@@ -92,7 +92,7 @@ fun ProfileRowPlaylist(
             fontWeight = FontWeight.Bold
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            items(entryList.take(5)) { item ->
+            items(entryList.take(4)) { item ->
                 ProfileEntryPlaylist(
                     playlist = item,
                     modifier = Modifier.height(30.dp),
