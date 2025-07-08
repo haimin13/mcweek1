@@ -1,5 +1,6 @@
 package com.example.myapplication1.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import com.example.myapplication1.ui.components.gallery.*
 import androidx.compose.foundation.layout.Arrangement
@@ -35,7 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.ui.components.dialog.AddFriendDialog
-
+import androidx.compose.ui.graphics.Color
 
 @Composable
 fun FriendsTabMain(
@@ -93,34 +94,32 @@ fun FriendsTabMain(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier.fillMaxSize()
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp, end = 10.dp)
+                .align(Alignment.TopEnd),
+            horizontalArrangement = Arrangement.End
         ) {
-            Row(
+            Icon(
+                imageVector = Icons.Outlined.Notifications,
+                contentDescription = null,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp, end = 10.dp),
-                horizontalArrangement = Arrangement.End
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.Notifications,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clickable { onNotificationClick() }
-                )
-            }
+                    .size(28.dp)
+                    .clickable { onNotificationClick() }
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(vertical = 16.dp, horizontal = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp)
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Text(
-                    text = "close friends",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    modifier = Modifier.padding(bottom = 10.dp)
-                )
+                Title("Close friends")
                 LazyRow(
                     modifier = Modifier.fillMaxWidth()
                         .defaultMinSize(minHeight = 125.dp),
@@ -144,18 +143,11 @@ fun FriendsTabMain(
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(10.dp))
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 15.dp)
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Text(
-                    text = "all friends",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    modifier = Modifier.padding(bottom = 10.dp)
-                )
+                Title("All friends")
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(4),
                     modifier = Modifier.fillMaxSize(),
@@ -180,18 +172,19 @@ fun FriendsTabMain(
                         )
                     }
                 }
-
             }
         }
         FloatingActionButton(
             onClick = { showAddFriendDialog = true },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp)
+                .padding(16.dp),
+            containerColor = Color(0xFFE8EAF6)
         ) {
             Icon(
                 imageVector = Icons.Filled.Add,
-                contentDescription = "친구 추가"
+                contentDescription = "친구 추가",
+                tint = Color(0xFF303F9F)
             )
         }
     }

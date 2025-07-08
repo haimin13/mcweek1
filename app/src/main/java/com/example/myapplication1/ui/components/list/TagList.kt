@@ -36,7 +36,7 @@ fun TagList(
     var showGenreDialog by remember { mutableStateOf(false) }
     Column {
         Text(
-            text = "Music Preference",
+            text = title,
             fontWeight = FontWeight.Bold
         )
         @OptIn(ExperimentalLayoutApi::class)

@@ -1,5 +1,6 @@
 package com.example.myapplication1.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -38,18 +39,20 @@ fun NotificationPage(
     myId: Int = 0
 ) {
     Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 20.dp)
+        modifier = Modifier.fillMaxSize()
     ) {
-        IconButton(
-            onClick = onBackClick,
-        ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                contentDescription = null
-            )
-        }
-        FriendsUpdateList(userLogs = dummyUserLogs)
+        Icon(
+            modifier = Modifier
+                .padding(4.dp)
+                .clickable (onClick = onBackClick),
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+            contentDescription = null
+        )
+        FriendsUpdateList(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 20.dp),
+            userLogs = dummyUserLogs,
+            verticalSpacing = 16)
     }
 }

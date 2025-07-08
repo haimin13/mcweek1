@@ -1,7 +1,6 @@
 package com.example.myapplication1.ui.components.list
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -29,7 +27,7 @@ import java.time.LocalDateTime
 import java.time.Period
 
 @Composable
-fun NotificationEntry(userLog: UserLog) {
+fun FriendsUpdateEntry(userLog: UserLog) {
     val currentDateTime = LocalDateTime.now()
     val timeDiff: String = if (userLog.time != null) {
         getTimeDifference(currentDateTime, userLog.time)
@@ -39,14 +37,15 @@ fun NotificationEntry(userLog: UserLog) {
 
     Row (
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
     ){
         Image(
             painter = painterResource(R.drawable.dummy),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(30.dp)
+                .size(36.dp)
                 .clip(RoundedCornerShape(100))
         )
         Row(
@@ -55,16 +54,17 @@ fun NotificationEntry(userLog: UserLog) {
         ) {
             Text(
                 text = buildAnnotatedString {
-                    withStyle(style = SpanStyle(fontWeight = FontWeight(500))) {
+                    withStyle(style = SpanStyle(fontWeight = FontWeight(600))) {
                         append(userLog.userName)
                     }
                     append("님이 ")
-                    withStyle(style = SpanStyle(fontWeight = FontWeight(500))) {
+                    withStyle(style = SpanStyle(fontWeight = FontWeight(600))) {
                         append(userLog.itemName)
                     }
-                    append("을(를) 좋아합니다.")
+                    append("을 좋아합니다.")
                 },
-                fontSize = 11.sp,
+                fontSize = 12.sp,
+                fontWeight = FontWeight(500),
                 modifier = Modifier.padding(start = 10.dp, end = 5.dp)
             )
             Text(
@@ -78,7 +78,7 @@ fun NotificationEntry(userLog: UserLog) {
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .size(30.dp)
+                .size(36.dp)
                 .clip(RoundedCornerShape(10))
         )
     }

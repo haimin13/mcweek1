@@ -1,4 +1,4 @@
-package com.example.myapplication1.ui.components.gallery
+package com.example.myapplication1.ui.components.popup
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,20 +10,22 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
+import com.example.myapplication1.ui.components.models.Artist
+import com.example.myapplication1.ui.components.models.Song
+import com.example.myapplication1.ui.components.profile.ProfileRowFriend
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
-import com.example.myapplication1.ui.components.profile.ProfileRowSong
-import com.example.myapplication1.ui.screens.playlists.FriendsFavorites
+import com.example.myapplication1.ui.components.profile.dummyUserList
 import com.example.myapplication1.ui.screens.playlists.playList
 import com.example.myapplication1.ui.screens.tempIdList
 
 @Composable
-fun GalleryTap(
-    userId: String,
+fun ArtistDetailPopup(
+    artist: Artist,
     onDismiss: () -> Unit
 ) {
-    PopupLayout(
-        title = "$userId's music profile",
-        thumbnailResId = R.drawable.dummy,
+    PopupLayout (
+        title = artist.title,
+        thumbnailResId = artist.thumbnailResId?: R.drawable.profile_default,
         onDismiss = onDismiss
     ) {
         Column(
@@ -32,24 +34,20 @@ fun GalleryTap(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             TagList(
-                title = "Music Preference",
-                tags = listOf(1,2,3,4,5,6,7,8,9,10,11,12,13),
+                title = "Genre",
+                tags = listOf(1,2),
                 fromMy = false,
                 fontSize = 10
             )
-            ProfileRowSong(
-                rowName = "Liked Songs",
-                entryList = FriendsFavorites
-            )
             ProfileRowPlaylist(
-                rowName = "Playlists",
+                rowName = "Related playlists",
                 entryList = playList
             )
-//            ProfileRow(
-//                rowName = "Favorite Artists",
-//                entryList = tempIdList,
-//                entryType = "Artist"
-//            )
+            // TODO: 이 노래를 좋아하는 유저 중 친구 리스트
+            ProfileRowFriend(
+                rowName = "Friends like this",
+                entryList = dummyUserList
+            )
         }
     }
 }

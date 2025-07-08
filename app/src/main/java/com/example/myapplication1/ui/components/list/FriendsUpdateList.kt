@@ -8,15 +8,15 @@ import com.example.myapplication1.ui.components.models.UserLog
 
 
 @Composable
-fun FriendsUpdateList(modifier: Modifier = Modifier, userLogs: List<UserLog>) {
+fun FriendsUpdateList(modifier: Modifier = Modifier, userLogs: List<UserLog>, verticalSpacing: Int = 12) {
     GenericList(
         modifier = modifier,
         items = userLogs,
-        verticalSpacing = 12.dp,
+        verticalSpacing = verticalSpacing.dp,
 //            onItemClick = { playlist ->
 //                navController.navigate("playlistDetail/${playlist.id}")
 //            }
     ) { userLog: UserLog ->
-        NotificationEntry(userLog)
+        FriendsUpdateEntry(userLog)
     }
 }
