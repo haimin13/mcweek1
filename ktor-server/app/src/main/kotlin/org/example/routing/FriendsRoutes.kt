@@ -11,7 +11,7 @@ import org.example.storage.UserLogStorage
 import org.example.models.UserLog
 import io.ktor.http.HttpStatusCode
 
-fun Route.friendsRoutes() {
+fun Route.friendsRoute() {
     route("/friends") {
         get() {
             call.respondText("Hello from friends!")

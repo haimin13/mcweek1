@@ -13,7 +13,7 @@ import org.example.storage.SongStorage
 import org.example.storage.ArtistStorage
 import org.example.storage.PlaylistStorage
 
-fun Route.profileRoutes() {
+fun Route.profileRoute() {
     route("/profile") {
         get("/{id}") {
             try {

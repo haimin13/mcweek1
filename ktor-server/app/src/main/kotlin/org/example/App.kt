@@ -7,9 +7,9 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
-import org.example.routing.friendsRoutes
-import org.example.routing.profileRoutes
-import org.example.routing.genreRoutes
+import org.example.routing.friendsRoute
+import org.example.routing.profileRoute
+import org.example.routing.genreRoute
 import org.example.models.Playlist
 import org.example.storage.PlaylistStorage
 import io.ktor.server.request.*
@@ -68,9 +68,9 @@ fun main() {
                 call.respond(result)
             }
 
-            friendsRoutes()
-            profileRoutes()
-            genreRoutes()
+            friendsRoute()
+            profileRoute()
+            genreRoute()
         }
     }.start(wait = true)
 }
