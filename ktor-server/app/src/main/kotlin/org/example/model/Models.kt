@@ -20,15 +20,37 @@ data class Playlist(
 @Serializable
 data class User(
     val id: Int,
-    val nickname: String,
+    var nickname: String,
     val thumbnailId: Int? = null,
     val friends: MutableList<Int>? = null,
     val closeFriends: MutableList<Int>? = null,
-    val likedGenres: MutableList<Int>? = null,
+    var likedGenres: MutableList<Int>? = null,
     val likedSongs: MutableList<Int>? = null,
     val likedPlaylists: MutableList<Int>? = null,
     val likedArtists: MutableList<Int>? = null,
     val createdPlaylists: MutableList<Int>? = null,
+)
+@Serializable
+data class Song(
+    val id: Int,
+    val title: String,
+    val artist: String,
+    val length: String,
+    val thumbnailId: Int? = null,
+    val genres: MutableList<Int>? = null,
+    val likedBy: MutableList<Int>? = null,
+    val includedIn: MutableList<Int>? = null,
+    val ranking: Int? = null
+)
+
+@Serializable
+data class Artist(
+    val id: Int,
+    val nickname: String,
+    val thumbnailId: Int? = null,
+    val likedGenres: MutableList<Int>? = null,
+    val likedBy: MutableList<Int>? = null,
+    val songsId: MutableList<Int>? = null
 )
 
 @Serializable
@@ -59,4 +81,34 @@ data class UserLog(
 data class Genre(
     val id: Int,
     val name: String
+)
+
+@Serializable
+data class ProfileSong(
+    val id: Int,
+    val title: String,
+    val artist: String
+)
+
+@Serializable
+data class ProfileArtist(
+    val id: Int,
+    val nickname: String
+)
+
+@Serializable
+data class ProfilePlaylist(
+    val id: Int,
+    val title: String
+)
+
+@Serializable
+data class Profile(
+    val userId: Int,
+    val nickname: String,
+    val thumbnailId: Int?,
+    val likedGenres: List<Int>?,
+    val likedSongs: List<ProfileSong>?,
+    val likedArtists: List<ProfileArtist>?,
+    val createdPlaylists: List<ProfilePlaylist>?
 )

@@ -11,11 +11,11 @@ object UserStorage {
             thumbnailId = 1,
             friends = mutableListOf(2, 3, 4, 5, 6, 7),
             closeFriends = mutableListOf(4, 5),
-            likedGenres = mutableListOf(),
-            likedSongs = mutableListOf(),
-            likedPlaylists = mutableListOf(),
-            likedArtists = mutableListOf(),
-            createdPlaylists = mutableListOf()
+            likedGenres = mutableListOf(1, 3),
+            likedSongs = mutableListOf(101, 102),
+            likedPlaylists = mutableListOf(1, 3),
+            likedArtists = mutableListOf(1, 3),
+            createdPlaylists = mutableListOf(1, 3)
         ),
         User(
             id = 2,
@@ -23,11 +23,11 @@ object UserStorage {
             thumbnailId = 2,
             friends = mutableListOf(1, 3, 6, 8, 9),
             closeFriends = mutableListOf(1, 3),
-            likedGenres = mutableListOf(),
-            likedSongs = mutableListOf(),
-            likedPlaylists = mutableListOf(),
-            likedArtists = mutableListOf(),
-            createdPlaylists = mutableListOf()
+            likedGenres = mutableListOf(1, 3),
+            likedSongs = mutableListOf(101, 102),
+            likedPlaylists = mutableListOf(1, 3),
+            likedArtists = mutableListOf(1, 3),
+            createdPlaylists = mutableListOf(1, 3)
         ),
         User(
             id = 3,
@@ -35,11 +35,11 @@ object UserStorage {
             thumbnailId = 3,
             friends = mutableListOf(1, 2, 4, 7, 10),
             closeFriends = mutableListOf(1, 2),
-            likedGenres = mutableListOf(),
-            likedSongs = mutableListOf(),
-            likedPlaylists = mutableListOf(),
-            likedArtists = mutableListOf(),
-            createdPlaylists = mutableListOf()
+            likedGenres = mutableListOf(1, 3),
+            likedSongs = mutableListOf(101, 102),
+            likedPlaylists = mutableListOf(1, 3),
+            likedArtists = mutableListOf(1, 3),
+            createdPlaylists = mutableListOf(1, 3)
         ),
         User(
             id = 4,
@@ -47,11 +47,11 @@ object UserStorage {
             thumbnailId = 4,
             friends = mutableListOf(1, 3, 5, 6, 11),
             closeFriends = mutableListOf(1, 5),
-            likedGenres = mutableListOf(),
-            likedSongs = mutableListOf(),
-            likedPlaylists = mutableListOf(),
-            likedArtists = mutableListOf(),
-            createdPlaylists = mutableListOf()
+            likedGenres = mutableListOf(1, 3),
+            likedSongs = mutableListOf(101, 102),
+            likedPlaylists = mutableListOf(1, 3),
+            likedArtists = mutableListOf(1, 3),
+            createdPlaylists = mutableListOf(1, 3)
         ),
         User(
             id = 5,
@@ -59,11 +59,11 @@ object UserStorage {
             thumbnailId = 5,
             friends = mutableListOf(1, 4, 6, 7, 8),
             closeFriends = mutableListOf(1, 4),
-            likedGenres = mutableListOf(),
-            likedSongs = mutableListOf(),
-            likedPlaylists = mutableListOf(),
-            likedArtists = mutableListOf(),
-            createdPlaylists = mutableListOf()
+            likedGenres = mutableListOf(1, 3),
+            likedSongs = mutableListOf(101, 102),
+            likedPlaylists = mutableListOf(1, 3),
+            likedArtists = mutableListOf(1, 3),
+            createdPlaylists = mutableListOf(1, 3)
         ),
         User(
             id = 6,
@@ -71,11 +71,11 @@ object UserStorage {
             thumbnailId = 6,
             friends = mutableListOf(1, 2, 4, 5, 9),
             closeFriends = mutableListOf(2, 5),
-            likedGenres = mutableListOf(),
-            likedSongs = mutableListOf(),
-            likedPlaylists = mutableListOf(),
-            likedArtists = mutableListOf(),
-            createdPlaylists = mutableListOf()
+            likedGenres = mutableListOf(1, 3),
+            likedSongs = mutableListOf(101, 102),
+            likedPlaylists = mutableListOf(1, 3),
+            likedArtists = mutableListOf(1, 3),
+            createdPlaylists = mutableListOf(1, 3)
         ),
         User(
             id = 7,
@@ -83,11 +83,11 @@ object UserStorage {
             thumbnailId = 7,
             friends = mutableListOf(1, 3, 5, 8, 10),
             closeFriends = mutableListOf(3, 5),
-            likedGenres = mutableListOf(),
-            likedSongs = mutableListOf(),
-            likedPlaylists = mutableListOf(),
-            likedArtists = mutableListOf(),
-            createdPlaylists = mutableListOf()
+            likedGenres = mutableListOf(1, 3),
+            likedSongs = mutableListOf(101, 102),
+            likedPlaylists = mutableListOf(1, 3),
+            likedArtists = mutableListOf(1, 3),
+            createdPlaylists = mutableListOf(1, 3)
         ),
         User(
             id = 8,
@@ -95,11 +95,11 @@ object UserStorage {
             thumbnailId = 8,
             friends = mutableListOf(2, 5, 7, 9, 11),
             closeFriends = mutableListOf(5, 7),
-            likedGenres = mutableListOf(),
-            likedSongs = mutableListOf(),
-            likedPlaylists = mutableListOf(),
-            likedArtists = mutableListOf(),
-            createdPlaylists = mutableListOf()
+            likedGenres = mutableListOf(1, 3),
+            likedSongs = mutableListOf(101, 102),
+            likedPlaylists = mutableListOf(1, 3),
+            likedArtists = mutableListOf(1, 3),
+            createdPlaylists = mutableListOf(1, 3)
         ),
         User(
             id = 9,
@@ -107,11 +107,11 @@ object UserStorage {
             thumbnailId = 9,
             friends = mutableListOf(2, 6, 8, 10, 11),
             closeFriends = mutableListOf(6, 8),
-            likedGenres = mutableListOf(),
-            likedSongs = mutableListOf(),
-            likedPlaylists = mutableListOf(),
-            likedArtists = mutableListOf(),
-            createdPlaylists = mutableListOf()
+            likedGenres = mutableListOf(1, 3),
+            likedSongs = mutableListOf(101, 102),
+            likedPlaylists = mutableListOf(1, 3),
+            likedArtists = mutableListOf(1, 3),
+            createdPlaylists = mutableListOf(1, 3)
         ),
         User(
             id = 10,
@@ -119,11 +119,11 @@ object UserStorage {
             thumbnailId = 10,
             friends = mutableListOf(3, 7, 9, 11),
             closeFriends = mutableListOf(7, 9),
-            likedGenres = mutableListOf(),
-            likedSongs = mutableListOf(),
-            likedPlaylists = mutableListOf(),
-            likedArtists = mutableListOf(),
-            createdPlaylists = mutableListOf()
+            likedGenres = mutableListOf(1, 3),
+            likedSongs = mutableListOf(101, 102),
+            likedPlaylists = mutableListOf(1, 3),
+            likedArtists = mutableListOf(1, 3),
+            createdPlaylists = mutableListOf(1, 3)
         ),
         User(
             id = 11,
@@ -131,11 +131,11 @@ object UserStorage {
             thumbnailId = 11,
             friends = mutableListOf(4, 8, 9, 10),
             closeFriends = mutableListOf(8, 10),
-            likedGenres = mutableListOf(),
-            likedSongs = mutableListOf(),
-            likedPlaylists = mutableListOf(),
-            likedArtists = mutableListOf(),
-            createdPlaylists = mutableListOf()
+            likedGenres = mutableListOf(1, 3),
+            likedSongs = mutableListOf(101, 102),
+            likedPlaylists = mutableListOf(1, 3),
+            likedArtists = mutableListOf(1, 3),
+            createdPlaylists = mutableListOf(1, 3)
         )
     )
     fun getUsers(): MutableList<User> = users
@@ -172,5 +172,40 @@ object UserStorage {
         if (user.friends?.contains(targetId) == true) { return 4 } // 이미 친구인 경우
 
         return 5  // 친구 추가 가능
+    }
+    fun removeFriend(id: Int, targetId: Int): Boolean {
+        val user = users.find { it.id == id }
+        val targetUser = users.find { it.id == targetId }
+        if (user != null && targetUser != null) {
+            val removedFromFriends = user.friends?.remove(targetId) ?: false
+            val removedFromCloseFriends = user.closeFriends?.remove(targetId) ?: false
+            return removedFromFriends || removedFromCloseFriends
+        }
+        return false
+    }
+    fun addCloseFriend(id: Int, targetId: Int): Boolean {
+        val user = users.find { it.id == id }
+        val targetUser = users.find { it.id == targetId }
+        if (user != null && targetUser != null) {
+            // 이미 친구인지 확인
+            if (user.friends?.contains(targetId) == true) {
+                // 친한 친구 목록에 추가
+                if (user.closeFriends?.contains(targetId) != true) {
+                    user.closeFriends?.add(targetId)
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    fun removeCloseFriend(id: Int, targetId: Int): Boolean {
+        val user = users.find { it.id == id }
+        val targetUser = users.find { it.id == targetId }
+        if (user != null && targetUser != null) {
+            // 친한 친구 목록에서 제거
+            return user.closeFriends?.remove(targetId) ?: false
+        }
+        return false
     }
 }

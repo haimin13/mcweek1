@@ -43,6 +43,7 @@ fun Route.friendsRoutes() {
                     return@get
                 }
 
+                // return List<FriendInfo>
                 val friendsList = when (type) {
                 "close" -> user.closeFriends?.map { friendId ->
                     val friend = UserStorage.findUserById(friendId)
@@ -79,6 +80,8 @@ fun Route.friendsRoutes() {
                     return@get
                 }
                 val result = UserStorage.searchFriend(id, targetName)
+
+                // return SearchResponse
                 val response = when (result) {
                     0 -> SearchResponse(success = false, message = "Invalid requester")
                     1 -> SearchResponse(success = false, message = "Query is empty")
@@ -135,6 +138,69 @@ fun Route.friendsRoutes() {
                 }
                 call.respond(notifications)
 
+            } catch (e: Exception) {
+                call.respondText("Internal Server Error: ${e.message}", status = HttpStatusCode.InternalServerError)
+                e.printStackTrace()
+            }
+        }
+        delete("/{id}/remove/{targetId}") {
+            try {
+                val id = call.parameters["id"]?.toIntOrNull()
+                val targetId = call.parameters["targetId"]?.toIntOrNull()
+
+                if (id == null || targetId == null) {
+                    call.respondText("Invalid parameters", status = HttpStatusCode.BadRequest)
+                    return@delete
+                }
+
+                val result = UserStorage.removeFriend(id, targetId)
+                if (result) {
+                    call.respond(SearchResponse(success = true, message = "친구 삭제 완료"))
+                } else {
+                    call.respond(SearchResponse(success = false, message = "친구 삭제 실패"))
+                }
+            } catch (e: Exception) {
+                call.respondText("Internal Server Error: ${e.message}", status = HttpStatusCode.InternalServerError)
+                e.printStackTrace()
+            }
+        }
+        post("/{id}/close/add/{targetId}") {
+            try {
+                val id = call.parameters["id"]?.toIntOrNull()
+                val targetId = call.parameters["targetId"]?.toIntOrNull()
+
+                if (id == null || targetId == null) {
+                    call.respondText("Invalid parameters", status = HttpStatusCode.BadRequest)
+                    return@post
+                }
+
+                val result = UserStorage.addCloseFriend(id, targetId)
+                if (result) {
+                    call.respond(SearchResponse(success = true, message = "친한 친구 추가 완료"))
+                } else {
+                    call.respond(SearchResponse(success = false, message = "친한 친구 추가 실패"))
+                }
+            } catch (e: Exception) {
+                call.respondText("Internal Server Error: ${e.message}", status = HttpStatusCode.InternalServerError)
+                e.printStackTrace()
+            }
+        }
+        delete("/{id}/close/remove/{targetId}") {
+            try {
+                val id = call.parameters["id"]?.toIntOrNull()
+                val targetId = call.parameters["targetId"]?.toIntOrNull()
+
+                if (id == null || targetId == null) {
+                    call.respondText("Invalid parameters", status = HttpStatusCode.BadRequest)
+                    return@delete
+                }
+
+                val result = UserStorage.removeCloseFriend(id, targetId)
+                if (result) {
+                    call.respond(SearchResponse(success = true, message = "친한 친구 삭제 완료"))
+                } else {
+                    call.respond(SearchResponse(success = false, message = "친한 친구 삭제 실패"))
+                }
             } catch (e: Exception) {
                 call.respondText("Internal Server Error: ${e.message}", status = HttpStatusCode.InternalServerError)
                 e.printStackTrace()
