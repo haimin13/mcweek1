@@ -51,8 +51,8 @@ fun ProfileEntrySong(
 }
 
 @Composable
-fun ProfileEntryPlaylist(
-    playlist: Playlist,
+fun ProfileEntry(
+    title: String,
     modifier: Modifier = Modifier,
     onClick: (() -> Unit)? = null
 ) {
@@ -65,7 +65,7 @@ fun ProfileEntryPlaylist(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = playlist.title,
+            text = title,
             fontWeight = FontWeight.Medium,
             fontSize = 12.sp,
             lineHeight = 12.sp,

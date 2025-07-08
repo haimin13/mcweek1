@@ -1,4 +1,4 @@
-package com.example.myapplication1.ui.components.gallery
+package com.example.myapplication1.ui.components.popup
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,14 +10,16 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
+import com.example.myapplication1.ui.components.list.dummyArtistList
+import com.example.myapplication1.ui.components.profile.ProfileRowArtist
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
 import com.example.myapplication1.ui.components.profile.ProfileRowSong
+import com.example.myapplication1.ui.screens.dummyUserLogs
 import com.example.myapplication1.ui.screens.playlists.FriendsFavorites
 import com.example.myapplication1.ui.screens.playlists.playList
-import com.example.myapplication1.ui.screens.tempIdList
 
 @Composable
-fun GalleryTap(
+fun UserProfilePopup(
     userId: String,
     onDismiss: () -> Unit
 ) {
@@ -45,11 +47,10 @@ fun GalleryTap(
                 rowName = "Playlists",
                 entryList = playList
             )
-//            ProfileRow(
-//                rowName = "Favorite Artists",
-//                entryList = tempIdList,
-//                entryType = "Artist"
-//            )
+            ProfileRowArtist(
+                rowName = "Favorite Artists",
+                entryList = dummyArtistList,
+            )
         }
     }
 }

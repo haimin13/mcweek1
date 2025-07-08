@@ -10,7 +10,9 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
+import com.example.myapplication1.ui.components.list.dummyArtistList
 import com.example.myapplication1.ui.components.models.Song
+import com.example.myapplication1.ui.components.profile.ProfileRowArtist
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
 import com.example.myapplication1.ui.screens.playlists.playList
 import com.example.myapplication1.ui.screens.tempIdList
@@ -30,16 +32,21 @@ fun SongDetailPopup(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-//            ProfileRow(
-//                rowName = "Artist",
-//                entryList = tempIdList.take(1),
-//            )
+            ProfileRowArtist(
+                rowName = "Artist",
+                entryList = dummyArtistList.take(2), //song.artist로 바꿔야 함
+            )
             TagList(
                 title = "Genre",
                 tags = listOf(1,2),
                 fromMy = false,
                 fontSize = 10
             )
+            // TODO: 이 노래를 좋아하는 유저 중 친구 리스트
+//            ProfileRowFriend(
+//                rowName = "Friends liked this",
+//                entryList = playList
+//            )
             ProfileRowPlaylist(
                 rowName = "Related playlists",
                 entryList = playList
