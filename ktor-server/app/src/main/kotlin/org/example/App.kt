@@ -7,11 +7,11 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
+import org.example.routing.friendsRoutes
 import org.example.models.Playlist
 import org.example.storage.PlaylistStorage
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import java.time.LocalDateTime
 import io.ktor.server.http.content.*
 import io.ktor.http.HttpStatusCode
 
@@ -65,6 +65,8 @@ fun main() {
                 val result = PlaylistStorage.getByUser(id, type)
                 call.respond(result)
             }
+
+            friendsRoutes()
         }
     }.start(wait = true)
 }
