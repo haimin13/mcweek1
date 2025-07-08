@@ -302,69 +302,6 @@
         }
       }
     },
-    "/friends/{id}/add": {
-      "post": {
-        "summary": "친구 추가",
-        "description": "특정 유저에게 친구를 추가합니다.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "친구를 추가받을 유저의 ID"
-          },
-          {
-            "name": "targetId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "친구로 추가할 유저의 ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "친구 추가 결과",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "enum": ["친구 추가 완료", "친구 추가 실패"]
-                    }
-                  },
-                  "example": {
-                    "message": "친구 추가 완료"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "잘못된 파라미터",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Invalid parameters"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/friends/{id}/search": {
       "get": {
         "summary": "친구 검색",
@@ -462,6 +399,69 @@
                 "schema": {
                   "type": "string",
                   "example": "Internal Server Error: {error message}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friends/{id}/add": {
+      "post": {
+        "summary": "친구 추가",
+        "description": "특정 유저에게 친구를 추가합니다.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "친구를 추가받을 유저의 ID"
+          },
+          {
+            "name": "targetId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "친구로 추가할 유저의 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "친구 추가 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "enum": ["친구 추가 완료", "친구 추가 실패"]
+                    }
+                  },
+                  "example": {
+                    "message": "친구 추가 완료"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "잘못된 파라미터",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid parameters"
+                    }
+                  }
                 }
               }
             }
@@ -633,6 +633,38 @@
                 "schema": {
                   "type": "string",
                   "example": "User not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "서버 내부 오류",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Internal Server Error: {error message}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/switch": {
+      "get": {
+        "summary": "모든 유저 ID 목록 조회",
+        "description": "시스템에 등록된 모든 유저의 ID 목록을 반환합니다.",
+        "responses": {
+          "200": {
+            "description": "유저 ID 목록 조회 성공",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
                 }
               }
             }
@@ -833,38 +865,7 @@
         }
       }
     },
-    "/profile/switch": {
-      "get": {
-        "summary": "모든 유저 ID 목록 조회",
-        "description": "시스템에 등록된 모든 유저의 ID 목록을 반환합니다.",
-        "responses": {
-          "200": {
-            "description": "유저 ID 목록 조회 성공",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "integer"
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "서버 내부 오류",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string",
-                  "example": "Internal Server Error: {error message}"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
+
     "/friendsupdate/{id}": {
       "get": {
         "summary": "친구 활동 로그 조회",
