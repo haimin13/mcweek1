@@ -5,9 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -16,8 +14,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,13 +27,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Popup
 import com.example.myapplication1.R
-import com.example.myapplication1.ui.components.common.LikeButton
 
 @Composable
 fun GalleryEntry(
@@ -72,12 +68,20 @@ fun GalleryEntry(
                 .pointerInput(Unit) {
                     detectTapGestures(
                         onTap = {
-                            if (onTap != null) { onTap() } // 외부에서 전달받은 탭 동작 실행
-                            else { showTapDialog = true } // 기본 동작 (기존 다이얼로그)
+                            if (onTap != null) {
+                                onTap()
+                            } // 외부에서 전달받은 탭 동작 실행
+                            else {
+                                showTapDialog = true
+                            } // 기본 동작 (기존 다이얼로그)
                         },
                         onLongPress = {
-                            if (onLongPress != null) { onLongPress() } // 외부에서 전달받은 롱프레스 동작 실행
-                            else { showLongPressPopup = true } // 기본 동작 (기존 팝업)
+                            if (onLongPress != null) {
+                                onLongPress()
+                            } // 외부에서 전달받은 롱프레스 동작 실행
+                            else {
+                                showLongPressPopup = true
+                            } // 기본 동작 (기존 팝업)
                         }
                     )
                 }
@@ -152,6 +156,7 @@ fun GalleryEntry(
             Text(
                 text = contentName,
                 fontSize = textSize.sp,
+                fontWeight = FontWeight(500),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

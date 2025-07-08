@@ -1,24 +1,16 @@
 package com.example.myapplication1.ui.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,11 +27,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapplication1.ui.components.gallery.GalleryEntry
 import com.example.myapplication1.ui.components.list.FriendsUpdateList
-import com.example.myapplication1.ui.components.list.PlaylistList
 import com.example.myapplication1.ui.components.list.SlidingList
-import com.example.myapplication1.ui.components.list.SongList
-import com.example.myapplication1.ui.screens.playlists.TrendingNow
-import com.example.myapplication1.ui.screens.playlists.likedPlayList
+import com.example.myapplication1.ui.components.models.Playlist
+import com.example.myapplication1.ui.components.popup.PlaylistDetailDialog
 import com.example.myapplication1.ui.screens.playlists.playList
 
 @Composable
@@ -69,6 +59,13 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
             .padding(vertical = 20.dp, horizontal = 12.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ){
+        var selectedPlaylist by remember { mutableStateOf<Playlist?>(null) }
+        selectedPlaylist?.let {
+            PlaylistDetailDialog(
+                playlist = it,
+                onDismiss = { selectedPlaylist = null }
+            )
+        }
         // recent
         Column(
             modifier = Modifier
@@ -81,13 +78,15 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(playList) { playlist ->
-                    GalleryEntry(
-                        contentName = playlist.title,
-                        thumbnailResId = ,
-                        onTap = {},
-                        onLongPress = {},
-                        showText = true
+                    playlist.thumbnailResId?.let {
+                        GalleryEntry(
+                            contentName = playlist.title,
+                            thumbnailResId = it,
+                            onTap = { selectedPlaylist = playlist },
+                            onLongPress = {},
+                            showText = true
                         )
+                    }
                 }
             }
         }
