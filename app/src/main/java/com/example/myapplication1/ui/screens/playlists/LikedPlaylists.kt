@@ -84,6 +84,6 @@ fun LikedPlaylists(
             .fillMaxSize()
             .padding(horizontal = 12.dp, vertical = 8.dp),
     ) {
-        PlaylistList(playlists = likedPlayList, navController = navController)
+        PlaylistList(playlists = likedPlayList)
     }
 }

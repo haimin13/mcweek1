@@ -12,7 +12,6 @@ fun PlaylistList(
     modifier: Modifier = Modifier,
     playlists: List<Playlist>,
     verticalSpacing: Int = 8,
-    navController: NavController,
     isCharts: Boolean = false
 ) {
     var selectedPlaylist by remember { mutableStateOf<Playlist?>(null) }

@@ -18,7 +18,7 @@ import com.example.myapplication1.ui.components.gallery.GalleryEntry
 @Composable
 fun PopupLayout(
     title: String,
-    thumbnailResId: Int = R.drawable.dummy,
+    thumbnailResId: Int = 0,
     onDismiss: () -> Unit,
     content: @Composable () -> Unit
 ) {
@@ -58,10 +58,13 @@ fun PopupLayout(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Thumbnail
-                GalleryEntry(
-                    imageSize = 140,
-                    thumbnailResId = thumbnailResId
-                )
+                if (thumbnailResId != 0) {
+                    GalleryEntry(
+                        imageSize = 140,
+                        thumbnailResId = thumbnailResId
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Custom content slot

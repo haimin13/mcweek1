@@ -28,7 +28,6 @@ import com.example.myapplication1.ui.screens.playlists.likedPlayList
 fun SlidingList(
     selectedType: Int,
     onTypeChange: (Int) -> Unit,
-    navController: NavController
 ) {
     val types = listOf("Songs", "Playlists")
 
@@ -71,7 +70,6 @@ fun SlidingList(
                 )
                 1 -> PlaylistList(
                     playlists = likedPlayList.take(3),
-                    navController = navController,
                     isCharts = true,
                 )
             }

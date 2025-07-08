@@ -3,6 +3,7 @@ package com.example.myapplication1.ui.components.profile
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -15,6 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.example.myapplication1.ui.components.common.FullPagePopup
+import com.example.myapplication1.ui.components.list.PlaylistList
+import com.example.myapplication1.ui.components.list.SongList
 import com.example.myapplication1.ui.components.models.Playlist
 import com.example.myapplication1.ui.components.models.Song
 import com.example.myapplication1.ui.components.popup.PlaylistDetailDialog
@@ -26,6 +30,7 @@ fun ProfileRowSong(
     entryList: List<Song>,
 ) {
     var selectedSong by remember { mutableStateOf<Song?>(null) }
+    var showMoreList by remember { mutableStateOf(false) }
 
     Column {
         Text(
@@ -42,7 +47,8 @@ fun ProfileRowSong(
             }
             item {
                 ProfileEntryMore(
-                    modifier = Modifier.height(40.dp)
+                    modifier = Modifier.height(40.dp),
+                    onClick = { showMoreList = true }
                 )
             }
         }
@@ -52,6 +58,18 @@ fun ProfileRowSong(
             SongDetailPopup(song = song, onDismiss = { selectedSong = null })
         }
     }
+    if (showMoreList) {
+        FullPagePopup (
+            title = rowName,
+            onDismiss = { showMoreList = false }
+        ) {
+            Column (
+                modifier = Modifier.padding(horizontal = 8.dp)
+            ) {
+                SongList(songs = entryList)
+            }
+        }
+    }
 }
 @Composable
 fun ProfileRowPlaylist(
@@ -59,6 +77,7 @@ fun ProfileRowPlaylist(
     entryList: List<Playlist>,
 ) {
     var selectedPlaylist by remember { mutableStateOf<Playlist?>(null) }
+    var showMoreList by remember { mutableStateOf(false) }
 
     selectedPlaylist?.let {
         PlaylistDetailDialog(
@@ -73,7 +92,7 @@ fun ProfileRowPlaylist(
             fontWeight = FontWeight.Bold
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            items(entryList) { item ->
+            items(entryList.take(5)) { item ->
                 ProfileEntryPlaylist(
                     playlist = item,
                     modifier = Modifier.height(30.dp),
@@ -81,7 +100,22 @@ fun ProfileRowPlaylist(
                 )
             }
             item {
-                ProfileEntryMore(modifier = Modifier.height(30.dp))
+                ProfileEntryMore(
+                    modifier = Modifier.height(30.dp),
+                    onClick = { showMoreList = true }
+                )
+            }
+        }
+    }
+    if (showMoreList) {
+        FullPagePopup (
+            title = rowName,
+            onDismiss = { showMoreList = false }
+        ) {
+            Column (
+                modifier = Modifier.padding(horizontal = 8.dp)
+            ) {
+                PlaylistList(playlists = entryList)
             }
         }
     }

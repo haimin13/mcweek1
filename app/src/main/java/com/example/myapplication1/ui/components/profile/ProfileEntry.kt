@@ -74,10 +74,14 @@ fun ProfileEntryPlaylist(
     }
 }
 @Composable
-fun ProfileEntryMore(modifier: Modifier) {
+fun ProfileEntryMore(
+    modifier: Modifier,
+    onClick: (() -> Unit)? = null
+) {
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(4.dp))
+            .clickable { onClick?.invoke() }
             .background(Color.White)
             .padding(horizontal = 12.dp),
         verticalArrangement = Arrangement.Center

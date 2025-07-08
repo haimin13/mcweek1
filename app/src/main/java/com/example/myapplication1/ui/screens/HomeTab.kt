@@ -129,7 +129,6 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
             SlidingList(
                 selectedType = selectedType,
                 onTypeChange = { selectedType = it },
-                navController = navController
             )
         }
     }

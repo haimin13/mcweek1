@@ -186,6 +186,6 @@ fun MyPlaylists(modifier: Modifier = Modifier, navController: NavController) {
             .fillMaxSize()
             .padding(horizontal = 12.dp, vertical = 8.dp),
     ) {
-        PlaylistList(playlists = playList, navController = navController)
+        PlaylistList(playlists = playList)
     }
 }
