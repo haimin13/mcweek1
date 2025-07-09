@@ -20,10 +20,6 @@
 - 선호 장르 설정, 닉네임 변경 등 프로필 커스터마이징
 
 
-아래처럼 리드미(README.md)에 이미지를 자연스럽게 포함해서 정리해드릴 수 있습니다.
-
-
-
 ## ✨ 주요 기능
 
 ### Tab 1 - Home 🏠
@@ -32,9 +28,7 @@
 - **친구들의 좋아요/플리 활동** 실시간 업데이트
 - **친구 기반 트렌딩 차트** 제공 (곡/플리 전환 가능)
 
-<p align="center">
-  <img src="https://github.com/haimin13/mcweek1/blob/be_jh/Img/tab1.gif?raw=true" alt="탭1 예시" width="320"/>
-</p>
+  <img src="https://github.com/haimin13/mcweek1/blob/be_jh/Img/tab1.gif?raw=true" alt="탭1 예시" width="240"/>
 
 ### Tab 2 - Playlist 🎧
 
@@ -42,18 +36,16 @@
 - 좋아요한 플리 목록 확인
 - 친구 기반 인기 차트 (Friends Favorite / Trending Now)
 - 개별 플리 및 곡 상세 정보 확인
-<p align="center">
-  <img src="https://github.com/haimin13/mcweek1/blob/be_jh/Img/tab2.gif?raw=true" alt="탭1 예시" width="320"/>
-</p>
+
+  <img src="https://github.com/haimin13/mcweek1/blob/be_jh/Img/tab2.gif?raw=true" alt="탭1 예시" width="240"/>
 
 ### Tab 3 - Friends 👥
 
 - 전체/친한 친구 목록 스와이프 및 구분
 - 친구 프로필 확인 (선호 장르, 좋아요 목록 등)
 - 친한 친구 추가/해제, 활동 피드 확인
-<p align="center">
-  <img src="https://github.com/haimin13/mcweek1/blob/be_jh/Img/tab3.gif?raw=true" alt="탭1 예시" width="320"/>
-</p>
+
+  <img src="https://github.com/haimin13/mcweek1/blob/be_jh/Img/tab3.gif?raw=true" alt="탭1 예시" width="240"/>
 
 ### Tab 4 - My 🙋
 
@@ -61,17 +53,14 @@
 - 좋아요한 곡, 만든 플리, 프로필 사진 확인
 - 계정 전환 기능 지원
 
-<p align="center">
-  <img src="https://github.com/haimin13/mcweek1/blob/be_jh/Img/tab1.gif?raw=true" alt="탭1 예시" width="320"/>
-</p>
+  <img src="https://github.com/haimin13/mcweek1/blob/be_jh/Img/tab1.gif?raw=true" alt="탭1 예시" width="240"/>
 
 
 ## 🧑‍💻 팀 정보
 
 
- 이재현 | KAIST 전산학부 | jh5323565@kaist.ac.kr | [@jaedungg](https://github.com/jaedungg) 
-
- 임하민 | 고려대학교 컴퓨터학과 | dlagkak0113@gmail.com | [@haimin13](https://github.com/haimin13) 
+- **이재현** | KAIST 전산학부 | jh5323565@kaist.ac.kr | [@jaedungg](https://github.com/jaedungg) 
+- **임하민** | 고려대학교 컴퓨터학과 | dlagkak0113@gmail.com | [@haimin13](https://github.com/haimin13) 
 
 
 
@@ -94,7 +83,7 @@
 
 ## 📱 프로토타입
 
-[Figma 프로토타입 보기](https://www.figma.com/proto/UK5RzqYodMFWKMywXvhzG3/%EC%A0%9C%EB%AA%A9-%EC%97%86%EC%9D%8C?node-id=71-3233&p=f&t=sdFUcJTjrAFsMCq8-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=71%3A3233)
+[Figma 프로토타입 보기](https://www.figma.com/design/UK5RzqYodMFWKMywXvhzG3/OoKie?node-id=0-1&p=f&t=qZR58TqhjRZY8ZLl-0)
 <!-- - [🎬 시연 영상 보기 (Home)](KakaoTalk_20250709_202325550.mp4)
 - [🎬 시연 영상 보기 (Playlist)](KakaoTalk_20250709_202329326.mp4)
 - [🎬 시연 영상 보기 (Friends)](KakaoTalk_20250709_200821815.mp4)
@@ -116,8 +105,9 @@
 
 ## 🫠 후기
 
-**이재현**: 백엔드 개발이 처음이라 너무 힘들고, 무리데스였던 것 같지만 짧은 시간 안에 많이 배울 수 있었습니다! 2주차 딱대" 
+**이재현** | 일주일 동안 이렇게 많은 시간을 개발에 쏟게 될 줄 몰랐습니다.. 덕분에 많이 배울 수 있었습니다! 백엔드까지 완성하지 못해서 아쉽지만 MVP의 중요성을 깨닫는 의미 있는 경험이었습니다. 나중에 꼭 프로젝트를 완성하고 싶습니다!  
 
-**임하민**: 하나하나 연동하면서 살아있음을 느꼈습니다…
+
+**임하민** | 본격적인 개발은 처음인데 생각할 것도 많고 외않되의 연속이었습니다... 그래도 시연까지 진행할 수 있어서 뿌듯하고! 앞으로 더 많이 열심히 해야겠다고 생각했습니다.
 
 
