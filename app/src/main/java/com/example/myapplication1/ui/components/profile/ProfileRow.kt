@@ -27,11 +27,12 @@ import com.example.myapplication1.ui.components.list.UserList
 import com.example.myapplication1.data.model.Artist
 import com.example.myapplication1.data.model.Playlist
 import com.example.myapplication1.data.model.Song
-import com.example.myapplication1.ui.components.models.User
+import com.example.myapplication1.data.model.User
 import com.example.myapplication1.ui.components.popup.ArtistDetailPopup
 import com.example.myapplication1.ui.components.popup.PlaylistDetailDialog
 import com.example.myapplication1.ui.components.popup.SongDetailPopup
 import com.example.myapplication1.ui.components.popup.UserProfilePopup
+import com.example.myapplication1.ui.components.popup.dummyUser
 import com.example.myapplication1.ui.remote.ArtistViewModel
 
 @Composable
@@ -222,7 +223,7 @@ fun ProfileRowFriend(
         LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             items(entryList.take(4)) { item ->
                 ProfileEntry(
-                    title = item.nickName,
+                    title = item.nickname,
                     onClick = { selectedUser = item },
                     modifier = Modifier.height(24.dp)
                 )
@@ -239,7 +240,7 @@ fun ProfileRowFriend(
     }
     selectedUser?.let { user ->
         Dialog(onDismissRequest = { selectedUser = null }) {
-            UserProfilePopup(userId = user.nickName, onDismiss = { selectedUser = null })
+            UserProfilePopup(dummyUser, onDismiss = { selectedUser = null })
         }
     }
     if (showMoreList) {
@@ -255,36 +256,3 @@ fun ProfileRowFriend(
         }
     }
 }
-
-val dummyUserList = listOf(
-    User(
-        userId = 1,
-        nickName = "String",
-        friends = listOf(1,2,3),
-        closeFriends = listOf(1,2,3),
-    ),
-    User(
-        userId = 1,
-        nickName = "Sstring",
-        friends = listOf(1,2,3),
-        closeFriends = listOf(1,2,3),
-    ),
-    User(
-        userId = 1,
-        nickName = "Sstring",
-        friends = listOf(1,2,3),
-        closeFriends = listOf(1,2,3),
-    ),
-    User(
-        userId = 1,
-        nickName = "Ssstring",
-        friends = listOf(1,2,3),
-        closeFriends = listOf(1,2,3),
-    ),
-    User(
-        userId = 1,
-        nickName = "Sstring",
-        friends = listOf(1,2,3),
-        closeFriends = listOf(1,2,3),
-    )
-)

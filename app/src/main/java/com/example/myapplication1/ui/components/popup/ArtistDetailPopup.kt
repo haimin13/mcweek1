@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.PopupLayout
@@ -14,7 +16,6 @@ import com.example.myapplication1.data.model.Artist
 import com.example.myapplication1.data.model.Song
 import com.example.myapplication1.ui.components.profile.ProfileRowFriend
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
-import com.example.myapplication1.ui.components.profile.dummyUserList
 import com.example.myapplication1.ui.screens.playlists.playList
 import com.example.myapplication1.ui.screens.tempIdList
 
@@ -23,10 +24,17 @@ fun ArtistDetailPopup(
     artist: Artist,
     onDismiss: () -> Unit
 ) {
+    val context = LocalContext.current
+    val resId = remember(artist.thumbnailId) {
+        val resourceName = "artist_${artist.thumbnailId}"
+        context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+    }
+    val painter = if (resId != 0) resId else R.drawable.profile_default
+
+
     PopupLayout (
         title = artist.nickname,
-//        thumbnailResId = artist.thumbnailId?: R.drawable.profile_default,
-        thumbnailResId = R.drawable.profile_default,
+        thumbnailResId = painter,
         onDismiss = onDismiss
     ) {
         Column(
@@ -47,7 +55,7 @@ fun ArtistDetailPopup(
             // TODO: 이 노래를 좋아하는 유저 중 친구 리스트
             ProfileRowFriend(
                 rowName = "Friends like this",
-                entryList = dummyUserList
+                entryList = listOf(dummyUser, dummyUser)
             )
         }
     }

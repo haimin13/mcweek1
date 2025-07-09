@@ -30,6 +30,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.window.Dialog
 import com.example.myapplication1.ui.components.popup.UserProfilePopup
+import com.example.myapplication1.ui.components.popup.dummyUser
 
 @Composable
 fun PlaylistHeader(playlist: Playlist) {
@@ -91,7 +92,8 @@ fun PlaylistHeader(playlist: Playlist) {
             Dialog(
                 onDismissRequest = { showAuthorProfile = false }
             ) {
-                UserProfilePopup (playlist.author.toString(), //Todo: playlist.author (Int)로 이름 가져오기
+                UserProfilePopup (
+                    dummyUser, //Todo: playlist.author (Int)로 이름 가져오기
                     {showAuthorProfile = false})
             }
         }

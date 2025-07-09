@@ -22,7 +22,6 @@ import com.example.myapplication1.ui.components.list.TagList
 import com.example.myapplication1.ui.components.profile.ProfileRowArtist
 import com.example.myapplication1.ui.components.profile.ProfileRowFriend
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
-import com.example.myapplication1.ui.components.profile.dummyUserList
 import com.example.myapplication1.ui.screens.playlists.playList
 import com.example.myapplication1.ui.screens.tempIdList
 import com.example.myapplication1.data.model.Song
@@ -44,7 +43,6 @@ fun SongDetailPopup(
 
     PopupLayout (
         title = song.title,
-//        thumbnailResId = song.thumbnailId?: R.drawable.song_dummy,
         thumbnailResId = painter,
         onDismiss = onDismiss
     ) {
@@ -66,7 +64,7 @@ fun SongDetailPopup(
             // TODO: 이 노래를 좋아하는 유저 중 친구 리스트
             ProfileRowFriend(
                 rowName = "Friends like this",
-                entryList = dummyUserList
+                entryList = listOf(dummyUser, dummyUser)
             )
             ProfileRowPlaylist(
                 rowName = "Related playlists",

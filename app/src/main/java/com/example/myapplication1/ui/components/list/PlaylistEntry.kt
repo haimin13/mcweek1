@@ -31,6 +31,13 @@ import com.example.myapplication1.data.model.Playlist
 
 @Composable
 fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
+//    // 리소스 이미지 불러오기
+//    val context = LocalContext.current
+//    val resId = remember(song.thumbnailId) {
+//        val resourceName = "song_${song.thumbnailId}"
+//        context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+//    }
+//    val painter = if (resId != 0) resId else R.drawable.song_dummy
 
     Card(
         modifier = Modifier.fillMaxWidth(),

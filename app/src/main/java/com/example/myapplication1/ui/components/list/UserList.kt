@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.example.myapplication1.ui.components.models.User
+import com.example.myapplication1.data.model.User
 import com.example.myapplication1.ui.components.popup.UserProfilePopup
 
 @Composable
@@ -35,7 +35,7 @@ fun UserList(
 
     selectedUser?.let { user ->
         Dialog(onDismissRequest = { selectedUser = null }) {
-            UserProfilePopup(userId = user.nickName, onDismiss = { selectedUser = null })
+            UserProfilePopup(user = user, onDismiss = { selectedUser = null })
         }
     }
 }

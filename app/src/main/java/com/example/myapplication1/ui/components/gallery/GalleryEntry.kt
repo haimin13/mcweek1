@@ -35,6 +35,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Popup
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.popup.UserProfilePopup
+import com.example.myapplication1.ui.components.popup.dummyUser
 
 @Composable
 fun GalleryEntry(
@@ -119,7 +120,7 @@ fun GalleryEntry(
                 Dialog(
                     onDismissRequest = { showTapDialog = false }
                 ) {
-                    UserProfilePopup (contentName, {showTapDialog = false})
+                    UserProfilePopup (dummyUser, {showTapDialog = false})
                 }
             }
             // GalleryEntry.kt에서 롱프레스 팝업 수정

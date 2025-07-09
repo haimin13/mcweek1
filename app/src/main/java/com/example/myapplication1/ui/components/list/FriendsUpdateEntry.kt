@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -28,7 +30,17 @@ import java.time.LocalDateTime
 import java.time.Period
 
 @Composable
-fun FriendsUpdateEntry(userLog: UserLikeLog) {
+fun FriendsUpdateEntry(
+    userLog: UserLikeLog
+) {
+    // 리소스 이미지 불러오기
+    val context = LocalContext.current
+    val resId = remember(userLog.userId) {
+        val resourceName = "user_${userLog.userId}"
+        context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+    }
+    val painter = if (resId != 0) resId else R.drawable.profile_default
+
     val currentDateTime = LocalDateTime.now()
     val timeDiff: String = getTimeDifference(currentDateTime, userLog.likedTime)
 
@@ -38,7 +50,7 @@ fun FriendsUpdateEntry(userLog: UserLikeLog) {
         verticalAlignment = Alignment.CenterVertically
     ){
         Image(
-            painter = painterResource(R.drawable.dummy),
+            painter = painterResource(painter),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier

@@ -14,18 +14,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.LikeButton
 import com.example.myapplication1.ui.components.common.MenuButton
-import com.example.myapplication1.ui.components.models.User
+import com.example.myapplication1.data.model.User
 
 @Composable
 fun UserEntry(
     user: User,
     isCharts: Boolean = false
 ) {
+    // 리소스 이미지 불러오기
+    val context = LocalContext.current
+    val resId = remember(user.thumbnailId) {
+        val resourceName = "user_${user.thumbnailId}"
+        context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+    }
+    val painter = if (resId != 0) resId else R.drawable.profile_default
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -50,7 +59,7 @@ fun UserEntry(
             // 썸네일
             Box(modifier = Modifier.size(44.dp)) {
                 Image(
-                    painter = painterResource(id = user.thumbnailResId ?: R.drawable.profile_default),
+                    painter = painterResource(painter),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
@@ -63,7 +72,7 @@ fun UserEntry(
             // 제목 + 태그
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = user.nickName,
+                    text = user.nickname,
                     style = MaterialTheme.typography.titleSmall,
                     maxLines = 1
                 )
