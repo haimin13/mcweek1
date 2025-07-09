@@ -49,7 +49,7 @@ sealed class BottomNavItem(
 fun MainScreen(modifier: Modifier) {
     val navController = rememberNavController()
 
-    var myId by remember { mutableStateOf(0)}
+    var myId by remember { mutableStateOf(1)}
 
     val items = listOf(
         BottomNavItem.Home,

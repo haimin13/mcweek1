@@ -9,10 +9,15 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication1.ui.components.list.FriendsUpdateList
 import com.example.myapplication1.ui.components.models.UserLog
+import com.example.myapplication1.ui.remote.FriendLogViewModel
 
 val dummyUserLogs = listOf(
     UserLog(userName = "jaedungg", itemName = "Drowning"),
@@ -36,8 +41,15 @@ val dummyUserLogs = listOf(
 @Composable
 fun NotificationPage(
     onBackClick: () -> Unit,
-    myId: Int = 0
+    myId: Int = 1,
+    logViewModel: FriendLogViewModel = viewModel()
 ) {
+    val friendsUpdate by logViewModel.friendLogs.observeAsState(emptyList())
+
+    LaunchedEffect(logViewModel) {
+        logViewModel.loadFriendLogs(myId)
+    }
+
     Column (
         modifier = Modifier.fillMaxSize()
     ) {
@@ -52,7 +64,7 @@ fun NotificationPage(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 20.dp),
-            userLogs = dummyUserLogs,
+            userLogs = friendsUpdate,
             verticalSpacing = 16)
     }
 }

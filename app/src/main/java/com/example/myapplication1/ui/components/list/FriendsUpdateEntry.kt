@@ -21,19 +21,16 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.R
+import com.example.myapplication1.data.model.UserLikeLog
 import com.example.myapplication1.ui.components.models.UserLog
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.Period
 
 @Composable
-fun FriendsUpdateEntry(userLog: UserLog) {
+fun FriendsUpdateEntry(userLog: UserLikeLog) {
     val currentDateTime = LocalDateTime.now()
-    val timeDiff: String = if (userLog.time != null) {
-        getTimeDifference(currentDateTime, userLog.time)
-    } else {
-        "알 수 없음"
-    }
+    val timeDiff: String = getTimeDifference(currentDateTime, userLog.likedTime)
 
     Row (
         modifier = Modifier
@@ -55,11 +52,11 @@ fun FriendsUpdateEntry(userLog: UserLog) {
             Text(
                 text = buildAnnotatedString {
                     withStyle(style = SpanStyle(fontWeight = FontWeight(600))) {
-                        append(userLog.userName)
+                        append(userLog.userId.toString())
                     }
                     append("님이 ")
                     withStyle(style = SpanStyle(fontWeight = FontWeight(600))) {
-                        append(userLog.itemName)
+                        append(userLog.itemId.toString())
                     }
                     append("을 좋아합니다.")
                 },

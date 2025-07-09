@@ -35,6 +35,7 @@ import com.example.myapplication1.data.model.Playlist
 import com.example.myapplication1.ui.components.popup.PlaylistDetailDialog
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.remote.ChartViewModel
+import com.example.myapplication1.ui.remote.FriendLogViewModel
 import com.example.myapplication1.ui.remote.PlaylistViewModel
 
 @Composable
@@ -63,14 +64,21 @@ fun HomeTabMain(
     navController: NavController,
     myId: Int = 1,
     viewModel: PlaylistViewModel = viewModel(),
-    chartViewModel: ChartViewModel = viewModel()
+    chartViewModel: ChartViewModel = viewModel(),
+    logViewModel: FriendLogViewModel = viewModel()
 ) {
     val recentPlaylistsData by viewModel.playlists.observeAsState(emptyList())
     val trendingChart by chartViewModel.trendingNow.observeAsState()
+    val friendsUpdate by logViewModel.friendLogs.observeAsState(emptyList())
 
     LaunchedEffect(viewModel) {
         viewModel.loadRecentPlaylists()
+    }
+    LaunchedEffect(chartViewModel) {
         chartViewModel.loadTrendingNow(myId)
+    }
+    LaunchedEffect(logViewModel) {
+        logViewModel.loadFriendLogs(myId)
     }
 
     Column (
@@ -124,7 +132,7 @@ fun HomeTabMain(
                     .background(color = Color.White)
                     .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
-                FriendsUpdateList(userLogs = dummyUserLogs)
+                FriendsUpdateList(userLogs = friendsUpdate)
             }
         }
 
