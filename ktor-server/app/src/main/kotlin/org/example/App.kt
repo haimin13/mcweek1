@@ -23,7 +23,7 @@ import org.example.routing.artistRoute
 
 
 fun main() {
-    embeddedServer(Netty, port = 8080) {
+    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
         install(ContentNegotiation) {
             json(Json {
                 prettyPrint = true

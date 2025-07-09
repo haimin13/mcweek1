@@ -30,7 +30,7 @@ import com.example.myapplication1.ui.components.gallery.GalleryLongPress
 import com.example.myapplication1.data.model.Playlist
 
 @Composable
-fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
+fun PlaylistEntry(playlist: Playlist, isCharts: Boolean, isMy: Boolean = false) {
 //    // 리소스 이미지 불러오기
 //    val context = LocalContext.current
 //    val resId = remember(song.thumbnailId) {
@@ -99,8 +99,10 @@ fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
                         )
                     }
                 }
+                val names = listOf("jaedungg", "haimain13", "jaedungg", "jaedungg", "haimain13", "haimain13", "jaedungg", "jaedungg", "haimain13", "haimain13", "jaedungg", "jaedungg", "haimain13")
                 Text(
-                    text = playlist.author.toString(), //Todo: playlist.author (Int)로 이름 가져오기
+//                    text = if (isMy) "me" else playlist.author.toString(), //Todo: playlist.author (Int)로 이름 가져오기
+                    text = if (isMy) "me" else names[playlist.author], //Todo: playlist.author (Int)로 이름 가져오기
                     style = MaterialTheme.typography.labelSmall,
                     color = Color.Gray
                 )
