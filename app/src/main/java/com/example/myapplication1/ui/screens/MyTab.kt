@@ -18,7 +18,9 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,10 +28,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.Edit.EditNickname
 import com.example.myapplication1.ui.components.gallery.GalleryEntry
 import com.example.myapplication1.ui.components.list.TagList
@@ -38,15 +43,33 @@ import com.example.myapplication1.ui.components.profile.ProfileRowSong
 import com.example.myapplication1.ui.screens.playlists.FriendsFavorites
 import com.example.myapplication1.ui.screens.playlists.playList
 import com.example.myapplication1.ui.components.profile.UserSwitchDialog
+import com.example.myapplication1.ui.remote.PlaylistViewModel
+import com.example.myapplication1.ui.remote.ProfileViewModel
 
 // Temp
 val tempIdList = listOf(1,2,3,4,5,6,7,8,9)
 
 @Composable
 fun MyTabMain(
-    myId: Int, // 외부에서 받음
-    onMyIdChange: (Int) -> Unit // myId 변경 콜백
+    myId: Int = 1, // 외부에서 받음
+    onMyIdChange: (Int) -> Unit, // myId 변경 콜백
+    viewModel: ProfileViewModel = viewModel(),
 ) {
+
+    val userProfile by viewModel.profile.observeAsState()
+
+    LaunchedEffect(viewModel) {
+        viewModel.loadProfileById(myId)
+    }
+
+    val context = LocalContext.current
+    val resId = remember(userProfile?.userId) {
+        val resourceName = "user_${userProfile?.userId}"
+        context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+    }
+    val painter = if (resId != 0) resId else R.drawable.profile_default
+
+
     var likedTags by remember {
         mutableStateOf(listOf(
             listOf(1,3,5,6,7,16,15,8,9),
@@ -111,6 +134,7 @@ fun MyTabMain(
             Spacer(modifier = Modifier.height(50.dp))
             Box() {
                 GalleryEntry(
+                    thumbnailResId = painter,
                     contentName = "",
                     showText = false,
                     imageSize = 200,

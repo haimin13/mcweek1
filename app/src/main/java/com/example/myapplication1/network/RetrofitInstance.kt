@@ -2,6 +2,7 @@ package com.example.myapplication1.network
 
 import com.example.myapplication1.data.api.PlaylistApi
 import com.example.myapplication1.data.api.ApiService
+import com.example.myapplication1.data.api.ProfileApi
 import retrofit2.Retrofit
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -28,6 +29,10 @@ object RetrofitInstance {
 
     val remoteApi: ApiService by lazy {
         retrofit.create(ApiService::class.java)
+    }
+
+    val profileApi: ProfileApi by lazy {
+        retrofit.create(ProfileApi::class.java)
     }
 
     // 필요한 다른 API들도 여기에 추가 가능

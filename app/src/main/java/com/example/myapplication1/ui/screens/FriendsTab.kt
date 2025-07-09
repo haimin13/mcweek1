@@ -26,7 +26,9 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -37,12 +39,31 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.ui.components.dialog.AddFriendDialog
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication1.R
+import com.example.myapplication1.ui.remote.ProfileViewModel
 
 @Composable
 fun FriendsTabMain(
     onNotificationClick: () -> Unit,
-    myId: Int = 0
+    myId: Int = 1,
+    viewModel: ProfileViewModel = viewModel(),
 ) {
+    val userProfile by viewModel.profile.observeAsState()
+
+    LaunchedEffect(viewModel) {
+        viewModel.loadProfileById(myId)
+    }
+
+    val context = LocalContext.current
+    val resId = remember(userProfile?.userId) {
+        val resourceName = "user_${userProfile?.userId}"
+        context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+    }
+    val painter = if (resId != 0) resId else R.drawable.profile_default
+
+
     // friendsIds는 내 친구 database에서 불러옴
     var favoriteFriendsIds by remember {
         mutableStateOf(listOf(
