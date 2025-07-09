@@ -120,7 +120,7 @@ fun GalleryEntry(
                 Dialog(
                     onDismissRequest = { showTapDialog = false }
                 ) {
-                    UserProfilePopup (dummyUser, {showTapDialog = false})
+                    UserProfilePopup (dummyUser, {showTapDialog = false}, painterr = thumbnailResId)
                 }
             }
             // GalleryEntry.kt에서 롱프레스 팝업 수정

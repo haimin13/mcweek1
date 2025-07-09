@@ -56,7 +56,7 @@ fun Route.chartsRoute() {
         val friendIds = UserStorage.users.find { it.id == userId }?.friends ?: emptyList()
         val now = LocalDateTime.now()
         val logs = UserLikeLogStorage.logs.filter {
-            it.userId in friendIds && ChronoUnit.DAYS.between(it.likedTime, now) <= 3
+            it.userId in friendIds && ChronoUnit.DAYS.between(it.likedTime, now) <= 1
         }
 
         val songLikeCounts = mutableMapOf<Int, Int>()

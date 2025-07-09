@@ -61,18 +61,69 @@ fun FriendsUpdateEntry(
             modifier = Modifier.weight(1f),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            val userNicknames = listOf(
+                "lilac",
+                "zeppo",
+                "minty",
+                "sora4",
+                "nero9",
+                "junee",
+                "arise",
+                "vicky",
+                "nami7",
+                "pocky",
+                "sylph"
+            )
+
+            val songTitles = listOf(
+                "Lost in Echo",
+                "Midnight Soda",
+                "Gravity",
+                "Summer Blur",
+                "Rain on Neon",
+                "Whispers",
+                "Firefly Verse",
+                "Waves from Mars",
+                "Velvet Paradox",
+                "Hollow Glow"
+            )
+            val playlistTitles = listOf(
+                "Drive Late Nights",
+                "Rainy Coffeehouse",
+                "Synthwave Sunrise",
+                "Chillhop & Loops",
+                "Indie Vibes Only",
+                "Afterparty",
+                "Morning Chill",
+                "Focused Flow",
+                "Jazz & Mellow",
+                "Beats for Coding",
+                "Night in Tokyo",
+                "Weekend Reset"
+            )
+            fun getItemNameById(itemId: Int): String {
+                return if (itemId < 100) {
+                    songTitles.getOrNull(itemId) ?: "Unknown Song"
+                } else {
+                    playlistTitles.getOrNull(itemId - 100) ?: "Unknown Playlist"
+                }
+            }
+
+
+
             Text(
                 text = buildAnnotatedString {
                     withStyle(style = SpanStyle(fontWeight = FontWeight(600))) {
-                        append(userLog.userId.toString())
+                        append(userNicknames.getOrNull(userLog.userId))
+//                        append(userLog.userId.toString())
                     }
                     append("님이 ")
                     withStyle(style = SpanStyle(fontWeight = FontWeight(600))) {
-                        append(userLog.itemId.toString())
+                        append(getItemNameById(userLog.itemId))
                     }
                     append("을 좋아합니다.")
                 },
-                fontSize = 12.sp,
+                fontSize = 11.sp,
                 fontWeight = FontWeight(500),
                 modifier = Modifier.padding(start = 10.dp, end = 5.dp)
             )

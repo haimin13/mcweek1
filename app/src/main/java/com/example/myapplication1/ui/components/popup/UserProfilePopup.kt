@@ -36,7 +36,8 @@ val dummyUser =  User(
 @Composable
 fun UserProfilePopup(
     user: User,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    painterr: Int = R.drawable.dummy
 ) {
     val context = LocalContext.current
     val resId = remember(user.id) {
@@ -47,7 +48,7 @@ fun UserProfilePopup(
 
     PopupLayout(
         title = "${user.nickname}'s music profile",
-        thumbnailResId = painter,
+        thumbnailResId = painterr,
         onDismiss = onDismiss
     ) {
         Column(
