@@ -1,16 +1,10 @@
 package com.example.myapplication1.ui.components.list
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,13 +15,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import com.example.myapplication1.R
+import com.example.myapplication1.data.model.Playlist
 import com.example.myapplication1.ui.components.common.KeywordTag
 import com.example.myapplication1.ui.components.common.LikeButton
 import com.example.myapplication1.ui.components.common.MenuButton
-import com.example.myapplication1.ui.components.gallery.GalleryLongPress
-import com.example.myapplication1.ui.components.models.Playlist
 
 @Composable
 fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
@@ -70,7 +62,7 @@ fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
             // 썸네일
             Box(modifier = Modifier.size(52.dp)) {
                 Image(
-                    painter = painterResource(id = playlist.thumbnailResId ?: R.drawable.dummy),
+                    painter = painterResource(id = playlist.thumbnailId ?: R.drawable.dummy),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
@@ -104,7 +96,7 @@ fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
                     }
                 }
                 Text(
-                    text = playlist.author,
+                    text = "Api needed",
                     style = MaterialTheme.typography.labelSmall,
                     color = Color.Gray
                 )
@@ -112,7 +104,7 @@ fun PlaylistEntry(playlist: Playlist, isCharts: Boolean) {
                 Spacer(modifier = Modifier.height(2.dp))
 
                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    playlist.keywords.forEach { keyword ->
+                    playlist.keywords?.forEach { keyword ->
                         KeywordTag(text = keyword)
                     }
                 }

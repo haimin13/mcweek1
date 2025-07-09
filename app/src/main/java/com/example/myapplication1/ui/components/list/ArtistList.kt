@@ -8,8 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.example.myapplication1.ui.components.models.Artist
-import com.example.myapplication1.ui.components.models.Song
+import com.example.myapplication1.data.model.Artist
 import com.example.myapplication1.ui.components.popup.ArtistDetailPopup
 
 @Composable
@@ -44,45 +43,45 @@ fun ArtistList(
 val dummyArtistList = listOf(
     Artist(
         id = 1,
-        title = "IU",
-        thumbnailResId = null,
-        genres = listOf("K-Pop", "Ballad"),
-        isLiked = true,
+        nickname = "IU",
+        thumbnailId = null,
+        likedGenres = mutableListOf(1,2),
+        likedBy = mutableListOf(1,2)
     ),
     Artist(
         id = 2,
-        title = "BTS",
-        thumbnailResId = null,
-        genres = listOf("K-Pop", "Hip-Hop"),
-        isLiked = false,
+        nickname = "BTS",
+        thumbnailId = null,
+        likedGenres = mutableListOf(1,2),
+        likedBy = mutableListOf(1,2),
     ),
     Artist(
         id = 3,
-        title = "BLACKPINK",
-        thumbnailResId = null,
-        genres = listOf("K-Pop"),
-        isLiked = true,
+        nickname = "BLACKPINK",
+        thumbnailId = null,
+        likedGenres = mutableListOf(1,2),
+        likedBy = mutableListOf(1,2),
     ),
     Artist(
         id = 4,
-        title = "Zico",
-        thumbnailResId = null,
-        genres = listOf("Hip-Hop", "R&B"),
-        isLiked = false,
+        nickname = "Zico",
+        thumbnailId = null,
+        likedGenres =  mutableListOf(1,2),
+        likedBy =  mutableListOf(1,2),
     ),
     Artist(
         id = 5,
-        title = "AKMU",
-        thumbnailResId = null,
-        genres = listOf("Indie", "Folk"),
-        isLiked = true,
+        nickname = "AKMU",
+        thumbnailId = null,
+        likedGenres =  mutableListOf(1,2),
+        likedBy =  mutableListOf(1,2),
     ),
     Artist(
         id = 6,
-        title = "Taeyeon",
-        thumbnailResId = null,
-        genres = listOf("Ballad", "Pop"),
-        isLiked = false,
+        nickname = "Taeyeon",
+        thumbnailId = null,
+        likedGenres =  mutableListOf(1,2),
+        likedBy =  mutableListOf(1,2),
     )
 )
 

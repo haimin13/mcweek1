@@ -469,6 +469,66 @@
         }
       }
     },
+    "/friends/{id}/remove/{targetId}": {
+      "delete": {
+        "summary": "친구 삭제",
+        "description": "특정 유저의 친구 목록에서 다른 유저를 삭제합니다.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "친구를 삭제할 유저의 ID"
+          },
+          {
+            "name": "targetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "삭제할 친구의 ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "친구 삭제 결과",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "잘못된 파라미터",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Invalid parameters"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "서버 내부 오류",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Internal Server Error: {error message}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/friends/{id}/close/add/{targetId}": {
       "post": {
         "summary": "친한 친구 추가",
@@ -651,10 +711,10 @@
         }
       }
     },
-    "/profile/switch": {
+    "/profile/list": {
       "get": {
-        "summary": "모든 유저 ID 목록 조회",
-        "description": "시스템에 등록된 모든 유저의 ID 목록을 반환합니다.",
+        "summary": "모든 유저 목록 조회",
+        "description": "시스템에 등록된 모든 유저의 목록을 반환합니다.",
         "responses": {
           "200": {
             "description": "유저 ID 목록 조회 성공",
@@ -1289,31 +1349,6 @@
           "message": "You can add this user as a friend"
         }
       },
-      "ProfileSong": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "integer" },
-          "title": { "type": "string" },
-          "artist": { "type": "string" }
-        },
-        "required": ["id", "title", "artist"]
-      },
-      "ProfileArtist": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "integer" },
-          "nickname": { "type": "string" }
-        },
-        "required": ["id", "nickname"]
-      },
-      "ProfilePlaylist": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "integer" },
-          "title": { "type": "string" }
-        },
-        "required": ["id", "title"]
-      },
       "Profile": {
         "type": "object",
         "properties": {
@@ -1327,17 +1362,17 @@
           },
           "likedSongs": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ProfileSong" },
+            "items": { "$ref": "#/components/schemas/Song" },
             "nullable": true
           },
           "likedArtists": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ProfileArtist" },
+            "items": { "$ref": "#/components/schemas/Artist" },
             "nullable": true
           },
           "createdPlaylists": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/ProfilePlaylist" },
+            "items": { "$ref": "#/components/schemas/Playlist" },
             "nullable": true
           }
         },

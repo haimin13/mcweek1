@@ -1,13 +1,8 @@
 package com.example.myapplication1.ui.components.list
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,9 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
+import com.example.myapplication1.data.model.Song
 import com.example.myapplication1.ui.components.common.LikeButton
 import com.example.myapplication1.ui.components.common.MenuButton
-import com.example.myapplication1.ui.components.models.Song
 
 @Composable
 fun SongEntry(song: Song, isCharts: Boolean) {
@@ -47,7 +42,7 @@ fun SongEntry(song: Song, isCharts: Boolean) {
             // 썸네일
             Box(modifier = Modifier.size(44.dp)) {
                 Image(
-                    painter = painterResource(id = song.thumbnailResId ?: R.drawable.song_dummy),
+                    painter = painterResource(id = song.thumbnailId ?: R.drawable.song_dummy),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
@@ -66,7 +61,7 @@ fun SongEntry(song: Song, isCharts: Boolean) {
                 )
                 Row {
                     Text(
-                        text = song.artist.joinToString(" & "),
+                        text = song.artist,
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.Gray
                     )

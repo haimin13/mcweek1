@@ -8,10 +8,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
+import com.example.myapplication1.data.model.Song
 import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
 import com.example.myapplication1.ui.components.list.dummyArtistList
-import com.example.myapplication1.ui.components.models.Song
 import com.example.myapplication1.ui.components.profile.ProfileRowArtist
 import com.example.myapplication1.ui.components.profile.ProfileRowFriend
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
@@ -25,7 +25,7 @@ fun SongDetailPopup(
 ) {
     PopupLayout (
         title = song.title,
-        thumbnailResId = song.thumbnailResId?: R.drawable.song_dummy,
+        thumbnailResId = song.thumbnailId?: R.drawable.song_dummy,
         onDismiss = onDismiss
     ) {
         Column(

@@ -1,13 +1,8 @@
 package com.example.myapplication1.ui.components.list
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,9 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
+import com.example.myapplication1.data.model.Artist
 import com.example.myapplication1.ui.components.common.LikeButton
 import com.example.myapplication1.ui.components.common.MenuButton
-import com.example.myapplication1.ui.components.models.Artist
 
 @Composable
 fun ArtistEntry(
@@ -50,7 +45,7 @@ fun ArtistEntry(
             // 썸네일
             Box(modifier = Modifier.size(44.dp)) {
                 Image(
-                    painter = painterResource(id = artist.thumbnailResId ?: R.drawable.profile_default),
+                    painter = painterResource(id = artist.thumbnailId ?: R.drawable.profile_5),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
@@ -63,13 +58,13 @@ fun ArtistEntry(
             // 제목 + 태그
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = artist.title,
+                    text = artist.nickname,
                     style = MaterialTheme.typography.titleSmall,
                     maxLines = 1
                 )
                 Row {
                     Text(
-                        text = artist.genres.joinToString(" & "),
+                        text = artist.likedGenres!!.joinToString(" & "),
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.Gray
                     )

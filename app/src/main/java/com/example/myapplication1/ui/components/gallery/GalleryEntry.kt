@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.Popup
 import com.example.myapplication1.R
+import com.example.myapplication1.data.model.FriendInfo
 import com.example.myapplication1.ui.components.popup.UserProfilePopup
 
 @Composable
@@ -47,13 +48,12 @@ fun GalleryEntry(
     showText: Boolean = false,
     showIcon: Boolean = true,
     isLiked: Boolean = false, // 좋아요 상태 추가
-    onRemoveFriend: ((String) -> Unit)? = null,
+    onRemoveFriend: (() -> Unit)? = null,
     onTap: (() -> Unit)? = null, // 탭 동작을 인자로 받음
     onLongPress: (() -> Unit)? = null, // 롱프레스 동작도 인자로 받음
-    onLikeToggle: ((String, Boolean) -> Unit)? = null // 좋아요 토글 콜백 수정
+    onLikeToggle: (() -> Unit)? = null // 좋아요 토글 콜백 수정
 ) {
     // isLiked 기본값은 database에 따르도록 변경
-    var internalIsLiked by remember(isLiked) { mutableStateOf(isLiked) } // 외부 상태로 초기화
     var showTapDialog by remember { mutableStateOf(false) }
     var showLongPressPopup by remember { mutableStateOf(false) }
 
@@ -100,16 +100,15 @@ fun GalleryEntry(
                         .align(Alignment.BottomEnd)
                         .padding((imageSize / 30).dp)
                         .clickable {
-                            // LikeButton 클릭을 여기서 처리
-                            internalIsLiked = !internalIsLiked
-                            onLikeToggle?.invoke(contentName, internalIsLiked)
+                            // Directly invoke the callback with the toggled state
+                            onLikeToggle?.invoke()
                         }
                 ) {
                     // LikeButton을 수정하지 않고 아이콘만 직접 표시
                     Icon(
-                        imageVector = if (internalIsLiked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                        imageVector = if (isLiked) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                         contentDescription = "Like",
-                        tint = if (internalIsLiked) Color.Red else Color.Gray,
+                        tint = if (isLiked) Color.Red else Color.Gray,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -129,22 +128,17 @@ fun GalleryEntry(
                     onDismissRequest = { showLongPressPopup = false }
                 ) {
                     GalleryLongPress(
-                        userId = contentName,
+                        userId = contentId,
                         isCloseFriend = isLiked, // 현재 좋아요 상태를 친한 친구 여부로 사용
-                        onRemoveFriend = { friendId ->
-                            onRemoveFriend?.invoke(friendId)
+                        onRemoveFriend = {  ->
+                            onRemoveFriend?.invoke()
                             showLongPressPopup = false
                         },
-                        onToggleCloseFriend = { friendId, isClose ->
-                            onLikeToggle?.invoke(friendId, isClose)
-                            showLongPressPopup = false
-                        },
-                        onMuteFriend = { friendId ->
-                            // 음소거 기능 구현
+                        onToggleCloseFriend = { ->
+                            onLikeToggle?.invoke()
                             showLongPressPopup = false
                         },
                         onSeeProfile = { friendId ->
-                            // 프로필 보기 기능 구현
                             showLongPressPopup = false
                         }
                     )

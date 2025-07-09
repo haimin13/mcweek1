@@ -36,14 +36,14 @@ data class Song(
 data class User(
     val id: Int,
     var nickname: String,
-    val thumbnailId: Int? = null,
-    @Contextual val friends: MutableList<Int>? = null,
-    @Contextual val closeFriends: MutableList<Int>? = null,
-    @Contextual var likedGenres: MutableList<Int>? = null,
-    @Contextual val likedSongs: MutableList<Int>? = null,
-    @Contextual val likedPlaylists: MutableList<Int>? = null,
-    @Contextual val likedArtists: MutableList<Int>? = null,
-    @Contextual val createdPlaylists: MutableList<Int>? = null,
+    val thumbnailId: Int = 1,
+    @Contextual val friends: MutableList<Int> = mutableListOf(),
+    @Contextual val closeFriends: MutableList<Int> = mutableListOf(),
+    @Contextual var likedGenres: MutableList<Int> = mutableListOf(),
+    @Contextual val likedSongs: MutableList<Int> = mutableListOf(),
+    @Contextual val likedPlaylists: MutableList<Int> = mutableListOf(),
+    @Contextual val likedArtists: MutableList<Int> = mutableListOf(),
+    @Contextual val createdPlaylists: MutableList<Int> = mutableListOf(),
 )
 
 @Serializable
@@ -74,9 +74,9 @@ data class UserLikeLog(
 @Serializable
 data class FriendInfo(
     val friendId: Int,
-    val nickname: String,
+    var nickname: String,
     val thumbnailId: Int?,
-    val isCloseFriend: Boolean
+    var isCloseFriend: Boolean
 )
 
 @Serializable
@@ -92,31 +92,12 @@ data class ChartResponse(
 )
 
 @Serializable
-data class ProfileSong(
-    val id: Int,
-    val title: String,
-    val artist: String
-)
-
-@Serializable
-data class ProfileArtist(
-    val id: Int,
-    val nickname: String
-)
-
-@Serializable
-data class ProfilePlaylist(
-    val id: Int,
-    val title: String
-)
-
-@Serializable
 data class Profile(
     val userId: Int,
     val nickname: String,
-    val thumbnailId: Int?,
-    val likedGenres: List<Int>?,
-    val likedSongs: List<ProfileSong>?,
-    val likedArtists: List<ProfileArtist>?,
-    val createdPlaylists: List<ProfilePlaylist>?
+    val thumbnailId: Int,
+    val likedGenres: MutableList<Int>,
+    val likedSongs: List<Song>,
+    val likedArtists: List<Artist>,
+    val createdPlaylists: List<Playlist>
 )

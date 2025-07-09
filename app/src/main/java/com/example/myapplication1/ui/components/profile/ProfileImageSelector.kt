@@ -35,14 +35,14 @@ fun ProfileImageSelector(
 ) {
     // 사용 가능한 프로필 이미지들
     val profileImages = listOf(
-        ProfileImage(0, R.drawable.profile_default, "Default"),
-        ProfileImage(1, R.drawable.profile_cat, "Cat"),
-        ProfileImage(2, R.drawable.profile_dog, "Dog"),
-        ProfileImage(3, R.drawable.profile_avatar1, "Avatar 1"),
-        ProfileImage(4, R.drawable.profile_avatar2, "Avatar 2"),
-        ProfileImage(5, R.drawable.profile_avatar3, "Avatar 3"),
-        ProfileImage(6, R.drawable.profile_nature_tree, "Tree"),
-        ProfileImage(7, R.drawable.profile_nature_flower, "Flower")
+        ProfileImage(0, R.drawable.profile_5, "Default"),
+        ProfileImage(1, R.drawable.profile_4, "Cat"),
+        ProfileImage(2, R.drawable.profile_6, "Dog"),
+        ProfileImage(3, R.drawable.profile_1, "Avatar 1"),
+        ProfileImage(4, R.drawable.profile_2, "Avatar 2"),
+        ProfileImage(5, R.drawable.profile_3, "Avatar 3"),
+        ProfileImage(6, R.drawable.profile_8, "Tree"),
+        ProfileImage(7, R.drawable.profile_7, "Flower")
     )
 
     if (showDialog) {

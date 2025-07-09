@@ -1,10 +1,9 @@
 package com.example.myapplication1.ui.components.list
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.myapplication1.ui.components.models.UserLog
+import com.example.myapplication1.ui.components.models_unused.UserLog
 
 
 @Composable

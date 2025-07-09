@@ -21,7 +21,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.R
-import com.example.myapplication1.ui.components.models.UserLog
+import com.example.myapplication1.ui.components.models_unused.UserLog
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.Period

@@ -11,8 +11,8 @@ object UserStorage {
             thumbnailId = 1,
             friends = mutableListOf(2, 3, 4, 5, 6, 7),
             closeFriends = mutableListOf(4, 5),
-            likedGenres = mutableListOf(1, 3),
-            likedSongs = mutableListOf(101, 102),
+            likedGenres = mutableListOf(1, 3, 4, 8),
+            likedSongs = mutableListOf(1, 2,3,4,5,6),
             likedPlaylists = mutableListOf(1, 3),
             likedArtists = mutableListOf(1, 3),
             createdPlaylists = mutableListOf(1, 3)
@@ -24,7 +24,7 @@ object UserStorage {
             friends = mutableListOf(1, 3, 6, 8, 9),
             closeFriends = mutableListOf(1, 3),
             likedGenres = mutableListOf(1, 3),
-            likedSongs = mutableListOf(101, 102),
+            likedSongs = mutableListOf(1, 2),
             likedPlaylists = mutableListOf(1, 3),
             likedArtists = mutableListOf(1, 3),
             createdPlaylists = mutableListOf(1, 3)
@@ -36,7 +36,7 @@ object UserStorage {
             friends = mutableListOf(1, 2, 4, 7, 10),
             closeFriends = mutableListOf(1, 2),
             likedGenres = mutableListOf(1, 3),
-            likedSongs = mutableListOf(101, 102),
+            likedSongs = mutableListOf(1, 2),
             likedPlaylists = mutableListOf(1, 3),
             likedArtists = mutableListOf(1, 3),
             createdPlaylists = mutableListOf(1, 3)
@@ -48,7 +48,7 @@ object UserStorage {
             friends = mutableListOf(1, 3, 5, 6, 11),
             closeFriends = mutableListOf(1, 5),
             likedGenres = mutableListOf(1, 3),
-            likedSongs = mutableListOf(101, 102),
+            likedSongs = mutableListOf(1, 2),
             likedPlaylists = mutableListOf(1, 3),
             likedArtists = mutableListOf(1, 3),
             createdPlaylists = mutableListOf(1, 3)
@@ -60,7 +60,7 @@ object UserStorage {
             friends = mutableListOf(1, 4, 6, 7, 8),
             closeFriends = mutableListOf(1, 4),
             likedGenres = mutableListOf(1, 3),
-            likedSongs = mutableListOf(101, 102),
+            likedSongs = mutableListOf(1, 2),
             likedPlaylists = mutableListOf(1, 3),
             likedArtists = mutableListOf(1, 3),
             createdPlaylists = mutableListOf(1, 3)
@@ -72,7 +72,7 @@ object UserStorage {
             friends = mutableListOf(1, 2, 4, 5, 9),
             closeFriends = mutableListOf(2, 5),
             likedGenres = mutableListOf(1, 3),
-            likedSongs = mutableListOf(101, 102),
+            likedSongs = mutableListOf(1, 2),
             likedPlaylists = mutableListOf(1, 3),
             likedArtists = mutableListOf(1, 3),
             createdPlaylists = mutableListOf(1, 3)
@@ -84,7 +84,7 @@ object UserStorage {
             friends = mutableListOf(1, 3, 5, 8, 10),
             closeFriends = mutableListOf(3, 5),
             likedGenres = mutableListOf(1, 3),
-            likedSongs = mutableListOf(101, 102),
+            likedSongs = mutableListOf(1, 2),
             likedPlaylists = mutableListOf(1, 3),
             likedArtists = mutableListOf(1, 3),
             createdPlaylists = mutableListOf(1, 3)
@@ -96,7 +96,7 @@ object UserStorage {
             friends = mutableListOf(2, 5, 7, 9, 11),
             closeFriends = mutableListOf(5, 7),
             likedGenres = mutableListOf(1, 3),
-            likedSongs = mutableListOf(101, 102),
+            likedSongs = mutableListOf(1, 2),
             likedPlaylists = mutableListOf(1, 3),
             likedArtists = mutableListOf(1, 3),
             createdPlaylists = mutableListOf(1, 3)
@@ -108,7 +108,7 @@ object UserStorage {
             friends = mutableListOf(2, 6, 8, 10, 11),
             closeFriends = mutableListOf(6, 8),
             likedGenres = mutableListOf(1, 3),
-            likedSongs = mutableListOf(101, 102),
+            likedSongs = mutableListOf(1, 2,3 ,4, 5),
             likedPlaylists = mutableListOf(1, 3),
             likedArtists = mutableListOf(1, 3),
             createdPlaylists = mutableListOf(1, 3)
@@ -120,7 +120,7 @@ object UserStorage {
             friends = mutableListOf(3, 7, 9, 11),
             closeFriends = mutableListOf(7, 9),
             likedGenres = mutableListOf(1, 3),
-            likedSongs = mutableListOf(101, 102),
+            likedSongs = mutableListOf(1, 2),
             likedPlaylists = mutableListOf(1, 3),
             likedArtists = mutableListOf(1, 3),
             createdPlaylists = mutableListOf(1, 3)
@@ -132,7 +132,7 @@ object UserStorage {
             friends = mutableListOf(4, 8, 9, 10),
             closeFriends = mutableListOf(8, 10),
             likedGenres = mutableListOf(1, 3),
-            likedSongs = mutableListOf(101, 102),
+            likedSongs = mutableListOf(1, 2,5,2 ),
             likedPlaylists = mutableListOf(1, 3),
             likedArtists = mutableListOf(1, 3),
             createdPlaylists = mutableListOf(1, 3)

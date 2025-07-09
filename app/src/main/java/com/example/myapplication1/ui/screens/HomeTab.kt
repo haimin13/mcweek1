@@ -28,7 +28,7 @@ import androidx.navigation.NavController
 import com.example.myapplication1.ui.components.gallery.GalleryEntry
 import com.example.myapplication1.ui.components.list.FriendsUpdateList
 import com.example.myapplication1.ui.components.list.SlidingList
-import com.example.myapplication1.ui.components.models.Playlist
+import com.example.myapplication1.ui.components.models_unused.Playlist
 import com.example.myapplication1.ui.components.popup.PlaylistDetailDialog
 import com.example.myapplication1.ui.screens.playlists.playList
 
@@ -59,13 +59,13 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
             .padding(vertical = 16.dp, horizontal = 12.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ){
-        var selectedPlaylist by remember { mutableStateOf<Playlist?>(null) }
+        /*var selectedPlaylist by remember { mutableStateOf<Playlist?>(null) }
         selectedPlaylist?.let {
             PlaylistDetailDialog(
                 playlist = it,
                 onDismiss = { selectedPlaylist = null }
             )
-        }
+        }*/
         // recent
         Column(
             modifier = Modifier
@@ -73,12 +73,12 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Title("Recent")
-            LazyRow(
+            /*LazyRow(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(playList) { playlist ->
-                    playlist.thumbnailResId?.let {
+                    playlist.thumbnailId?.let {
                         GalleryEntry(
                             contentName = playlist.title,
                             thumbnailResId = it,
@@ -88,7 +88,7 @@ fun HomeTabMain(modifier: Modifier = Modifier, navController: NavController) {
                         )
                     }
                 }
-            }
+            }*/
         }
 
         // Friends' updates

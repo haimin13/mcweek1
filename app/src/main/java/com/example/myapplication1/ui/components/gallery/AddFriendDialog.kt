@@ -22,12 +22,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.myapplication1.data.repository.FriendsRepository
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -43,6 +46,8 @@ fun AddFriendDialog(
         val nickname: String,
         val exists: Boolean
     )
+
+    val scope = rememberCoroutineScope()
 
     var searchNickname by remember { mutableStateOf("") }
     var searchResult by remember { mutableStateOf<UserSearchResult?>(null) }// 이름 변경
@@ -92,6 +97,7 @@ fun AddFriendDialog(
                             value = searchNickname,
                             onValueChange = {
                                 searchNickname = it
+
                                 searchResult = null
                                 errorMessage = ""
                             },

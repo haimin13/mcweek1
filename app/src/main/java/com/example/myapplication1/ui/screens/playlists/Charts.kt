@@ -13,15 +13,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.myapplication1.ui.components.models.Song
 import com.example.myapplication1.R
+import com.example.myapplication1.data.model.Song
 import com.example.myapplication1.ui.components.common.RoundTag
-import com.example.myapplication1.ui.components.list.GenericList
-import com.example.myapplication1.ui.components.list.SongEntry
 import com.example.myapplication1.ui.components.list.SongList
 
 
-val FriendsFavorites = listOf(
+/*val FriendsFavorites = listOf(
     Song(
         id = 1,
         title = "Drowning",
@@ -44,6 +42,13 @@ val FriendsFavorites = listOf(
     ),
 )
 
+val TrendingNow = listOf(Song(
+    id = 11,
+    title = "Dirty Work",
+    artist = "aespa",
+    length = "3:01",
+    genres = listOf(1,2),
+))
 val TrendingNow = listOf(
     Song(
         id = 11,
@@ -105,7 +110,7 @@ val TrendingNow = listOf(
         ranking = 6,
         thumbnailResId = R.drawable.song_dummy
     ),
-)
+)*/
 
 @Composable
 fun Charts(modifier: Modifier = Modifier, navController: NavController) {
@@ -132,7 +137,7 @@ fun Charts(modifier: Modifier = Modifier, navController: NavController) {
             )
         }
 
-        val selectedSong = if (selectedTag == "Friends' favorites") FriendsFavorites else TrendingNow
-        SongList(songs = selectedSong, isCharts = true)
+        /*val selectedSong = if (selectedTag == "Friends' favorites") FriendsFavorites else TrendingNow
+        SongList(songs = selectedSong, isCharts = true)*/
     }
 }

@@ -7,10 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.myapplication1.ui.components.models.Song
+import com.example.myapplication1.ui.components.models_unused.Song
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.list.PlaylistList
-import com.example.myapplication1.ui.components.models.Playlist
+import com.example.myapplication1.ui.components.models_unused.Playlist
 
 
 val likedPlayList = listOf (
@@ -84,6 +84,6 @@ fun LikedPlaylists(
             .fillMaxSize()
             .padding(horizontal = 12.dp, vertical = 8.dp),
     ) {
-        PlaylistList(playlists = likedPlayList)
+        //PlaylistList(playlists = likedPlayList)
     }
 }

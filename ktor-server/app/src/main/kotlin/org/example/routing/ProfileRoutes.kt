@@ -5,9 +5,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.http.HttpStatusCode
 import org.example.models.Profile
-import org.example.models.ProfileSong
-import org.example.models.ProfileArtist
-import org.example.models.ProfilePlaylist
 import org.example.storage.UserStorage
 import org.example.storage.SongStorage
 import org.example.storage.ArtistStorage
@@ -16,6 +13,7 @@ import org.example.storage.PlaylistStorage
 fun Route.profileRoute() {
     route("/profile") {
         get("/{id}") {
+            println("Received request for /profile/${call.parameters["id"]}") // 요청 도달 확인
             try {
                 val id = call.parameters["id"]?.toIntOrNull()
                 if (id == null) {
@@ -29,25 +27,16 @@ fun Route.profileRoute() {
                     return@get
                 }
 
-                val likedSongs = user.likedSongs?.take(5)?.mapNotNull { songId ->
-                    SongStorage.findSongById(songId)?.let { song ->
-                        ProfileSong(id = song.id, title = song.title, artist = song.artist)
-                    }
+                val likedSongs = user.likedSongs.mapNotNull { songId ->
+                    SongStorage.findSongById(songId)
                 }
 
-                val likedArtists = user.likedArtists?.take(5)?.mapNotNull { artistId ->
-                    ArtistStorage.findArtistById(artistId)?.let { artist ->
-                        ProfileArtist(id = artist.id, nickname = artist.nickname)
-                    }
+                val likedArtists = user.likedArtists.mapNotNull { artistId ->
+                    ArtistStorage.findArtistById(artistId)
                 }
 
-                val createdPlaylists = user.createdPlaylists?.take(5)?.mapNotNull { playlistId ->
-                    val playlist = PlaylistStorage.findPlaylistById(playlistId)
-                    if (playlist != null) {
-                        ProfilePlaylist(id = playlist.id, title = playlist.title)
-                    } else {
-                        null
-                    }
+                val createdPlaylists = user.createdPlaylists.mapNotNull { playlistId ->
+                    PlaylistStorage.findPlaylistById(playlistId)
                 }
 
                 // return Profile
@@ -63,8 +52,9 @@ fun Route.profileRoute() {
 
                 call.respond(profile)
             } catch (e: Exception) {
-                call.respondText("Internal Server Error: ${e.message}", status = HttpStatusCode.InternalServerError)
+                println("Exception in /profile/{id} route: ${e.message}") // 예외 확인
                 e.printStackTrace()
+                call.respondText("Internal Server Error: ${e.message}", status = HttpStatusCode.InternalServerError)
             }
         }
 
@@ -146,10 +136,10 @@ fun Route.profileRoute() {
             }
         }
 
-        get("/switch") {
+        get("/list") {
             try {
-                val userIds = UserStorage.users.map { it.id }
-                call.respond(userIds)
+                val users = UserStorage.users
+                call.respond(users)
             } catch (e: Exception) {
                 call.respondText("Internal Server Error: ${e.message}", status = HttpStatusCode.InternalServerError)
                 e.printStackTrace()

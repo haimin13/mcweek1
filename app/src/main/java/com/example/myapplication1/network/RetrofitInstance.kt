@@ -1,6 +1,8 @@
 package com.example.myapplication1.network
 
 import com.example.myapplication1.data.api.PlaylistApi
+import com.example.myapplication1.data.api.ProfileApi
+import com.example.myapplication1.data.api.FriendsApi
 import retrofit2.Retrofit
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -25,6 +27,13 @@ object RetrofitInstance {
         retrofit.create(PlaylistApi::class.java)
     }
 
+    val profileApi: ProfileApi by lazy {
+        retrofit.create(ProfileApi::class.java)
+    }
+
+    val friendsApi: FriendsApi by lazy {
+        retrofit.create(FriendsApi::class.java)
+    }
     // 필요한 다른 API들도 여기에 추가 가능
     // val userApi: UserApi by lazy { retrofit.create(UserApi::class.java) }
 }

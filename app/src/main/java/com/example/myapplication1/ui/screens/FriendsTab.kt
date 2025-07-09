@@ -26,9 +26,11 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,61 +39,107 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.ui.components.dialog.AddFriendDialog
 import androidx.compose.ui.graphics.Color
+import androidx.savedstate.findViewTreeSavedStateRegistryOwner
+import com.example.myapplication1.data.model.FriendInfo
+import com.example.myapplication1.data.repository.FriendsRepository
+import com.example.myapplication1.data.repository.ProfileRepository
+import kotlinx.coroutines.launch
 
 @Composable
 fun FriendsTabMain(
     onNotificationClick: () -> Unit,
-    myId: Int = 0
+    myId: Int
 ) {
-    // friendsIds는 내 친구 database에서 불러옴
-    var favoriteFriendsIds by remember {
-        mutableStateOf(listOf(
-            "jaedungg", "haimin13", "bot3"
-        ))
+    val scope = rememberCoroutineScope()
+    var friendsInfos by remember { mutableStateOf(listOf<FriendInfo>()) }
+    var favoriteFriendsInfos by remember { mutableStateOf(listOf<FriendInfo>()) }
+    var myNickname by remember { mutableStateOf("") }
+    LaunchedEffect(myId) {
+        scope.launch { // 코루틴 스코프 내에서 API 호출
+            try {
+                val profile = ProfileRepository().getProfile(myId)
+                                myNickname = profile.nickname ?: ""
+            } catch (e: Exception) {
+                println("Error fetching my nickname for ID $myId: ${e.message}")
+                myNickname = ""
+            }
+        }
     }
-    var friendsIds by remember {
-        mutableStateOf(listOf(
-            "jaedungg", "haimin13", "bot3",
-            "bot4", "user3"
-        ))
+    LaunchedEffect(myId) {
+        scope.launch { // 코루틴 스코프 내에서 API 호출
+            try {
+                friendsInfos = FriendsRepository().getFriends(myId, "all")
+
+            } catch (e: Exception) {
+                println("Error fetching profile for ID $myId: ${e.message}")
+                friendsInfos = listOf() // 오류 발생 시 프로필 초기화
+            }
+        }
     }
+    LaunchedEffect(myId) {
+        scope.launch { // 코루틴 스코프 내에서 API 호출
+            try {
+                favoriteFriendsInfos = FriendsRepository().getFriends(myId, "close")
+
+            } catch (e: Exception) {
+                println("Error fetching profile for ID $myId: ${e.message}")
+                favoriteFriendsInfos = listOf() // 오류 발생 시 프로필 초기화
+            }
+        }
+    }
+
     var showAddFriendDialog by remember { mutableStateOf(false) }
 
-    var myNickname: String = "lil monkey"
-    val allUsers = listOf(
-        "lil monkey", "jaedungg", "haimin13", "bot1", "bot2", "bot3",
-        "bot4", "bot5", "user1", "user2", "user3"
-    )
+    fun handleLikeToggle(friendInfo: FriendInfo, isLiked: Boolean) {
+        scope.launch {
+            if (!isLiked) {
+                // 하트를 눌렀을 때 close friends에 추가
+                val result = FriendsRepository().addCloseFriend(myId, friendInfo.friendId)
+                if (result.success) {
+                    // favoriteFriendsInfos에 추가
+                    val updatedFriend = friendInfo.copy(isCloseFriend = true)
+                    favoriteFriendsInfos = favoriteFriendsInfos + updatedFriend
 
-    fun handleLikeToggle(friendName: String, isLiked: Boolean) {
-        if (isLiked) {
-            // 하트를 눌렀을 때 close friends에 추가
-            if (!favoriteFriendsIds.contains(friendName)) {
-                favoriteFriendsIds = favoriteFriendsIds + friendName
+                    // friendsInfos에서 해당 친구의 상태 업데이트
+                    friendsInfos = friendsInfos.map { friend ->
+                        if (friend.friendId == friendInfo.friendId) {
+                            friend.copy(isCloseFriend = true)
+                        } else {
+                            friend
+                        }
+                    }
+                }
+            } else {
+                // 하트를 해제했을 때 close friends에서 제거
+                val result = FriendsRepository().removeCloseFriend(myId, friendInfo.friendId)
+                if (result.success) {
+                    // favoriteFriendsInfos에서 제거
+                    favoriteFriendsInfos = favoriteFriendsInfos.filter { it.friendId != friendInfo.friendId }
+
+                    // friendsInfos에서 해당 친구의 상태 업데이트
+                    friendsInfos = friendsInfos.map { friend ->
+                        if (friend.friendId == friendInfo.friendId) {
+                            friend.copy(isCloseFriend = false)
+                        } else {
+                            friend
+                        }
+                    }
+                }
             }
-        } else {
-            // 하트를 해제했을 때 close friends에서 제거
-            favoriteFriendsIds = favoriteFriendsIds.filter { it != friendName }
         }
     }
 
-    fun removeFriend(friendId: String) {
-        friendsIds = friendsIds.filter { it != friendId }
-        favoriteFriendsIds = favoriteFriendsIds.filter { it != friendId }
-    }
-
-    // 친한 친구 토글 함수
-    fun toggleCloseFriend(friendId: String, isClose: Boolean) {
-        if (isClose) {
-            // 친한 친구에 추가
-            if (!favoriteFriendsIds.contains(friendId)) {
-                favoriteFriendsIds = favoriteFriendsIds + friendId
+    fun removeFriend(target: FriendInfo) {
+        scope.launch {
+            val result = FriendsRepository().removeFriend(myId, target.friendId)
+            if (result.success) {
+                friendsInfos = friendsInfos.filter { it != target }
+                favoriteFriendsInfos = favoriteFriendsInfos.filter { it != target }
             }
-        } else {
-            // 친한 친구에서 제거
-            favoriteFriendsIds = favoriteFriendsIds.filter { it != friendId }
         }
     }
+
+
 
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
@@ -126,18 +174,19 @@ fun FriendsTabMain(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     items(
-                        items = favoriteFriendsIds,
-                        key = { friendId -> friendId }
-                    ) { id ->
+                        items = favoriteFriendsInfos,
+                        key = { friendInfo -> friendInfo.friendId }
+                    ) { info ->
                         GalleryEntry(
-                            contentName = id,
+                            contentId = info.friendId,
+                            contentName = info.nickname,
                             showText = true,
-                            isLiked = true,
-                            onLikeToggle = { friendName, isLiked ->
-                                handleLikeToggle(friendName, isLiked)
+                            isLiked = info.isCloseFriend,
+                            onLikeToggle = { ->
+                                handleLikeToggle(info, info.isCloseFriend)
                             },
-                            onRemoveFriend = { friendId -> // 이 부분 추가
-                                removeFriend(friendId)
+                            onRemoveFriend = { -> // 이 부분 추가
+                                removeFriend(info)
                             }
                         )
                     }
@@ -155,26 +204,26 @@ fun FriendsTabMain(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     items(
-                        items = friendsIds,
-                        key = { friendId -> "all_$friendId" }
-                    ) { id ->
+                        items = friendsInfos,
+                        key = { friendInfo -> friendInfo.friendId }
+                    ) { info ->
                         GalleryEntry(
-                            contentName = id,
-                            imageSize = 88, // 이미지 크기를 줄임
+                            contentId = info.friendId,
+                            contentName = info.nickname,
                             showText = true,
-                            isLiked = favoriteFriendsIds.contains(id),
-                            onLikeToggle = { friendName, isLiked ->
-                                handleLikeToggle(friendName, isLiked)
+                            isLiked = info.isCloseFriend,
+                            onLikeToggle = { ->
+                                handleLikeToggle(info, info.isCloseFriend)
                             },
-                            onRemoveFriend = { friendId -> // 이 부분 추가
-                                removeFriend(friendId)
+                            onRemoveFriend = { -> // 이 부분 추가
+                                removeFriend(info)
                             }
                         )
                     }
                 }
             }
         }
-        FloatingActionButton(
+        /*FloatingActionButton(
             onClick = { showAddFriendDialog = true },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
@@ -186,20 +235,23 @@ fun FriendsTabMain(
                 contentDescription = "친구 추가",
                 tint = Color(0xFF303F9F)
             )
-        }
+        }*/
     }
-    AddFriendDialog(
+    /*AddFriendDialog(
         showDialog = showAddFriendDialog,
         myNickname = myNickname,
-        currentFriends = friendsIds,
+        currentFriends = friendsInfos,
         onDismiss = { showAddFriendDialog = false },
         onAddFriend = { nickname ->
             // 친구 추가 로직
             friendsIds = friendsIds + nickname
         },
         onSearchUser = { nickname ->
-            // 사용자 존재 여부 확인 (실제로는 서버 API 호출)
-            allUsers.contains(nickname)
+            // TODO: Implement actual asynchronous API call for user search
+            // For now, returning true as a placeholder.
+            // The AddFriendDialog's onSearchUser signature might need to be
+            // changed to a suspend function or accept a callback for proper async handling.
+            true
         }
-    )
+    )*/
 }

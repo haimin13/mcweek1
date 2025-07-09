@@ -18,8 +18,10 @@ import org.example.routing.playlistRoute
 import org.example.routing.songRoute
 import org.example.routing.chartsRoute
 import org.example.routing.friendsLogRoute
+import org.example.routing.friendsRoute
 import org.example.routing.genreRoute
 import org.example.routing.artistRoute
+import org.example.routing.profileRoute
 
 
 fun main() {
@@ -47,11 +49,11 @@ fun main() {
             playlistRoute()
             songRoute()
             chartsRoute()
+            friendsRoute()
             friendsLogRoute()
             genreRoute()
             artistRoute()
-            
-
+            profileRoute()
         }
     }.start(wait = true)
 }

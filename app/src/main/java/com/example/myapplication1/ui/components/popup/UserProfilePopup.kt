@@ -15,7 +15,7 @@ import com.example.myapplication1.ui.components.profile.ProfileRowArtist
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
 import com.example.myapplication1.ui.components.profile.ProfileRowSong
 import com.example.myapplication1.ui.screens.dummyUserLogs
-import com.example.myapplication1.ui.screens.playlists.FriendsFavorites
+//import com.example.myapplication1.ui.screens.playlists.FriendsFavorites
 import com.example.myapplication1.ui.screens.playlists.playList
 
 @Composable
@@ -39,10 +39,10 @@ fun UserProfilePopup(
                 fromMy = false,
                 fontSize = 10
             )
-            ProfileRowSong(
+            /*ProfileRowSong(
                 rowName = "Liked Songs",
                 entryList = FriendsFavorites
-            )
+            )*/
             ProfileRowPlaylist(
                 rowName = "Playlists",
                 entryList = playList

@@ -19,7 +19,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.KeywordTag
-import com.example.myapplication1.ui.components.models.Playlist
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.getValue
@@ -29,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.window.Dialog
+import com.example.myapplication1.data.model.Playlist
 import com.example.myapplication1.ui.components.popup.UserProfilePopup
 
 @Composable
@@ -49,7 +49,7 @@ fun PlaylistHeader(playlist: Playlist) {
 //                }
         ) {
             Image(
-                painter = painterResource(id = playlist.thumbnailResId ?: R.drawable.dummy),
+                painter = painterResource(id = playlist.thumbnailId ?: R.drawable.dummy),
                 contentDescription = null,
                 modifier = Modifier.aspectRatio(1f),
                 contentScale = ContentScale.Crop
@@ -81,7 +81,7 @@ fun PlaylistHeader(playlist: Playlist) {
         Text(
             modifier = Modifier
                 .clickable { showAuthorProfile = true },
-            text = playlist.author,
+            text = "playlist.author",
             style = MaterialTheme.typography.titleSmall,
             color = Color.Gray
         )
@@ -89,7 +89,7 @@ fun PlaylistHeader(playlist: Playlist) {
             Dialog(
                 onDismissRequest = { showAuthorProfile = false }
             ) {
-                UserProfilePopup (playlist.author, {showAuthorProfile = false})
+                UserProfilePopup ("playlist.author", {showAuthorProfile = false})
             }
         }
 
@@ -97,7 +97,7 @@ fun PlaylistHeader(playlist: Playlist) {
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             modifier = Modifier.padding(top = 8.dp)
         ) {
-            playlist.keywords.forEach { keyword ->
+            playlist.keywords?.forEach { keyword ->
                 KeywordTag(text = keyword)
             }
         }
