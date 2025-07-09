@@ -23,7 +23,7 @@ import com.example.myapplication1.ui.components.list.SongList
 import com.example.myapplication1.ui.components.list.UserList
 import com.example.myapplication1.ui.components.models.Artist
 import com.example.myapplication1.data.model.Playlist
-import com.example.myapplication1.ui.components.models.Song
+import com.example.myapplication1.data.model.Song
 import com.example.myapplication1.ui.components.models.User
 import com.example.myapplication1.ui.components.popup.ArtistDetailPopup
 import com.example.myapplication1.ui.components.popup.PlaylistDetailDialog

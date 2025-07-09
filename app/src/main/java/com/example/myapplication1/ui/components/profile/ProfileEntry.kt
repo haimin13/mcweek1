@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication1.data.model.Playlist
-import com.example.myapplication1.ui.components.models.Song
+import com.example.myapplication1.data.model.Song
 
 @Composable
 fun ProfileEntrySong(
@@ -42,7 +42,8 @@ fun ProfileEntrySong(
             color = Color.Black,
         )
         Text(
-            text = song.artist.joinToString(", "),
+//            text = song.artist.joinToString(", "),
+            text = song.artist,
             fontSize = 10.sp,
             lineHeight = 10.sp,
             color = Color.LightGray

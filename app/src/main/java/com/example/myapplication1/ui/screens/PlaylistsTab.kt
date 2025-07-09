@@ -15,6 +15,7 @@ import com.example.myapplication1.ui.screens.playlists.Charts
 import com.example.myapplication1.ui.screens.playlists.PlaylistDestinations
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.getValue
+import com.example.myapplication1.ui.remote.ChartViewModel
 
 
 @Composable
@@ -22,14 +23,19 @@ fun PlaylistsTabMain(
     modifier: Modifier = Modifier,
     myId: Int = 1,
     navController: NavController,
-    viewModel: PlaylistViewModel = viewModel()
+    playlistviewModel: PlaylistViewModel = viewModel(),
+    chartViewModel: ChartViewModel = viewModel()
 ) {
-    val myPlaylistsData by viewModel.myPlaylists.observeAsState(emptyList())
-    val likedPlaylistsData by viewModel.likedPlaylists.observeAsState(emptyList())
+    val myPlaylistsData by playlistviewModel.myPlaylists.observeAsState(emptyList())
+    val likedPlaylistsData by playlistviewModel.likedPlaylists.observeAsState(emptyList())
+    val friendsFavoriteChart by chartViewModel.friendsFavorite.observeAsState()
+    val trendingNowChart by chartViewModel.trendingNow.observeAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.loadMyPlaylists(myId) // 테스트할 유저 ID
-        viewModel.loadLikedPlaylists(myId) // 테스트할 유저 ID
+        playlistviewModel.loadMyPlaylists(myId) // 테스트할 유저 ID
+        playlistviewModel.loadLikedPlaylists(myId) // 테스트할 유저 ID
+        chartViewModel.loadFriendsFavorite(myId) // 테스트할 유저 ID
+        chartViewModel.loadTrendingNow(myId) // 테스트할 유저 ID
     }
 
     val navTabController = rememberNavController()
@@ -39,9 +45,22 @@ fun PlaylistsTabMain(
         modifier = modifier.fillMaxSize(),
     ) { destination, innerModifier ->
         when (destination) {
-            PlaylistDestinations.MYPLAYLISTS -> MyPlaylists(modifier = innerModifier, navController = navController, playlistsData = myPlaylistsData)
-            PlaylistDestinations.LIKEDPLAYLISTS -> LikedPlaylists(modifier = innerModifier, navController = navController, playlistsData = likedPlaylistsData)
-            PlaylistDestinations.CHARTS -> Charts(modifier = innerModifier, navController = navController)
+            PlaylistDestinations.MYPLAYLISTS -> MyPlaylists(
+                modifier = innerModifier,
+                navController = navController,
+                playlistsData = myPlaylistsData
+            )
+            PlaylistDestinations.LIKEDPLAYLISTS -> LikedPlaylists(
+                modifier = innerModifier,
+                navController = navController,
+                playlistsData = likedPlaylistsData
+            )
+            PlaylistDestinations.CHARTS -> Charts(
+                modifier = innerModifier,
+                navController = navController,
+                friendsFavorite = friendsFavoriteChart,
+                trendingNow = trendingNowChart
+            )
         }
     }
 }

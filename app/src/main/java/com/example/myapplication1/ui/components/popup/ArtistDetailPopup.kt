@@ -11,7 +11,7 @@ import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
 import com.example.myapplication1.ui.components.models.Artist
-import com.example.myapplication1.ui.components.models.Song
+import com.example.myapplication1.data.model.Song
 import com.example.myapplication1.ui.components.profile.ProfileRowFriend
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
 import com.example.myapplication1.ui.components.profile.dummyUserList

@@ -19,10 +19,10 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.LikeButton
 import com.example.myapplication1.ui.components.common.MenuButton
-import com.example.myapplication1.ui.components.models.Song
+import com.example.myapplication1.data.model.Song
 
 @Composable
-fun SongEntry(song: Song, isCharts: Boolean) {
+fun SongEntry(song: Song, isCharts: Boolean, ranking: Int) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -38,7 +38,7 @@ fun SongEntry(song: Song, isCharts: Boolean) {
             if (isCharts) {
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
-                    text = (song.ranking ?: 0).toString(),
+                    text = ranking.toString(),
                     style = MaterialTheme.typography.titleLarge
                 )
                 Spacer(modifier = Modifier.width(16.dp))
@@ -47,7 +47,8 @@ fun SongEntry(song: Song, isCharts: Boolean) {
             // 썸네일
             Box(modifier = Modifier.size(44.dp)) {
                 Image(
-                    painter = painterResource(id = song.thumbnailResId ?: R.drawable.song_dummy),
+//                    painter = painterResource(id = song.thumbnailId ?: R.drawable.song_dummy),
+                    painter = painterResource(R.drawable.song_dummy),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
@@ -66,7 +67,7 @@ fun SongEntry(song: Song, isCharts: Boolean) {
                 )
                 Row {
                     Text(
-                        text = song.artist.joinToString(" & "),
+                        text = song.artist,
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.Gray
                     )

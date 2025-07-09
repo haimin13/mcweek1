@@ -1,5 +1,13 @@
 package com.example.myapplication1.ui.components.list
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -9,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.myapplication1.ui.components.popup.SongDetailPopup
-import com.example.myapplication1.ui.components.models.Song
+import com.example.myapplication1.data.model.Song
 
 @Composable
 fun SongList(
@@ -21,16 +29,23 @@ fun SongList(
 ) {
     var selectedSong by remember { mutableStateOf<Song?>(null) }
 
-    GenericList(
+    LazyColumn(
         modifier = modifier,
-        items = songs,
-        verticalSpacing = verticalSpacing.dp,
-        onItemClick = { song ->
-            selectedSong = song
-            onItemClick?.invoke(song)
+        contentPadding = PaddingValues(vertical = 4.dp),
+        verticalArrangement = Arrangement.spacedBy(verticalSpacing.dp)
+    ) {
+        itemsIndexed(songs) { index, item ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(enabled = onItemClick != null) {
+                        selectedSong = item
+                        onItemClick?.invoke(item)
+                    }
+            ) {
+                SongEntry(song = item, isCharts = isCharts, ranking = index + 1)
+            }
         }
-    ) { song ->
-        SongEntry(song = song, isCharts = isCharts)
     }
 
     selectedSong?.let { song ->

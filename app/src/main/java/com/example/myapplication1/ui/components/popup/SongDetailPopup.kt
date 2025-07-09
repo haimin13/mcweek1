@@ -11,13 +11,13 @@ import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
 import com.example.myapplication1.ui.components.list.dummyArtistList
-import com.example.myapplication1.ui.components.models.Song
 import com.example.myapplication1.ui.components.profile.ProfileRowArtist
 import com.example.myapplication1.ui.components.profile.ProfileRowFriend
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
 import com.example.myapplication1.ui.components.profile.dummyUserList
 import com.example.myapplication1.ui.screens.playlists.playList
 import com.example.myapplication1.ui.screens.tempIdList
+import com.example.myapplication1.data.model.Song
 
 @Composable
 fun SongDetailPopup(
@@ -26,7 +26,8 @@ fun SongDetailPopup(
 ) {
     PopupLayout (
         title = song.title,
-        thumbnailResId = song.thumbnailResId?: R.drawable.song_dummy,
+//        thumbnailResId = song.thumbnailId?: R.drawable.song_dummy,
+        thumbnailResId = R.drawable.song_dummy,
         onDismiss = onDismiss
     ) {
         Column(

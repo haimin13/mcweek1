@@ -20,13 +20,25 @@ class ChartViewModel : ViewModel() {
 
     fun loadFriendsFavorite(userId: Int) {
         viewModelScope.launch {
-            _friendsFavorite.value = repository.getFriendsFavorite(userId)
+            try {
+                val result = repository.getFriendsFavorite(userId)
+                Log.d("Charts", "FriendsFavorite 차트 노래 수: ${result.songs.size}")
+                _friendsFavorite.value = result
+            } catch (e: Exception) {
+                Log.e("ChartViewModel", "loadFriendsFavorite 오류: ${e.message}")
+            }
         }
     }
 
     fun loadTrendingNow(userId: Int) {
         viewModelScope.launch {
-            _trendingNow.value = repository.getTrendingNow(userId)
+            try {
+                val result = repository.getTrendingNow(userId)
+                Log.d("Charts", "내가 만든 플레이리스트 갯수: ${result.songs.size}")
+                _trendingNow.value = result
+            } catch (e: Exception) {
+                Log.e("ChartViewModel", "loadTrendingNow 차트 노래 수: ${e.message}")
+            }
         }
     }
 }

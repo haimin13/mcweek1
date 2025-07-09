@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.myapplication1.ui.components.models.Artist
-import com.example.myapplication1.ui.components.models.Song
+import com.example.myapplication1.data.model.Song
 import com.example.myapplication1.ui.components.popup.ArtistDetailPopup
 
 @Composable
