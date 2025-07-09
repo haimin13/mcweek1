@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
-import com.example.myapplication1.ui.components.list.dummyArtistList
+//import com.example.myapplication1.ui.components.list.dummyArtistList
 import com.example.myapplication1.ui.components.profile.ProfileRowArtist
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
 import com.example.myapplication1.ui.components.profile.ProfileRowSong
@@ -47,10 +47,11 @@ fun UserProfilePopup(
                 rowName = "Playlists",
                 entryList = playList
             )
-            ProfileRowArtist(
-                rowName = "Favorite Artists",
-                entryList = dummyArtistList,
-            )
+            // TODO
+//            ProfileRowArtist(
+//                rowName = "Favorite Artists",
+//                entryList = dummyArtistList,
+//            )
         }
     }
 }

@@ -1112,7 +1112,7 @@
         "properties": {
           "id": { "type": "integer" },
           "title": { "type": "string" },
-          "artist": { "type": "string" },
+          "artist": { "type": "array" },
           "length": { "type": "string" },
           "thumbnailId": { "type": "integer", "nullable": true },
           "genres": {
@@ -1294,7 +1294,7 @@
         "properties": {
           "id": { "type": "integer" },
           "title": { "type": "string" },
-          "artist": { "type": "string" }
+          "artist": { "type": "array" }
         },
         "required": ["id", "title", "artist"]
       },

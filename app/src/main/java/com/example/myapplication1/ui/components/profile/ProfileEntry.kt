@@ -11,21 +11,33 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication1.data.model.Playlist
 import com.example.myapplication1.data.model.Song
+import com.example.myapplication1.ui.remote.ArtistViewModel
 
 @Composable
 fun ProfileEntrySong(
     song: Song,
     modifier: Modifier = Modifier,
+    artistViewModel: ArtistViewModel = viewModel(),
     onClick: (() -> Unit)? = null
 ) {
+    val artists by artistViewModel.artists.observeAsState(emptyList())
+
+    LaunchedEffect(Unit) {
+        artistViewModel.loadArtistsByIdList(song.artist)
+    }
+
     Column(
         modifier = modifier
             .clickable { onClick?.invoke() }
@@ -42,8 +54,9 @@ fun ProfileEntrySong(
             color = Color.Black,
         )
         Text(
+            text = artists.joinToString(separator = " & ") { it.nickname },
 //            text = song.artist.joinToString(", "),
-            text = song.artist,
+//            text = song.artist.joinToString (separator = " & "),
             fontSize = 10.sp,
             lineHeight = 10.sp,
             color = Color.LightGray

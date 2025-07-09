@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
-import com.example.myapplication1.ui.components.models.Artist
+import com.example.myapplication1.data.model.Artist
 import com.example.myapplication1.data.model.Song
 import com.example.myapplication1.ui.components.profile.ProfileRowFriend
 import com.example.myapplication1.ui.components.profile.ProfileRowPlaylist
@@ -24,8 +24,9 @@ fun ArtistDetailPopup(
     onDismiss: () -> Unit
 ) {
     PopupLayout (
-        title = artist.title,
-        thumbnailResId = artist.thumbnailResId?: R.drawable.profile_default,
+        title = artist.nickname,
+//        thumbnailResId = artist.thumbnailId?: R.drawable.profile_default,
+        thumbnailResId = R.drawable.profile_default,
         onDismiss = onDismiss
     ) {
         Column(

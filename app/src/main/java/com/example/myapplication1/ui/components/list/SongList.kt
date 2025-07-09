@@ -38,7 +38,7 @@ fun SongList(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable(enabled = onItemClick != null) {
+                    .clickable {
                         selectedSong = item
                         onItemClick?.invoke(item)
                     }

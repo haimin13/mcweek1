@@ -21,7 +21,7 @@ import com.example.myapplication1.ui.components.list.ArtistList
 import com.example.myapplication1.ui.components.list.PlaylistList
 import com.example.myapplication1.ui.components.list.SongList
 import com.example.myapplication1.ui.components.list.UserList
-import com.example.myapplication1.ui.components.models.Artist
+import com.example.myapplication1.data.model.Artist
 import com.example.myapplication1.data.model.Playlist
 import com.example.myapplication1.data.model.Song
 import com.example.myapplication1.ui.components.models.User
@@ -146,7 +146,7 @@ fun ProfileRowArtist(
         LazyRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             items(entryList.take(4)) { item ->
                 ProfileEntry(
-                    title = item.title,
+                    title = item.nickname,
                     onClick = { selectedArtist = item },
                     modifier = Modifier.height(24.dp)
                 )

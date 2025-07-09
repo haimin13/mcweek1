@@ -7,7 +7,8 @@ object SongStorage {
     Song(
         id = 1,
         title = "Dreamers",
-        artist = "Jung Kook",
+        // artist = "Jung Kook",
+        artist = listOf(1), // Assuming artist IDs are integers
         length = "3:24",
         thumbnailId = 101,
         genres = mutableListOf(1, 3),
@@ -18,7 +19,8 @@ object SongStorage {
     Song(
         id = 2,
         title = "Rush Hour",
-        artist = "Crush",
+        artist = listOf(1), // Assuming artist IDs are integers
+        // artist = "Crush",
         length = "3:05",
         thumbnailId = 102,
         genres = mutableListOf(2, 4),
@@ -29,7 +31,8 @@ object SongStorage {
     Song(
         id = 3,
         title = "Butter",
-        artist = "BTS",
+        artist = listOf(1), // Assuming artist IDs are integers
+        // artist = "BTS",
         length = "2:45",
         thumbnailId = 103,
         genres = mutableListOf(1),
@@ -40,7 +43,8 @@ object SongStorage {
     Song(
         id = 4,
         title = "Ditto",
-        artist = "NewJeans",
+        artist = listOf(1), // Assuming artist IDs are integers
+        // artist = "NewJeans",
         length = "3:10",
         thumbnailId = 104,
         genres = mutableListOf(3),
@@ -51,7 +55,8 @@ object SongStorage {
     Song(
         id = 5,
         title = "LOVE DIVE",
-        artist = "IVE",
+        artist = listOf(1), // Assuming artist IDs are integers
+        // artist = "IVE",
         length = "2:58",
         thumbnailId = 105,
         genres = mutableListOf(3, 5),
@@ -62,7 +67,8 @@ object SongStorage {
     Song(
         id = 6,
         title = "I AM",
-        artist = "IVE",
+        artist = listOf(1), // Assuming artist IDs are integers
+        // artist = "IVE",
         length = "3:30",
         thumbnailId = 106,
         genres = mutableListOf(5),
@@ -73,7 +79,8 @@ object SongStorage {
     Song(
         id = 7,
         title = "OMG",
-        artist = "NewJeans",
+        artist = listOf(1), // Assuming artist IDs are integers
+        // artist = "NewJeans",
         length = "3:15",
         thumbnailId = 107,
         genres = mutableListOf(3),
@@ -84,7 +91,8 @@ object SongStorage {
     Song(
         id = 8,
         title = "Seven",
-        artist = "Jung Kook",
+        artist = listOf(1), // Assuming artist IDs are integers
+        // artist = "Jung Kook",
         length = "3:00",
         thumbnailId = 108,
         genres = mutableListOf(1, 6),
@@ -95,7 +103,8 @@ object SongStorage {
     Song(
         id = 9,
         title = "Spring Day",
-        artist = "BTS",
+        artist = listOf(1), // Assuming artist IDs are integers
+        // artist = "BTS",
         length = "4:34",
         thumbnailId = 109,
         genres = mutableListOf(1, 7),
@@ -106,7 +115,8 @@ object SongStorage {
     Song(
         id = 10,
         title = "Attention",
-        artist = "NewJeans",
+        artist = listOf(1), // Assuming artist IDs are integers
+        // artist = "NewJeans",
         length = "3:02",
         thumbnailId = 110,
         genres = mutableListOf(3, 5),

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplication1.data.model.Artist
 import com.example.myapplication1.data.model.ChartResponse
 import com.example.myapplication1.data.model.Genre
+import com.example.myapplication1.data.model.Song
 import com.example.myapplication1.data.model.UserLikeLog
 import com.example.myapplication1.data.repository.RemoteRepository
 import kotlinx.coroutines.launch
@@ -61,6 +62,26 @@ class ArtistViewModel : ViewModel() {
 //                if (res.isSuccessful) _artist.value = res.body()
             } catch (e: Exception) {
                 Log.e("ArtistViewModel", "Error: ${e.message}")
+            }
+        }
+    }
+    private val _artists = MutableLiveData<List<Artist>>()
+    val artists: LiveData<List<Artist>> = _artists
+
+    fun loadArtistsByIdList(ids: List<Int>) {
+        viewModelScope.launch {
+            try {
+                val result = ids.mapNotNull { id ->
+                    try {
+                        repository.getArtistById(id)
+                    } catch (e: Exception) {
+                        Log.w("ArtistViewModel", "아티스트 로딩 실패 (id=$id): ${e.message}")
+                        null
+                    }
+                }
+                _artists.value = result
+            } catch (e: Exception) {
+                Log.e("ArtistViewModel", "오류: ${e.message}")
             }
         }
     }

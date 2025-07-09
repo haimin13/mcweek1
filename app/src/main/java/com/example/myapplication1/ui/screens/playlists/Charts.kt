@@ -36,7 +36,8 @@ val FriendsFavorites = listOf(
     Song(
         id = 1,
         title = "Drowning",
-        artist = "WOODZ",
+//        artist = "WOODZ",
+        artist = listOf(1),
         length = "4:06",
 //        genres = listOf("Chill", "Lofi"),
 //        isLiked = true,
@@ -46,7 +47,8 @@ val FriendsFavorites = listOf(
     Song(
         id = 2,
         title = "Happy",
-        artist = "Day6",
+        artist = listOf(1),
+//        artist = "Day6",
         length = "3:10",
 //        genres = listOf("Electronic", "Band"),
 //        isLiked = false,
@@ -59,7 +61,8 @@ val TrendingNow = listOf(
     Song(
         id = 11,
         title = "Dirty Work",
-        artist = "aespa",
+        artist = listOf(1),
+//        artist = "aespa",
         length = "3:01",
 //        genres = listOf("Chill", "Hiphop"),
 //        isLiked = true,
@@ -69,7 +72,8 @@ val TrendingNow = listOf(
     Song(
         id = 12,
         title = "Meow",
-        artist = "kitty",
+        artist = listOf(1),
+//        artist = "kitty",
         length = "3:10",
 //        genres = listOf("Electronic", "Band"),
 //        isLiked = false,
@@ -79,7 +83,8 @@ val TrendingNow = listOf(
     Song(
         id = 12,
         title = "MeowMeow",
-        artist = "kitty & puppy",
+        artist = listOf(1),
+//        artist = "kitty & puppy",
         length = "3:43",
 //        genres = listOf("Electronic", "Band"),
 //        isLiked = false,
@@ -89,7 +94,8 @@ val TrendingNow = listOf(
     Song(
         id = 12,
         title = "MeowMeow",
-        artist = "kitty & puppy",
+        artist = listOf(1),
+//        artist = "kitty & puppy",
         length = "3:43",
 //        genres = listOf("Electronic", "Band"),
 //        isLiked = false,
@@ -99,7 +105,8 @@ val TrendingNow = listOf(
     Song(
         id = 12,
         title = "MeowMeow",
-        artist = "kitty & puppy",
+        artist = listOf(1),
+//        artist = "kitty & puppy",
         length = "3:43",
 //        genres = listOf("Electronic", "Band"),
 //        isLiked = false,
@@ -109,7 +116,8 @@ val TrendingNow = listOf(
     Song(
         id = 12,
         title = "MeowMeow",
-        artist = " ",
+        artist = listOf(1),
+//        artist = " ",
         length = "3:43",
 //        genres = listOf("Electronic", "Band"),
 //        isLiked = false,

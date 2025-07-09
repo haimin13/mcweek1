@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.LikeButton
 import com.example.myapplication1.ui.components.common.MenuButton
-import com.example.myapplication1.ui.components.models.Artist
+import com.example.myapplication1.data.model.Artist
 
 @Composable
 fun ArtistEntry(
@@ -50,7 +50,8 @@ fun ArtistEntry(
             // 썸네일
             Box(modifier = Modifier.size(44.dp)) {
                 Image(
-                    painter = painterResource(id = artist.thumbnailResId ?: R.drawable.profile_default),
+//                    painter = painterResource(id = artist.thumbnailId ?: R.drawable.profile_default),
+                    painter = painterResource(R.drawable.profile_default),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
@@ -63,16 +64,18 @@ fun ArtistEntry(
             // 제목 + 태그
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = artist.title,
+                    text = artist.nickname,
                     style = MaterialTheme.typography.titleSmall,
                     maxLines = 1
                 )
                 Row {
-                    Text(
-                        text = artist.genres.joinToString(" & "),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = Color.Gray
-                    )
+                    artist.likedGenres?.let {
+                        Text(
+                            text = it.joinToString(" & "),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Color.Gray
+                        )
+                    }
 //                    Text(
 //                        text = "  •  ${artist.length}",
 //                        style = MaterialTheme.typography.labelSmall,

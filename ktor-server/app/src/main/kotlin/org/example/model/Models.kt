@@ -23,7 +23,7 @@ data class Playlist(
 data class Song(
     val id: Int,
     val title: String,
-    val artist: String,
+    val artist: List<Int>,
     val length: String,
     val thumbnailId: Int? = null,
     @Contextual val genres: MutableList<Int>? = null,
@@ -95,7 +95,7 @@ data class ChartResponse(
 data class ProfileSong(
     val id: Int,
     val title: String,
-    val artist: String
+    val artist: List<Int>
 )
 
 @Serializable
