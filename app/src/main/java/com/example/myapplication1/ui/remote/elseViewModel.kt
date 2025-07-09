@@ -65,13 +65,19 @@ class ArtistViewModel : ViewModel() {
             }
         }
     }
+
     private val _artists = MutableLiveData<List<Artist>>()
     val artists: LiveData<List<Artist>> = _artists
 
+    private val loadedIds = mutableSetOf<Int>() // 캐시 추가
+
     fun loadArtistsByIdList(ids: List<Int>) {
+        val toLoad = ids.filterNot { loadedIds.contains(it) }
+        if (toLoad.isEmpty()) return
+
         viewModelScope.launch {
             try {
-                val result = ids.mapNotNull { id ->
+                val newArtists = toLoad.mapNotNull { id ->
                     try {
                         repository.getArtistById(id)
                     } catch (e: Exception) {
@@ -79,7 +85,13 @@ class ArtistViewModel : ViewModel() {
                         null
                     }
                 }
-                _artists.value = result
+
+                val currentArtists = _artists.value.orEmpty()
+                val merged = (currentArtists + newArtists)
+                    .distinctBy { it.id }
+
+                _artists.value = merged
+                loadedIds.addAll(toLoad) // 캐시에 추가
             } catch (e: Exception) {
                 Log.e("ArtistViewModel", "오류: ${e.message}")
             }

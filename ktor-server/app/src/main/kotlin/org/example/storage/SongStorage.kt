@@ -19,7 +19,7 @@ object SongStorage {
     Song(
         id = 2,
         title = "Rush Hour",
-        artist = listOf(1), // Assuming artist IDs are integers
+        artist = listOf(3), // Assuming artist IDs are integers
         // artist = "Crush",
         length = "3:05",
         thumbnailId = 102,
@@ -31,7 +31,7 @@ object SongStorage {
     Song(
         id = 3,
         title = "Butter",
-        artist = listOf(1), // Assuming artist IDs are integers
+        artist = listOf(2), // Assuming artist IDs are integers
         // artist = "BTS",
         length = "2:45",
         thumbnailId = 103,
@@ -43,7 +43,7 @@ object SongStorage {
     Song(
         id = 4,
         title = "Ditto",
-        artist = listOf(1), // Assuming artist IDs are integers
+        artist = listOf(4), // Assuming artist IDs are integers
         // artist = "NewJeans",
         length = "3:10",
         thumbnailId = 104,
@@ -55,7 +55,7 @@ object SongStorage {
     Song(
         id = 5,
         title = "LOVE DIVE",
-        artist = listOf(1), // Assuming artist IDs are integers
+        artist = listOf(5), // Assuming artist IDs are integers
         // artist = "IVE",
         length = "2:58",
         thumbnailId = 105,
@@ -67,7 +67,7 @@ object SongStorage {
     Song(
         id = 6,
         title = "I AM",
-        artist = listOf(1), // Assuming artist IDs are integers
+        artist = listOf(5), // Assuming artist IDs are integers
         // artist = "IVE",
         length = "3:30",
         thumbnailId = 106,
@@ -79,7 +79,7 @@ object SongStorage {
     Song(
         id = 7,
         title = "OMG",
-        artist = listOf(1), // Assuming artist IDs are integers
+        artist = listOf(4), // Assuming artist IDs are integers
         // artist = "NewJeans",
         length = "3:15",
         thumbnailId = 107,
@@ -103,7 +103,7 @@ object SongStorage {
     Song(
         id = 9,
         title = "Spring Day",
-        artist = listOf(1), // Assuming artist IDs are integers
+        artist = listOf(2), // Assuming artist IDs are integers
         // artist = "BTS",
         length = "4:34",
         thumbnailId = 109,
@@ -115,7 +115,7 @@ object SongStorage {
     Song(
         id = 10,
         title = "Attention",
-        artist = listOf(1), // Assuming artist IDs are integers
+        artist = listOf(4), // Assuming artist IDs are integers
         // artist = "NewJeans",
         length = "3:02",
         thumbnailId = 110,

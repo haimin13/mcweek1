@@ -1,29 +1,21 @@
 package com.example.myapplication1.ui.components.list
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication1.R
 import com.example.myapplication1.ui.components.common.LikeButton
 import com.example.myapplication1.ui.components.common.MenuButton
 import com.example.myapplication1.data.model.Song
-import com.example.myapplication1.ui.remote.SongViewModel
-import com.example.myapplication1.ui.remote.ArtistViewModel
+
 
 @Composable
 fun SongEntry(
@@ -31,15 +23,8 @@ fun SongEntry(
     song: Song,
     isCharts: Boolean,
     ranking: Int,
-    artistViewModel: ArtistViewModel = viewModel(),
+    artistNames: List<String> // ⬅️ 전달받는 리스트
 ) {
-    val artists by artistViewModel.artists.observeAsState(emptyList())
-
-    LaunchedEffect(Unit) {
-        artistViewModel.loadArtistsByIdList(song.artist)
-    }
-
-
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -61,10 +46,8 @@ fun SongEntry(
                 Spacer(modifier = Modifier.width(16.dp))
             }
 
-            // 썸네일
             Box(modifier = Modifier.size(44.dp)) {
                 Image(
-//                    painter = painterResource(id = song.thumbnailId ?: R.drawable.song_dummy),
                     painter = painterResource(R.drawable.song_dummy),
                     contentDescription = null,
                     modifier = Modifier
@@ -84,7 +67,7 @@ fun SongEntry(
                 )
                 Row {
                     Text(
-                        text = artists.joinToString(separator = " & ") { it.nickname },
+                        text = artistNames.joinToString(" & "),
                         style = MaterialTheme.typography.labelSmall,
                         color = Color.Gray
                     )

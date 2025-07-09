@@ -40,10 +40,10 @@ fun ArtistDetailPopup(
                 fromMy = false,
                 fontSize = 10
             )
-            ProfileRowPlaylist(
-                rowName = "Related playlists",
-                entryList = playList
-            )
+//            ProfileRowPlaylist(
+//                rowName = "Related playlists",
+//                entryList = playList
+//            )
             // TODO: 이 노래를 좋아하는 유저 중 친구 리스트
             ProfileRowFriend(
                 rowName = "Friends like this",

@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication1.R
+import com.example.myapplication1.data.model.Artist
 import com.example.myapplication1.ui.components.common.PopupLayout
 import com.example.myapplication1.ui.components.list.TagList
 //import com.example.myapplication1.ui.components.list.dummyArtistList
@@ -27,15 +28,9 @@ import com.example.myapplication1.ui.remote.ArtistViewModel
 @Composable
 fun SongDetailPopup(
     song: Song,
-    onDismiss: () -> Unit,
-    artistViewModel: ArtistViewModel = viewModel(),
+    artists: List<Artist>,
+    onDismiss: () -> Unit
 ) {
-    val artists by artistViewModel.artists.observeAsState(emptyList())
-
-    LaunchedEffect(Unit) {
-        artistViewModel.loadArtistsByIdList(song.artist)
-    }
-
     PopupLayout (
         title = song.title,
 //        thumbnailResId = song.thumbnailId?: R.drawable.song_dummy,
@@ -47,10 +42,8 @@ fun SongDetailPopup(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-//            TODO:
             ProfileRowArtist(
                 rowName = "Artist",
-//                entryList = dummyArtistList.take(2), //song.artist로 바꿔야 함
                 entryList = artists, //song.artist로 바꿔야 함
             )
             TagList(
