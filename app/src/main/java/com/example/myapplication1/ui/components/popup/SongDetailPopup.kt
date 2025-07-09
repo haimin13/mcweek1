@@ -7,8 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication1.R
@@ -31,10 +34,18 @@ fun SongDetailPopup(
     artists: List<Artist>,
     onDismiss: () -> Unit
 ) {
+    // 리소스 이미지 불러오기
+    val context = LocalContext.current
+    val resId = remember(song.thumbnailId) {
+        val resourceName = "song_${song.thumbnailId}"
+        context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+    }
+    val painter = if (resId != 0) resId else R.drawable.song_dummy
+
     PopupLayout (
         title = song.title,
 //        thumbnailResId = song.thumbnailId?: R.drawable.song_dummy,
-        thumbnailResId = R.drawable.song_dummy,
+        thumbnailResId = painter,
         onDismiss = onDismiss
     ) {
         Column(

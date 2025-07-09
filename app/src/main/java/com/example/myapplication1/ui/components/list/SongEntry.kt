@@ -9,6 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.myapplication1.R
@@ -25,6 +26,13 @@ fun SongEntry(
     ranking: Int,
     artistNames: List<String> // ⬅️ 전달받는 리스트
 ) {
+    val context = LocalContext.current
+    val resId = remember(song.thumbnailId) {
+        val resourceName = "song_${song.thumbnailId}"
+        context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+    }
+    val painter = if (resId != 0) painterResource(id = resId) else painterResource(R.drawable.song_dummy)
+
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -48,7 +56,7 @@ fun SongEntry(
 
             Box(modifier = Modifier.size(44.dp)) {
                 Image(
-                    painter = painterResource(R.drawable.song_dummy),
+                    painter = painter,
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
