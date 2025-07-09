@@ -16,15 +16,26 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.Divider
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication1.ui.remote.PlaylistViewModel
+import com.example.myapplication1.ui.remote.SongViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistDetailDialog(
     playlist: Playlist,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    songViewModel: SongViewModel = viewModel(),
 ) {
+    val songs by songViewModel.songs.observeAsState(emptyList())
+
+    LaunchedEffect(Unit) {
+        songViewModel.loadSongsByIdList(playlist.songIds?.toList() ?: emptyList())
+    }
+
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(
@@ -64,11 +75,11 @@ fun PlaylistDetailDialog(
                         modifier = Modifier.padding(vertical = 12.dp, horizontal = 12.dp)
                     )
                     // TODO:
-//                    SongList(
-//                        songs = playlist.songs.orEmpty(),
-//                        isCharts = false,
-//                        modifier = Modifier.padding(horizontal = 12.dp)
-//                    )
+                    SongList(
+                        songs = songs,
+                        isCharts = false,
+                        modifier = Modifier.padding(horizontal = 12.dp)
+                    )
                 }
             }
         }

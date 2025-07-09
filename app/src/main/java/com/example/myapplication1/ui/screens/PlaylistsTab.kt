@@ -23,17 +23,17 @@ fun PlaylistsTabMain(
     modifier: Modifier = Modifier,
     myId: Int = 1,
     navController: NavController,
-    playlistviewModel: PlaylistViewModel = viewModel(),
+    playlistViewModel: PlaylistViewModel = viewModel(),
     chartViewModel: ChartViewModel = viewModel()
 ) {
-    val myPlaylistsData by playlistviewModel.myPlaylists.observeAsState(emptyList())
-    val likedPlaylistsData by playlistviewModel.likedPlaylists.observeAsState(emptyList())
+    val myPlaylistsData by playlistViewModel.myPlaylists.observeAsState(emptyList())
+    val likedPlaylistsData by playlistViewModel.likedPlaylists.observeAsState(emptyList())
     val friendsFavoriteChart by chartViewModel.friendsFavorite.observeAsState()
     val trendingNowChart by chartViewModel.trendingNow.observeAsState()
 
     LaunchedEffect(Unit) {
-        playlistviewModel.loadMyPlaylists(myId) // 테스트할 유저 ID
-        playlistviewModel.loadLikedPlaylists(myId) // 테스트할 유저 ID
+        playlistViewModel.loadMyPlaylists(myId) // 테스트할 유저 ID
+        playlistViewModel.loadLikedPlaylists(myId) // 테스트할 유저 ID
         chartViewModel.loadFriendsFavorite(myId) // 테스트할 유저 ID
         chartViewModel.loadTrendingNow(myId) // 테스트할 유저 ID
     }

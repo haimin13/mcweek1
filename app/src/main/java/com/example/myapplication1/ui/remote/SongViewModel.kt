@@ -24,5 +24,27 @@ class SongViewModel : ViewModel() {
             }
         }
     }
+
+    private val _songs = MutableLiveData<List<Song>>()
+    val songs: LiveData<List<Song>> = _songs
+
+    fun loadSongsByIdList(ids: List<Int>) {
+        viewModelScope.launch {
+            try {
+                val result = ids.mapNotNull { id ->
+                    try {
+                        repository.getSongById(id)
+                    } catch (e: Exception) {
+                        Log.w("SongViewModel", "곡 로딩 실패 (id=$id): ${e.message}")
+                        null
+                    }
+                }
+                _songs.value = result
+            } catch (e: Exception) {
+                Log.e("SongViewModel", "오류: ${e.message}")
+            }
+        }
+    }
+
 }
 
