@@ -15,22 +15,38 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import com.example.myapplication1.data.model.Playlist
+import com.example.myapplication1.data.model.Song
 import com.example.myapplication1.ui.screens.SubTitle
-import com.example.myapplication1.ui.screens.playlists.TrendingNow
-import com.example.myapplication1.ui.screens.playlists.playList
 
+@Composable
+fun NoData() {
+    Text(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 32.dp)
+        ,
+        textAlign = TextAlign.Center,
+        text = "No Data",
+        color = Color.LightGray
+    )
+
+}
 @Composable
 fun SlidingList(
     selectedType: Int,
     onTypeChange: (Int) -> Unit,
+    trendingSongs: List<Song>,
+    trendingPlaylists: List<Playlist>
 ) {
     val types = listOf("Songs", "Playlists")
 
@@ -67,21 +83,26 @@ fun SlidingList(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalAlignment = Alignment.Start
             ) {
                 SubTitle(types[selectedType])
 
                 when (selectedType) {
-                    0 -> SongList(
-                        songs = TrendingNow.take(4),
-                        verticalSpacing = 0,
-                        isCharts = true
-                    )
-                    1 -> PlaylistList(
-                        playlists = playList.take(3),
-                        verticalSpacing = 8,
-                        isCharts = true,
-                    )
+                    0 -> if (trendingSongs.isNotEmpty()) {
+                        SongList(
+                            songs = trendingSongs.take(4),
+                            verticalSpacing = 0,
+                            isCharts = true
+                        )
+                    } else NoData()
+                    1 -> if (trendingPlaylists.isNotEmpty()) {
+                        PlaylistList(
+                            playlists = trendingPlaylists.take(3),
+                            verticalSpacing = 8,
+                            isCharts = true,
+                        )
+                    } else NoData()
                 }
             }
             // 하단 슬라이드 버튼

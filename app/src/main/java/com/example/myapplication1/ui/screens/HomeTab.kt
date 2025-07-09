@@ -34,6 +34,7 @@ import com.example.myapplication1.ui.components.list.SlidingList
 import com.example.myapplication1.data.model.Playlist
 import com.example.myapplication1.ui.components.popup.PlaylistDetailDialog
 import com.example.myapplication1.R
+import com.example.myapplication1.ui.remote.ChartViewModel
 import com.example.myapplication1.ui.remote.PlaylistViewModel
 
 @Composable
@@ -48,6 +49,7 @@ fun Title(text: String) {
 @Composable
 fun SubTitle(text: String) {
     Text(
+        modifier = Modifier.fillMaxWidth(),
         text = text,
         fontSize = 18.sp,
         fontWeight = FontWeight(500),
@@ -60,12 +62,15 @@ fun HomeTabMain(
     modifier: Modifier = Modifier,
     navController: NavController,
     myId: Int = 1,
-    viewModel: PlaylistViewModel = viewModel()
+    viewModel: PlaylistViewModel = viewModel(),
+    chartViewModel: ChartViewModel = viewModel()
 ) {
     val recentPlaylistsData by viewModel.playlists.observeAsState(emptyList())
+    val trendingChart by chartViewModel.trendingNow.observeAsState()
 
     LaunchedEffect(viewModel) {
         viewModel.loadRecentPlaylists()
+        chartViewModel.loadTrendingNow(myId)
     }
 
     Column (
@@ -131,10 +136,14 @@ fun HomeTabMain(
             var selectedType by remember { mutableIntStateOf(0) }
 
             Title("Trending now")
-            SlidingList(
-                selectedType = selectedType,
-                onTypeChange = { selectedType = it },
-            )
+            trendingChart?.let {
+                SlidingList(
+                    selectedType = selectedType,
+                    onTypeChange = { selectedType = it },
+                    trendingSongs = it.songs,
+                    trendingPlaylists = it.playlists
+                )
+            }
         }
     }
 }
