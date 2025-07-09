@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -107,9 +108,16 @@ fun HomeTabMain(
             ) {
                 // TODO: Recent playlist 불러오기
                 items(recentPlaylistsData) { playlist ->
+                    val context = LocalContext.current
+                    val resId = remember(playlist.id) {
+                        val resourceName = "playlist_${playlist.id}"
+                        context.resources.getIdentifier(resourceName, "drawable", context.packageName)
+                    }
+                    val painter = if (resId != 0) resId else R.drawable.playlist_dummy
+
                     GalleryEntry(
                         contentName = playlist.title,
-                        thumbnailResId = R.drawable.playlist_1,
+                        thumbnailResId = painter,
                         onTap = { selectedPlaylist = playlist },
                         onLongPress = {},
                         showText = true

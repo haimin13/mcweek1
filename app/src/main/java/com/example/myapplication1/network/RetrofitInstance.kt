@@ -18,7 +18,7 @@ object RetrofitInstance {
 
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080/") // 실제 API 서버 주소로 변경
+            .baseUrl("http://143.248.172.5:8080/") // 실제 API 서버 주소로 변경
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
     }
