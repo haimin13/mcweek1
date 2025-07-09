@@ -21,6 +21,9 @@ class PlaylistViewModel : ViewModel() {
     private val _likedPlaylists = MutableLiveData<List<Playlist>>()
     val likedPlaylists: LiveData<List<Playlist>> = _likedPlaylists
 
+    private val _playlistDetail = MutableLiveData<Playlist>()
+    val playlistDetail: LiveData<Playlist> = _playlistDetail
+
     fun loadMyPlaylists(userId: Int) {
         viewModelScope.launch {
             try {
@@ -56,5 +59,20 @@ class PlaylistViewModel : ViewModel() {
             }
         }
     }
+
+    fun loadPlaylistsById(playlistId: Int) {
+        viewModelScope.launch {
+            try {
+                val result = repository.getPlaylistById(playlistId)
+
+                Log.d("Playlists", "플레이리스트 상세 정보: " + result.createdAt)
+
+                _playlistDetail.value = result
+            } catch (e: Exception) {
+                Log.e("PlaylistViewModel", "loadPlaylistsById 오류: ${e.message}")
+            }
+        }
+    }
+
 }
 

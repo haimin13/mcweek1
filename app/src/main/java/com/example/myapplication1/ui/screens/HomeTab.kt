@@ -94,7 +94,6 @@ fun HomeTabMain(
             ) {
                 // TODO: Recent playlist 불러오기
                 items(recentPlaylistsData) { playlist ->
-                    Text(playlist.title)
                     GalleryEntry(
                         contentName = playlist.title,
                         thumbnailResId = R.drawable.playlist_1,
